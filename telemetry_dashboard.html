@@ -455,21 +455,29 @@
 
         function syncCursors(index, sourceId) {
             chartIds.forEach(id => {
-                if (id === sourceId) return;
+                // Determine if we need to sync this chart
+                // If it is the source, we might still want to ensure it selects all points if the user just hovered one line
+                // But usually Chart.js handles the source ‘index’ mode itself.
+
                 const chart = charts[id];
                 if (!chart) return;
 
-                // Programmatically trigger tooltip
-                // We need to find the element at 'index'
-                // Since all charts share labels/indices:
-                if (chart.getDataVisibility(0)) { // Simple check
-                    const meta = chart.getDatasetMeta(0);
-                    const point = meta.data[index];
+                // Create a list of all visible datasets at this index
+                const activeElements = [];
+                const meta = chart.getDatasetMeta(0); // Use 0 just to get X coordinate logic
+                const point = meta.data[index];
 
-                    if (point) {
-                        chart.tooltip.setActiveElements([
-                            { datasetIndex: 0, index: index }
-                        ], { x: point.x, y: point.y });
+                if (point) {
+                    chart.data.datasets.forEach((ds, dsIndex) => {
+                        if (chart.isDatasetVisible(dsIndex)) {
+                            activeElements.push({ datasetIndex: dsIndex, index: index });
+                        }
+                    });
+
+                    // Trigger Tooltip
+                    // We only update if it is NOT the source, OR if we want to force 'index' mode behavior visually
+                    if (id !== sourceId) {
+                        chart.tooltip.setActiveElements(activeElements, { x: point.x, y: point.y });
                         chart.update();
                     }
                 }
