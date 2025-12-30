@@ -1,0 +1,19 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import RegisterForm from "../components/auth/RegisterForm";
+
+const maintenance = import.meta.env.PUBLIC_MAINTENANCE_MODE === "true";
+
+// Si estamos en mantenimiento, redirigir al inicio (Coming Soon)
+if (maintenance) {
+    return Astro.redirect("/");
+}
+---
+
+<MainLayout title="Register" sidebarHidden={true} fullWidth={true}>
+    <div
+        class="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4"
+    >
+        <RegisterForm client:load />
+    </div>
+</MainLayout>

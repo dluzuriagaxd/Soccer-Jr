@@ -14,6 +14,7 @@ La plataforma está construida utilizando las tecnologías más modernas para as
 *   **Contenido Dinámico**: [MDX](https://mdxjs.com/) para lecciones interactivas.
 *   **Interactividad**: [React 19](https://react.dev/) para el simulador y dashboard de análisis.
 *   **Estilos**: [Tailwind CSS 4](https://tailwindcss.com/) para una estética "Dark Mode" de alto contraste.
+*   **Autenticación**: [Better Auth](https://www.better-auth.com/) sobre Cloudflare D1 (SQLite distribuido) para gestión de usuarios segura.
 *   **Gráficas**: [Chart.js](https://www.chartjs.org/) para visualización de telemetría.
 *   **Matemáticas**: Remark-math y KaTeX para renderizar fundamentos teóricos.
 
@@ -22,6 +23,7 @@ La plataforma está construida utilizando las tecnologías más modernas para as
 ```text
 ├── src/
 │   ├── components/       # Componentes Astro y React
+│   │   ├── auth/         # Formularios de Login y Registro
 │   │   ├── tools/        # Simulador y Dashboard (React)
 │   │   └── ui/           # Componentes de interfaz (Astro)
 │   ├── content/
@@ -29,12 +31,20 @@ La plataforma está construida utilizando las tecnologías más modernas para as
 │   │   └── materials.ts  # Base de datos de componentes oficiales
 │   ├── data/             # Definiciones de tipos y constantes
 │   ├── layouts/          # Plantillas base (Main y Lesson)
-│   └── pages/            # Sistema de rutas (Index, Curso, Herramientas)
+│   └── pages/            # Sistema de rutas (Index, Curso, Auth)
 ├── public/
 │   ├── downloads/        # Firmware (.ino) y Scripts (.py)
 │   └── images/           # Activos visuales y esquemáticos
 └── _referencia/          # Código fuente legacy y prototipos
 ```
+
+## 🔐 Sistema de Usuarios
+
+La plataforma implementa un sistema de autenticación robusto para personalizar la experiencia de aprendizaje:
+
+*   **Login Seguro**: Acceso mediante credenciales de email validadas.
+*   **Registro de Operadores**: Formulario de alta para nuevos estudiantes con validación de contraseña.
+*   **Protección de Rutas**: Middleware que restringe el acceso a `/curso` y `/telemetria` solo a usuarios autenticados, redirigiendo automáticamente al login si no existe sesión.
 
 ## 🏗️ Módulos del Curso
 
@@ -57,8 +67,11 @@ Herramienta de nivel profesional que procesa archivos CSV generados por el robot
 Para correr el proyecto localmente:
 
 1.  Instalar dependencias: `npm install`
-2.  Iniciar servidor de desarrollo: `npm run dev`
-3.  Abrir: `http://localhost:4321`
+2.  Preparar Base de Datos (Local): `npx wrangler d1 execute lfr-academy-db --local --file=./schema.sql`
+3.  Iniciar servidor de desarrollo: `npm run dev`
+4.  Abrir: `http://localhost:4321`
+
+> **Nota**: El sistema de autenticación usa la base de datos local en `.wrangler/state`. Si borras esta carpeta, los usuarios registrados se perderán.
 
 ---
 © 2025 LFR Telemetry System - Proyecto Educativo Open Source
