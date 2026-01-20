@@ -9,6 +9,19 @@ import MainLayout from "../layouts/MainLayout.astro";
 >
 	<main>
 		<!-- Sección 1: HERO (Impacto) -->
+		{/* DEBUGGING INDICATOR */}
+		<div
+			class="fixed top-20 right-4 z-[100] bg-black/80 border border-white/20 p-2 rounded text-xs font-mono text-white"
+		>
+			Status: {
+				Astro.cookies.has("better-auth.session_token") ? (
+					<span class="text-green-400">LOGGED IN</span>
+				) : (
+					<span class="text-red-400">GUEST</span>
+				)
+			}
+		</div>
+
 		<section
 			class="min-h-[70vh] flex items-center justify-center bg-gradient-to-r from-slate-950 to-slate-800 text-white relative overflow-hidden py-32 px-6"
 		>

@@ -10,8 +10,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
         // Buscamos la cookie que crea Better Auth
         const sessionCookie = context.cookies.get("better-auth.session_token");
 
+        console.log(`[Middleware] Checking access to ${context.url.pathname}`);
+        console.log(`[Middleware] Session Cookie present: ${!!sessionCookie?.value}`);
+        if (sessionCookie) {
+            console.log(`[Middleware] Cookie value (partial): ${sessionCookie.value.substring(0, 10)}...`);
+        }
+
         // Si no existe la cookie, lo mandamos al login
         if (!sessionCookie) {
+            console.log(`[Middleware] Access denied - redirecting to /login`);
             return context.redirect("/login");
         }
     }

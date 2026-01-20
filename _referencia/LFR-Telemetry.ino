@@ -16,16 +16,18 @@ Telemetria dataPacket;
 
 // --- Pines Puente H ---
 #define STBY 7
+//Motor izquierdo
 #define PWMA 5
 #define AIN1 6
 #define AIN2 4
+//Motor derecho
 #define PWMB 10
 #define BIN1 8
 #define BIN2 9
 
 // --- Constantes PID ---
-float Kp = 0.2; 
-float Kd = 0.05;  // Default Kd for this example
+float Kp = 0.770401945529734; 
+float Kd = 0.003362342251070;
 int setPoint = 3500;
 int VelMax = 200; 
 int lastError = 0;
@@ -81,11 +83,11 @@ void setup() {
 }
 
 void MotorIzquierdo(int velocidad) {
-  analogWrite(PWMB, constrain(velocidad, 0, 255));
+  analogWrite(PWMA, constrain(velocidad, 0, 255));
 }
 
 void MotorDerecho(int velocidad) {
-  analogWrite(PWMA, constrain(velocidad, 0, 255));
+  analogWrite(PWMB, constrain(velocidad, 0, 255));
 }
 
 void Motores(int velDer, int velIzq) {
@@ -115,8 +117,8 @@ void loop() {
   int ajuste = (int)(p_term + i_term + d_term);
 
   // Motores
-  int velDer = constrain(VelMax + ajuste, 0, 255);
-  int velIzq = constrain(VelMax - ajuste, 0, 255);
+  int velDer = constrain(VelMax - ajuste, 0, 255);
+  int velIzq = constrain(VelMax + ajuste, 0, 255);
   
   Motores(velDer, velIzq);
 
