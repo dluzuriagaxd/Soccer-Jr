@@ -258,35 +258,5 @@ import MainLayout from "../layouts/MainLayout.astro";
 				</a>
 			</div>
 		</section>
-		<!-- Floating Menu Button (Home Page only) -->
-		<button
-			id="menu-toggle-float"
-			class="fixed top-8 left-8 z-50 p-4 bg-slate-900/50 hover:bg-orange-600 text-white rounded-2xl backdrop-blur-md border border-white/10 transition-all active:scale-95 group shadow-2xl"
-			aria-label="Abrir menú"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="w-6 h-6 group-hover:rotate-90 transition-transform duration-300"
-				fill="none"
-				viewBox="0 0 24 24"
-				stroke="currentColor"
-			>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M4 6h16M4 12h16m-7 6h7"></path>
-			</svg>
-		</button>
-
-		<script>
-			// Re-bind the click to the existing toggle function if needed
-			// Since MainLayout already has a script for 'menu-toggle', we can just trigger it
-			document
-				.getElementById("menu-toggle-float")
-				?.addEventListener("click", () => {
-					document.getElementById("menu-toggle")?.click();
-				});
-		</script>
 	</main>
 </MainLayout>

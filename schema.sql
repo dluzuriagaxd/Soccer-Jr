@@ -44,3 +44,19 @@ CREATE TABLE verification (
     createdAt INTEGER,
     updatedAt INTEGER
 );
+
+CREATE TABLE user_profile (
+    user_id TEXT PRIMARY KEY REFERENCES user(id),
+    phone_number TEXT,
+    organization TEXT,
+    updated_at INTEGER NOT NULL
+);
+
+CREATE TABLE lesson_progress (
+    id TEXT PRIMARY KEY,
+    user_id TEXT NOT NULL REFERENCES user(id),
+    lesson_slug TEXT NOT NULL,
+    completed INTEGER DEFAULT 0,
+    completed_at INTEGER,
+    last_visited_at INTEGER NOT NULL
+);

@@ -4,9 +4,9 @@ import RegisterForm from "../components/auth/RegisterForm";
 
 const maintenance = import.meta.env.PUBLIC_MAINTENANCE_MODE === "true";
 
-// Si estamos en mantenimiento, redirigir al inicio (Coming Soon)
+// Si estamos en mantenimiento, redirigir al login
 if (maintenance) {
-    return Astro.redirect("/");
+    return Astro.redirect("/login");
 }
 ---
 

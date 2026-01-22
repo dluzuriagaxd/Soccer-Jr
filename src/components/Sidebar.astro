@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import SponsorBadge from "./SponsorBadge.astro";
+import LogoutButton from "./auth/LogoutButton";
 
 interface Props {
     hiddenInitially?: boolean;
@@ -63,34 +64,46 @@ function isModuleActive(moduleKey: string) {
 <aside
     id="sidebar"
     class:list={[
-        "fixed inset-y-0 left-0 z-50 w-72 bg-[#121212] border-r border-border-dark transform -translate-x-full transition-all duration-300 ease-in-out shrink-0 shadow-2xl",
+        "fixed left-0 top-0 bottom-0 z-50 w-72 bg-[#121212] border-r border-border-dark transform -translate-x-full transition-all duration-300 ease-in-out shrink-0 shadow-2xl",
         {
-            "lg:static lg:translate-x-0 lg:h-screen lg:flex lg:flex-col lg:shadow-none":
+            "lg:static lg:top-0 lg:translate-x-0 lg:h-screen lg:flex lg:flex-col lg:shadow-none":
                 !hiddenInitially,
         },
-        { "lg:fixed lg:h-full": hiddenInitially },
+        { "lg:fixed lg:h-full lg:top-0": hiddenInitially },
     ]}
 >
     <div class="flex flex-col h-full p-8">
-        <!-- Logo -->
-        <div class="hidden lg:flex items-center gap-4 mb-12">
-            <div
-                class="w-12 h-12 bg-brand-orange rounded-xl shadow-[0_0_20px_rgba(249,115,22,0.3)] flex items-center justify-center font-black text-black text-2xl"
+        <!-- Sidebar Header with Logo and Close Button -->
+        <div class="flex items-center justify-between mb-8 lg:hidden">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 bg-brand-orange rounded-lg shadow-[0_0_15px_rgba(249,115,22,0.3)] flex items-center justify-center font-bold text-black text-lg"
+                >
+                    L
+                </div>
+                <span class="font-bold tracking-tight text-white"
+                    >LFR Telemetry</span
+                >
+            </div>
+            <button
+                id="sidebar-close"
+                class="p-2 text-white/50 hover:text-white hover:bg-white/10 rounded-lg transition-all"
+                aria-label="Cerrar menú"
             >
-                L
-            </div>
-            <div>
-                <h1
-                    class="font-black tracking-tighter text-xl leading-tight text-white"
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                 >
-                    LFR Telemetry
-                </h1>
-                <p
-                    class="text-[10px] text-white/30 uppercase tracking-[0.2em] font-black"
-                >
-                    System Engineering
-                </p>
-            </div>
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
         </div>
 
         <!-- Navigation -->

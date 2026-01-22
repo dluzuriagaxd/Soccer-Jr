@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { signIn } from "../../lib/auth-client";
 
-export default function LoginForm() {
+interface LoginFormProps {
+    hideRegisterLink?: boolean;
+}
+
+export default function LoginForm({ hideRegisterLink = false }: LoginFormProps) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -88,11 +92,13 @@ export default function LoginForm() {
                     )}
                 </button>
 
-                <div className="text-center pt-4 border-t border-white/5">
-                    <a href="/register" className="text-xs text-brand-blue hover:text-brand-blue/80 font-mono transition-colors">
-                        [NEW OPERATOR REGISTRATION]
-                    </a>
-                </div>
+                {!hideRegisterLink && (
+                    <div className="text-center pt-4 border-t border-white/5">
+                        <a href="/register" className="text-xs text-brand-blue hover:text-brand-blue/80 font-mono transition-colors">
+                            [NEW OPERATOR REGISTRATION]
+                        </a>
+                    </div>
+                )}
             </form>
         </div>
     );

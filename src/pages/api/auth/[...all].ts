@@ -21,8 +21,10 @@ export const ALL: APIRoute = async (context) => {
     try {
         return await auth(db).handler(context.request);
     } catch (error) {
-        console.error("Auth Error:", error);
-        return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+        console.error("Auth Error details:", error);
+        const errorMessage = error instanceof Error ? error.message : "Internal Server Error";
+        // Return the actual error for debugging
+        return new Response(JSON.stringify({ error: errorMessage, details: String(error) }), {
             status: 500,
             headers: { "Content-Type": "application/json" }
         });

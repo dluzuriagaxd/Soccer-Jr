@@ -11,5 +11,13 @@ export const auth = (db: D1Database) => betterAuth({
     emailAndPassword: {
         enabled: true
     },
-    // Aquí podrías añadir más opciones luego
+    user: {
+        additionalFields: {
+            role: {
+                type: "string",
+                defaultValue: "student",
+                required: false,
+            }
+        }
+    }
 });

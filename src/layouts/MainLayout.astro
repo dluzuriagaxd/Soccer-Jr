@@ -1,14 +1,21 @@
 ---
 import "../styles/global.css";
 import Sidebar from "../components/Sidebar.astro";
+import LogoutButton from "../components/auth/LogoutButton";
 
 interface Props {
 	title: string;
 	fullWidth?: boolean;
 	sidebarHidden?: boolean;
+	hideMenu?: boolean;
 }
 
-const { title, fullWidth = false, sidebarHidden = false } = Astro.props;
+const {
+	title,
+	fullWidth = false,
+	sidebarHidden = false,
+	hideMenu = false,
+} = Astro.props;
 ---
 
 <html lang="es">
@@ -33,42 +40,49 @@ const { title, fullWidth = false, sidebarHidden = false } = Astro.props;
 		class="bg-[#0a0a0a] text-[#ededed] font-sans selection:bg-brand-orange/30 selection:text-brand-orange"
 	>
 		<!-- Header (Mobile always, Desktop if forced hide) -->
-		<header
-			class:list={[
-				"flex items-center justify-between p-4 border-b border-border-dark bg-black/80 backdrop-blur-xl sticky top-0 z-50",
-				{ "lg:hidden": !sidebarHidden },
-			]}
-		>
-			<div class="flex items-center gap-3">
-				<div
-					class="w-8 h-8 bg-brand-orange rounded shadow-[0_0_15px_rgba(249,115,22,0.3)] flex items-center justify-center font-bold text-black text-sm"
+		{
+			!hideMenu && (
+				<header
+					class:list={[
+						"flex items-center justify-between p-4 border-b border-border-dark bg-black/80 backdrop-blur-xl sticky top-0 z-40",
+						{ "lg:hidden": !sidebarHidden },
+					]}
 				>
-					L
-				</div>
-				<span class="font-bold tracking-tight text-white"
-					>LFR Telemetry</span
-				>
-			</div>
-			<button
-				id="menu-toggle"
-				class="p-2 text-white/70 hover:text-brand-orange active:scale-95 transition-all"
-				aria-label="Abrir menú"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="w-6 h-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M4 6h16M4 12h16m-7 6h7"></path>
-				</svg>
-			</button>
-		</header>
+					<button
+						id="menu-toggle"
+						class="p-2 text-white/70 hover:text-brand-orange active:scale-95 transition-all"
+						aria-label="Abrir menú"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="w-6 h-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 6h16M4 12h16m-7 6h7"
+							/>
+						</svg>
+					</button>
+
+					<div class="flex items-center gap-3">
+						<div class="hidden sm:block">
+							<LogoutButton client:load />
+						</div>
+						<div class="w-8 h-8 bg-brand-orange rounded shadow-[0_0_15px_rgba(249,115,22,0.3)] flex items-center justify-center font-bold text-black text-sm">
+							L
+						</div>
+						<span class="font-bold tracking-tight text-white">
+							LFR Telemetry
+						</span>
+					</div>
+				</header>
+			)
+		}
 
 		<div class="flex">
 			<Sidebar hiddenInitially={sidebarHidden} />

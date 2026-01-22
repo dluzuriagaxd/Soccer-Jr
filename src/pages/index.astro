@@ -3,6 +3,9 @@ export const prerender = false;
 
 import MainLayout from "../layouts/MainLayout.astro";
 import LandingPage from "../components/LandingPage.astro";
+import { drizzle } from "drizzle-orm/d1";
+import { eq } from "drizzle-orm";
+import * as schema from "../db/schema";
 
 // 1. Redirección para usuarios logueados (PRIORIDAD ALTA)
 const sessionCookie = Astro.cookies.get("better-auth.session_token");
@@ -11,9 +14,42 @@ const sessionCookie = Astro.cookies.get("better-auth.session_token");
 const maintenance = import.meta.env.PUBLIC_MAINTENANCE_MODE === 'true';
 
 let showLandingPage = false;
+let isAdmin = false;
 
-// Acceso permitido si: El usuario ya entró O el mantenimiento está apagado.
-if (sessionCookie?.value || !maintenance) {
+// Si hay sesión, verificar el rol
+if (sessionCookie?.value) {
+    try {
+        const locals = Astro.locals as any;
+        const env = locals.runtime?.env || locals.env;
+        
+        if (env?.DB) {
+            const db = drizzle(env.DB, { schema });
+            
+            const session = await db
+                .select()
+                .from(schema.session)
+                .where(eq(schema.session.token, sessionCookie.value))
+                .get();
+            
+            if (session) {
+                const user = await db
+                    .select()
+                    .from(schema.user)
+                    .where(eq(schema.user.id, session.userId))
+                    .get();
+                
+                isAdmin = user?.role === 'admin';
+            }
+        }
+    } catch (error) {
+        console.error("[Index] Error checking user role:", error);
+    }
+}
+
+// Lógica de acceso:
+// - Si NO hay mantenimiento: todos ven la landing
+// - Si HAY mantenimiento: solo admins ven la landing
+if (!maintenance || isAdmin) {
     showLandingPage = true;
 }
 ---
@@ -25,6 +61,7 @@ if (sessionCookie?.value || !maintenance) {
         title="LFR Telemetry - Coming Soon"
         fullWidth={true}
         sidebarHidden={true}
+        hideMenu={true}
     >
         <main
             class="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0a] relative overflow-hidden text-center px-6"
@@ -80,15 +117,6 @@ if (sessionCookie?.value || !maintenance) {
                         class="h-full bg-brand-orange animate-[width_3s_ease-in-out_infinite] w-1/3"
                     >
                     </div>
-                </div>
-    
-                <div class="pt-8 flex gap-6 justify-center">
-                    <a
-                        href="/login"
-                        class="text-xs font-mono uppercase tracking-widest text-white/20 hover:text-white transition-colors"
-                    >
-                        [Admin Access]
-                    </a>
                 </div>
             </div>
         </main>

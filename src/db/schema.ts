@@ -8,6 +8,7 @@ export const user = sqliteTable("user", {
     image: text("image"),
     createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
     updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+    role: text("role").default("student"),
 });
 
 export const session = sqliteTable("session", {
@@ -44,4 +45,22 @@ export const verification = sqliteTable("verification", {
     expiresAt: integer("expiresAt", { mode: "timestamp" }).notNull(),
     createdAt: integer("createdAt", { mode: "timestamp" }),
     updatedAt: integer("updatedAt", { mode: "timestamp" }),
+});
+
+// Extended user profile information
+export const userProfile = sqliteTable("user_profile", {
+    userId: text("user_id").primaryKey().references(() => user.id),
+    phoneNumber: text("phone_number"),
+    organization: text("organization"),
+    updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+});
+
+// Lesson progress tracking (flexible slug-based)
+export const lessonProgress = sqliteTable("lesson_progress", {
+    id: text("id").primaryKey(),
+    userId: text("user_id").notNull().references(() => user.id),
+    lessonSlug: text("lesson_slug").notNull(),
+    completed: integer("completed", { mode: "boolean" }).default(false),
+    completedAt: integer("completed_at", { mode: "timestamp" }),
+    lastVisitedAt: integer("last_visited_at", { mode: "timestamp" }).notNull(),
 });
