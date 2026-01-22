@@ -1,3 +1,10 @@
+// Polyfill MessageChannel for React 19 in Cloudflare
+import { MessageChannel } from 'node:worker_threads';
+if (!globalThis.MessageChannel) {
+    // @ts-ignore
+    globalThis.MessageChannel = MessageChannel;
+}
+
 import { defineMiddleware } from "astro:middleware";
 import { drizzle } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
