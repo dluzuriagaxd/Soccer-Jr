@@ -17,9 +17,11 @@ export const ALL: APIRoute = async (context) => {
     }
 
     const db = env.DB;
+    // Fallback: try to find secret in process.env if not in bindings (though on CF it should be in env)
+    const secret = env.BETTER_AUTH_SECRET || import.meta.env.BETTER_AUTH_SECRET || "default_dev_secret_do_not_use";
 
     try {
-        return await auth(db).handler(context.request);
+        return await auth(db, secret).handler(context.request);
     } catch (error) {
         console.error("Auth Error details:", error);
         const errorMessage = error instanceof Error ? error.message : "Internal Server Error";

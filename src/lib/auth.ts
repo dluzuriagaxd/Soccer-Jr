@@ -4,7 +4,8 @@ import { drizzle } from "drizzle-orm/d1";
 
 import * as schema from "../db/schema";
 
-export const auth = (db: D1Database) => betterAuth({
+export const auth = (db: D1Database, secret?: string) => betterAuth({
+    secret: secret,
     database: drizzleAdapter(drizzle(db, { schema }), {
         provider: "sqlite",
     }),
