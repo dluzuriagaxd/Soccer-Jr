@@ -5,6 +5,8 @@ import type { CompleteActivityRequest } from "@/lib/progress/types";
 import { drizzle } from "drizzle-orm/d1";
 import * as schema from "@/db/schema";
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request, locals }) => {
     try {
         // Initialize DB with D1 binding from locals
