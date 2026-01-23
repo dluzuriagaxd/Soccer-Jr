@@ -35,6 +35,16 @@ QTRSensors qtr;
 const uint8_t SensorCount = 8;
 uint16_t sensorValues[SensorCount];
 
+// --- Función Blink (Confirmación Visual) ---
+void blink() {
+  for (int i = 0; i < 5; i++) {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(100);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(100);
+  }
+}
+
 void setup() {
   // Configuración de pines
   pinMode(LED_BUILTIN, OUTPUT);
@@ -50,10 +60,7 @@ void setup() {
   Serial.begin(115200);
 
   // 1. Secuencia inicial
-  for (int i = 0; i < 5; i++) {
-    digitalWrite(LED_BUILTIN, HIGH); delay(200);
-    digitalWrite(LED_BUILTIN, LOW); delay(200);
-  }
+  blink();
 
   // Configuración de sensores
   qtr.setTypeRC();
@@ -67,10 +74,7 @@ void setup() {
   digitalWrite(LED_BUILTIN, LOW);
 
   // 3. Finalización calibración
-  for (int i = 0; i < 10; i++) {
-    digitalWrite(LED_BUILTIN, HIGH); delay(50);
-    digitalWrite(LED_BUILTIN, LOW); delay(50);
-  }
+  blink();
 
   // Activar Motores
   digitalWrite(STBY, HIGH);
