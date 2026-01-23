@@ -15,7 +15,18 @@ export default defineConfig({
     },
   }),
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [
+      tailwindcss(),
+      {
+        name: 'inject-message-channel',
+        transform(code, id) {
+          // Inject polyfill at the start of the server entry
+          if (id.includes('.astro') || id.includes('chunks/')) {
+            return `import { MessageChannel as MC } from 'node:worker_threads'; if (!globalThis.MessageChannel) globalThis.MessageChannel = MC;\n${code}`;
+          }
+        }
+      }
+    ]
   },
 
   integrations: [react(), mdx()],
