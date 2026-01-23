@@ -2,11 +2,18 @@ import type { APIRoute } from "astro";
 import { auth } from "@/lib/auth";
 import { updateProgress } from "@/lib/progress";
 import type { UpdateProgressRequest } from "@/lib/progress/types";
+import { drizzle } from "drizzle-orm/d1";
+import * as schema from "@/db/schema";
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
     try {
+        // Initialize DB with D1 binding from locals
+        const runtime = locals.runtime as any;
+        const db = drizzle(runtime.env.DB, { schema });
+
         // Check authentication
-        const session = await auth.api.getSession({ headers: request.headers });
+        const betterAuth = auth(runtime.env.DB, import.meta.env.BETTER_AUTH_SECRET);
+        const session = await betterAuth.api.getSession({ headers: request.headers });
 
         if (!session?.user) {
             return new Response(
@@ -27,7 +34,7 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         // Update progress
-        await updateProgress(session.user.id, activityId, {
+        await updateProgress(db, session.user.id, activityId, {
             progressPercentage,
             metadata,
             timeSpentSeconds,

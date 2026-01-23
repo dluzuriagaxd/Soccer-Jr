@@ -1,18 +1,47 @@
 ---
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
+import LessonCheckbox from '../components/progress/LessonCheckbox';
+import { drizzle } from "drizzle-orm/d1";
+import { auth } from "@/lib/auth";
+import { registerVisit, getUserActivityProgress } from "@/lib/progress";
 
 interface Props {
 	title: string;
+    slug: string;
 	headings: { depth: number; slug: string; text: string }[];
     prevLesson?: { slug: string; title: string };
     nextLesson?: { slug: string; title: string };
 }
 
-const { title, headings, prevLesson, nextLesson } = Astro.props;
+const { title, slug, headings, prevLesson, nextLesson } = Astro.props;
 
 // Filter headings for TOC (H2 and H3 only)
 const tocHeadings = headings.filter(h => h.depth >= 2 && h.depth <= 3);
+
+// Progress Logic
+let activityId = `lesson-${slug.replace(/\//g, "-")}`;
+let initialCompleted = false;
+
+// Only run on server if we have access to D1
+if (Astro.locals.runtime?.env?.DB) {
+    try {
+        const db = drizzle(Astro.locals.runtime.env.DB);
+        const betterAuth = auth(Astro.locals.runtime.env.DB, import.meta.env.BETTER_AUTH_SECRET);
+        const session = await betterAuth.api.getSession({ headers: Astro.request.headers });
+
+        if (session?.user) {
+            // Register visit
+            await registerVisit(db, session.user.id, activityId);
+            
+            // Get status
+            const progress = await getUserActivityProgress(db, session.user.id, activityId);
+            initialCompleted = progress?.status === 'completed';
+        }
+    } catch (e) {
+        console.error("Error in lesson progress logic:", e);
+    }
+}
 ---
 
 <html lang="es">
@@ -74,6 +103,15 @@ const tocHeadings = headings.filter(h => h.depth >= 2 && h.depth <= 3);
                                     prose-img:rounded-3xl prose-img:border prose-img:border-white/5
                                     prose-blockquote:border-l-brand-orange prose-blockquote:bg-brand-orange/5 prose-blockquote:py-1 prose-blockquote:px-6 prose-blockquote:rounded-r-xl">
                             <slot />
+                        </div>
+                        
+                        <!-- Progress Tracking Checkbox -->
+                        <div class="mt-16 mb-8 flex justify-center">
+                            <LessonCheckbox 
+                                client:visible 
+                                activityId={activityId} 
+                                initialCompleted={initialCompleted} 
+                            />
                         </div>
 
                         <!-- Navigation Buttons -->

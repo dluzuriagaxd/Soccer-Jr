@@ -1,6 +1,4 @@
-import { drizzle } from "drizzle-orm/libsql";
 import { eq, and, desc } from "drizzle-orm";
-import { turso } from "@/db/turso";
 import {
     activities,
     userActivityProgress,
@@ -16,8 +14,7 @@ import type {
     ProgressByType,
     ActivityWithProgress,
 } from "./types";
-
-const db = drizzle(turso);
+import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 // ============================================================================
 // Core Progress Functions
@@ -27,6 +24,7 @@ const db = drizzle(turso);
  * Get or create progress record for a user and activity
  */
 export async function getOrCreateProgress(
+    db: DrizzleD1Database<any>,
     userId: string,
     activityId: string
 ): Promise<UserActivityProgressRecord> {
@@ -68,6 +66,7 @@ export async function getOrCreateProgress(
  * Update progress for an activity
  */
 export async function updateProgress(
+    db: DrizzleD1Database<any>,
     userId: string,
     activityId: string,
     updates: {
@@ -80,7 +79,7 @@ export async function updateProgress(
         notes?: string;
     }
 ): Promise<void> {
-    const progress = await getOrCreateProgress(userId, activityId);
+    const progress = await getOrCreateProgress(db, userId, activityId);
 
     const updateData: any = {
         ...updates,
@@ -112,12 +111,13 @@ export async function updateProgress(
  * Mark activity as completed
  */
 export async function completeActivity(
+    db: DrizzleD1Database<any>,
     userId: string,
     activityId: string,
     score?: number,
     metadata?: ActivityMetadata
 ): Promise<void> {
-    await updateProgress(userId, activityId, {
+    await updateProgress(db, userId, activityId, {
         status: "completed",
         progressPercentage: 100,
         score,
@@ -129,14 +129,15 @@ export async function completeActivity(
  * Register a visit to an activity (auto-updates lastVisitedAt)
  */
 export async function registerVisit(
+    db: DrizzleD1Database<any>,
     userId: string,
     activityId: string
 ): Promise<void> {
-    const progress = await getOrCreateProgress(userId, activityId);
+    const progress = await getOrCreateProgress(db, userId, activityId);
 
     // If not started, mark as in_progress
     if (progress.status === "not_started") {
-        await updateProgress(userId, activityId, {
+        await updateProgress(db, userId, activityId, {
             status: "in_progress",
         });
     } else {
@@ -159,6 +160,7 @@ export async function registerVisit(
  * Get user's progress for a specific activity
  */
 export async function getUserActivityProgress(
+    db: DrizzleD1Database<any>,
     userId: string,
     activityId: string
 ): Promise<UserActivityProgressRecord | null> {
@@ -180,6 +182,7 @@ export async function getUserActivityProgress(
  * Get all user's progress
  */
 export async function getAllUserProgress(
+    db: DrizzleD1Database<any>,
     userId: string
 ): Promise<UserActivityProgressRecord[]> {
     const progress = await db
@@ -195,13 +198,14 @@ export async function getAllUserProgress(
  * Get user's progress summary
  */
 export async function getUserProgressSummary(
+    db: DrizzleD1Database<any>,
     userId: string
 ): Promise<UserProgressSummary> {
     // Get all activities
     const allActivities = await db.select().from(activities).all();
 
     // Get all user progress
-    const allProgress = await getAllUserProgress(userId);
+    const allProgress = await getAllUserProgress(db, userId);
 
     // Get all activity types
     const allTypes = await db.select().from(activityTypes).all();
@@ -253,11 +257,18 @@ export async function getUserProgressSummary(
     }
 
     // Create activities with progress
-    const activitiesWithProgress: ActivityWithProgress[] = allActivities.map(activity => ({
-        activity: activity as ActivityRecord,
-        progress: progressMap.get(activity.id),
-        type: typeMap.get(activity.typeId)!,
-    }));
+    const activitiesWithProgress: ActivityWithProgress[] = allActivities.map(activity => {
+        const activityType = typeMap.get(activity.typeId)!;
+        return {
+            activity: activity as ActivityRecord,
+            progress: progressMap.get(activity.id),
+            type: {
+                ...activityType,
+                name: activityType.name as any,
+                icon: activityType.icon ?? undefined
+            }
+        };
+    });
 
     // Get recent activity (last 5 visited)
     const recentActivity = activitiesWithProgress
@@ -283,14 +294,11 @@ export async function getUserProgressSummary(
     };
 }
 
-// ============================================================================
-// Utility Functions
-// ============================================================================
-
 /**
  * Check if prerequisites are met for an activity
  */
 export async function checkPrerequisites(
+    db: DrizzleD1Database<any>,
     userId: string,
     activityId: string
 ): Promise<{ met: boolean; missing: string[] }> {
@@ -308,7 +316,7 @@ export async function checkPrerequisites(
     const missing: string[] = [];
 
     for (const prereqId of prerequisiteIds) {
-        const progress = await getUserActivityProgress(userId, prereqId);
+        const progress = await getUserActivityProgress(db, userId, prereqId);
         if (!progress || progress.status !== "completed") {
             missing.push(prereqId);
         }
@@ -318,47 +326,4 @@ export async function checkPrerequisites(
         met: missing.length === 0,
         missing,
     };
-}
-
-/**
- * Calculate points earned for completing an activity
- */
-export function calculatePoints(
-    activityType: string,
-    score?: number,
-    maxScore?: number
-): number {
-    // Base points from activity
-    let points = 0;
-
-    if (activityType === "lesson") {
-        points = 10; // Base points for lesson
-    } else if (activityType === "quiz" && score !== undefined && maxScore !== undefined) {
-        const percentage = (score / maxScore) * 100;
-        if (percentage === 100) {
-            points = 50; // Perfect score
-        } else if (percentage >= 70) {
-            points = 30; // Passing score
-        } else {
-            points = 5; // Attempt
-        }
-    } else if (activityType === "project") {
-        points = 50; // Base for project submission
-    }
-
-    return points;
-}
-
-/**
- * Parse metadata from JSON string
- */
-export function parseMetadata<T = ActivityMetadata>(
-    metadataString?: string | null
-): T | null {
-    if (!metadataString) return null;
-    try {
-        return JSON.parse(metadataString) as T;
-    } catch {
-        return null;
-    }
 }
