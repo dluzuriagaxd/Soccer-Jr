@@ -1,8 +1,8 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 
-// Polyfill to inject at the top of _worker.js/index.js
-const polyfill = `// MessageChannel polyfill for Cloudflare Workers - INJECTED BY POST-BUILD SCRIPT
+// Polyfill to inject at the top of worker files
+const polyfill = `// MessageChannel polyfill for Cloudflare Workers
 if (typeof MessageChannel === 'undefined') {
   globalThis.MessageChannel = class MessageChannel {
     constructor() {
@@ -30,16 +30,53 @@ if (typeof MessageChannel === 'undefined') {
 
 `;
 
+function injectPolyfillIntoFile(filePath) {
+  try {
+    const content = readFileSync(filePath, 'utf-8');
+
+    // Skip if already has polyfill
+    if (content.includes('MessageChannel polyfill')) {
+      return false;
+    }
+
+    const modifiedContent = polyfill + content;
+    writeFileSync(filePath, modifiedContent, 'utf-8');
+    return true;
+  } catch (error) {
+    console.error(`  ❌ Error processing ${filePath}:`, error.message);
+    return false;
+  }
+}
+
+function processDirectory(dirPath) {
+  const entries = readdirSync(dirPath);
+  let count = 0;
+
+  for (const entry of entries) {
+    const fullPath = join(dirPath, entry);
+    const stat = statSync(fullPath);
+
+    if (stat.isDirectory()) {
+      count += processDirectory(fullPath);
+    } else if (entry.endsWith('.mjs') || entry.endsWith('.js')) {
+      if (injectPolyfillIntoFile(fullPath)) {
+        console.log(`  ✅ Injected into: ${fullPath.replace(process.cwd(), '')}`);
+        count++;
+      }
+    }
+  }
+
+  return count;
+}
+
 try {
-    const workerPath = join(process.cwd(), 'dist', '_worker.js', 'index.js');
-    console.log('📝 Injecting MessageChannel polyfill into _worker.js/index.js...');
+  const workerDir = join(process.cwd(), 'dist', '_worker.js');
+  console.log('📝 Injecting MessageChannel polyfill into all worker files...\n');
 
-    const workerContent = readFileSync(workerPath, 'utf-8');
-    const modifiedContent = polyfill + workerContent;
+  const count = processDirectory(workerDir);
 
-    writeFileSync(workerPath, modifiedContent, 'utf-8');
-    console.log('✅ Successfully injected MessageChannel polyfill!');
+  console.log(`\n✅ Successfully injected polyfill into ${count} file(s)!`);
 } catch (error) {
-    console.error('❌ Error injecting polyfill:', error.message);
-    process.exit(1);
+  console.error('❌ Error injecting polyfill:', error.message);
+  process.exit(1);
 }
