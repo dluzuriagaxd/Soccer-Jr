@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador: El Ojo Matemático</title>
+
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #020617;
+            /* Slate 950/Black */
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+
+            /* High Contrast Gradients */
+            --accent-gradient: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            /* Orange */
+            --success-gradient: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            /* Emerald */
+            --grid-color: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-deep);
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.1), transparent 60%),
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            user-select: none;
+        }
+
+        /* Views */
+        .views {
+            flex: 1;
+            display: flex;
+            position: relative;
+            z-index: 1;
+        }
+
+        .view-panel {
+            flex: 1;
+            position: relative;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .view-panel:last-child {
+            border-right: none;
+        }
+
+        .view-label {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.9);
+            pointer-events: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Glassmorphism Controls */
+        .controls {
+            height: 250px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 30px 50px;
+            display: grid;
+            grid-template-columns: 1fr 1.8fr 1fr;
+            gap: 40px;
+            align-items: center;
+            box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .block-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* 1. Slider */
+        .control-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+            margin: 15px 0;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            border: 3px solid #fff;
+            cursor: grab;
+            -webkit-appearance: none;
+            margin-top: -12px;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.5);
+            transition: transform 0.2s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        input[type=range]::-webkit-slider-thumb:active {
+            cursor: grabbing;
+            transform: scale(0.95);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        /* 2. Equation Hero */
+        .equation-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .math-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .header-row {
+            margin-bottom: 10px;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .value-row {
+            font-size: 48px;
+            font-weight: 700;
+        }
+
+        .math-op {
+            color: rgba(255, 255, 255, 0.15);
+            font-weight: 300;
+        }
+
+        .val-static {
+            color: #fff;
+        }
+
+        .val-dynamic {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .val-result {
+            background: var(--success-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.3));
+        }
+
+        .val-result.bad {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(249, 115, 22, 0.3));
+        }
+
+        /* Compact Status */
+        .status-display {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            /* Reduced from 140 */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .arrow-icon {
+            width: 48px;
+            /* Reduced from 64 */
+            height: 48px;
+            margin-bottom: 5px;
+        }
+
+        .status-text {
+            font-size: 16px;
+            /* Reduced from 20 */
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .icon-success {
+            stroke: #10b981;
+            filter: drop-shadow(0 0 15px #10b981);
+        }
+
+        .icon-warn {
+            stroke: #fb923c;
+            filter: drop-shadow(0 0 15px #fb923c);
+        }
+
+        .pulse-right {
+            animation: p-right 1.5s infinite ease-in-out;
+        }
+
+        .pulse-left {
+            animation: p-left 1.5s infinite ease-in-out;
+        }
+
+        @keyframes p-right {
+
+            0%,
+            100% {
+                transform: translateX(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateX(10px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes p-left {
+
+            0%,
+            100% {
+                transform: translateX(0);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: translateX(-10px);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 1000px) {
+            .controls {
+                grid-template-columns: 1fr;
+                height: auto;
+                gap: 30px;
+            }
+
+            .value-row {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="views">
+        <!-- Top View -->
+        <div class="view-panel" id="topView">
+            <div class="view-label">Vista Superior</div>
+            <canvas id="canvasTop"></canvas>
+        </div>
+
+        <!-- Front View -->
+        <div class="view-panel" id="frontView">
+            <div class="view-label">Vista Frontal (Relativa)</div>
+            <canvas id="canvasFront"></canvas>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div style="position:absolute; bottom:5px; right:10px; opacity:0.3; font-size:10px;">v2.6 (Responsive)</div>
+    </div>
+
+    <!-- Back Button (Only if standalone) -->
+    <a id="backBtn" href="javascript:history.back()"
+        style="display:none; position:absolute; top:-40px; left:0; background:rgba(255,255,255,0.1); padding:5px 10px; border-radius:4px; color:#fff; text-decoration:none; font-size:12px; font-weight:700;">
+        ← VOLVER
+    </a>
+
+    <!-- Input -->
+    <div class="control-block">
+        <div class="block-title">Control Manual</div>
+        <div class="slider-container">
+            <input type="range" id="posSlider" min="-2500" max="9500" step="10" value="3500">
+            <div class="slider-labels">
+                <span>IZQUIERDA</span>
+                <span>CENTRO</span>
+                <span>DERECHA</span>
+            </div>
+        </div>
+        <div style="font-size: 12px; color:var(--text-muted); margin-top:5px;">
+            Arrastra para mover el robot.
+        </div>
+    </div>
+
+    <!-- The Equation -->
+    <div class="equation-box">
+        <div class="math-row header-row">
+            <span style="min-width:80px; text-align:center;">ERROR</span>
+            <span>=</span>
+            <span style="min-width:80px; text-align:center;">SETPOINT</span>
+            <span>-</span>
+            <span style="min-width:80px; text-align:center;">POSICIÓN</span>
+        </div>
+
+        <div class="math-row value-row">
+            <span class="val-result" id="dispError" style="min-width:80px; text-align:center;">0</span>
+            <span class="math-op">=</span>
+            <span class="val-static" style="min-width:80px; text-align:center;">3500</span>
+            <span class="math-op">-</span>
+            <span class="val-dynamic" id="dispPos" style="min-width:80px; text-align:center;">3500</span>
+        </div>
+    </div>
+
+    <!-- Feedback -->
+    <div class="control-block">
+        <div class="block-title" style="text-align:center;">DIAGNÓSTICO</div>
+        <div class="status-display" id="statusBox">
+            <!-- SVG Icons -->
+            <svg id="arrowLeft" class="arrow-icon pulse-left icon-warn" style="display:none;" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+
+            <svg id="arrowRight" class="arrow-icon pulse-right icon-warn" style="display:none;" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+
+            <svg id="iconCheck" class="arrow-icon icon-success" style="display:block;" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+
+            <div class="status-text" id="statusText" style="color:#10b981;">¡ALINEADO!</div>
+        </div>
+    </div>
+
+    </div>
+
+    <script>
+        // --- CONFIG ---
+        const PPM_BASE = 10;
+        const BASE_SCALE = 0.25;
+
+        const SENSOR_PITCH_MM = 0.9525; // Real sensor pitch in mm est.
+        // Derived: 0.9525 * 10 = 9.525 pixels per sensor unit at base scale
+
+        let currentScale = 0;
+        let screenPitch = 0;
+
+        // --- ASSETS ---
+        const svgChassis = new Path2D("M 298.74206,465.05562 V 699.38633 H 128.66332 v 151.1811 H 657.79717 V 699.38633 H 487.71843 V 465.05562 A 11.338583,11.338583 0 0 0 476.37985,453.71704 H 459.37198 V 245.84302 h 94.48819 A 18.897638,18.897638 0 0 0 572.7578,226.94538 V 196.70916 A 18.897638,18.897638 0 0 0 553.86017,177.81153 H 232.60032 a 18.897638,18.897638 0 0 0 -18.89763,18.89763 v 30.23622 a 18.897638,18.897638 0 0 0 18.89763,18.89764 h 94.48819 v 207.87402 h -17.00787 a 11.338583,11.338583 0 0 0 -11.33858,11.33858 z");
+        const svgWheelL = new Path2D("M 15.277486,933.71699 H 109.76568 V 688.04775 H 15.277486 Z");
+        const svgWheelR = new Path2D("M 676.69481,688.04775 V 933.71699 H 771.183 V 688.04775 Z");
+
+        // --- STATE ---
+        let state = {
+            physicalPos: 3500, // Where the robot physically is (can go <0, >7000)
+            sensorPos: 3500,   // What the sensors read (clamped 0-7000)
+            error: 0,
+            sensors: [0, 0, 0, 0, 0, 0, 0, 0],
+            dragging: false
+        };
+
+        // --- DOM ELEMENTS ---
+        const canvasTop = document.getElementById('canvasTop');
+        const ctxTop = canvasTop.getContext('2d');
+        const canvasFront = document.getElementById('canvasFront');
+        const ctxFront = canvasFront.getContext('2d');
+
+        const posSlider = document.getElementById('posSlider');
+        const dispPos = document.getElementById('dispPos');
+        const dispError = document.getElementById('dispError');
+
+        const arrowLeft = document.getElementById('arrowLeft');
+        const arrowRight = document.getElementById('arrowRight');
+        const iconCheck = document.getElementById('iconCheck');
+        const statusText = document.getElementById('statusText');
+
+        // --- HANDLERS ---
+        function resize() {
+            canvasTop.width = canvasTop.parentElement.clientWidth;
+            canvasTop.height = canvasTop.parentElement.clientHeight;
+            canvasFront.width = canvasFront.parentElement.clientWidth;
+            canvasFront.height = canvasFront.parentElement.clientHeight;
+
+            // Responsive Scaling
+            // Target: At 900px width -> Scale 0.4
+            // At 400px width -> Scale 0.25
+            let w = canvasTop.width;
+            currentScale = Math.max(0.2, Math.min(0.45, w / 1600));
+
+            // Recalc Pitch
+            // SENSOR_PITCH = 0.9525 * PPM (fixed abstract units)
+            // SVG_PITCH_UNITS = SENSOR_PITCH / BASE_SCALE (units in SVG coord space)
+            // SCREEN_PITCH = SVG_PITCH_UNITS * currentScale (pixels on screen)
+
+            const sensorPitchRaw = SENSOR_PITCH_MM * PPM_BASE;
+            const svgPitchUnits = sensorPitchRaw / BASE_SCALE;
+            screenPitch = svgPitchUnits * currentScale;
+
+            updateLogic(); // Re-run logic because intersections depend on pixel pitch? 
+            // Actually logic used SCREEN_PITCH, so yes.
+
+            draw();
+        }
+        window.addEventListener('resize', resize);
+
+        canvasTop.addEventListener('mousedown', (e) => { state.dragging = true; handleDrag(e); });
+        window.addEventListener('mouseup', () => { state.dragging = false; });
+        window.addEventListener('mousemove', (e) => { if (state.dragging) handleDrag(e); });
+
+        function handleDrag(e) {
+            const rect = canvasTop.getBoundingClientRect();
+            const cx = canvasTop.width / 2;
+            const mouseX = e.clientX - rect.left;
+
+            let deltaPx = mouseX - cx;
+            let deltaPos = (deltaPx / screenPitch) * 1000;
+            let rawPos = 3500 + deltaPos;
+
+            // Physical Limits
+            if (rawPos < -2500) rawPos = -2500;
+            if (rawPos > 9500) rawPos = 9500;
+
+            posSlider.value = Math.round(rawPos);
+            updateLogic();
+            draw();
+        }
+
+        posSlider.addEventListener('input', () => {
+            updateLogic();
+            draw();
+        });
+
+        // --- LOGIC ---
+        function updateLogic() {
+            let rawPos = parseInt(posSlider.value);
+            state.physicalPos = rawPos;
+
+            // Sensor Logic: Clamped to 0-7000
+            state.sensorPos = Math.max(0, Math.min(7000, rawPos));
+            state.error = 3500 - state.sensorPos;
+
+            // Calc Intersections uses PHYSICAL position
+            let lineX = ((3500 - state.physicalPos) / 1000.0) * screenPitch;
+            let sensorRad = 15 * currentScale;
+            let lineHalfW = 10;
+
+            state.sensors = state.sensors.map((_, i) => {
+                let sensX = (i - 3.5) * screenPitch;
+                let dist = Math.abs(sensX - lineX);
+                return (dist < (lineHalfW + sensorRad)) ? 1000 : 0;
+            });
+
+            // UI Updates
+            dispPos.innerText = state.sensorPos;
+            dispError.innerText = state.error;
+
+            // Reset Feedback
+            iconCheck.style.display = 'none';
+            arrowLeft.style.display = 'none';
+            arrowRight.style.display = 'none';
+            dispError.className = 'val-result';
+
+            if (Math.abs(state.error) < 50) {
+                iconCheck.style.display = 'block';
+                statusText.innerText = "¡ALINEADO!";
+                statusText.style.color = "#10b981";
+            } else {
+                dispError.classList.add('bad');
+                statusText.innerText = "CORREGIR";
+                statusText.style.color = "#fb923c";
+
+                if (state.error > 0) {
+                    arrowRight.style.display = 'block';
+                } else {
+                    arrowLeft.style.display = 'block';
+                }
+            }
+        }
+
+        // --- DRAWING ---
+        function draw() {
+            ctxTop.clearRect(0, 0, canvasTop.width, canvasTop.height);
+            ctxFront.clearRect(0, 0, canvasFront.width, canvasFront.height);
+            drawTopView();
+            drawFrontView();
+        }
+
+        function drawTopView() {
+            const ctx = ctxTop;
+            const w = canvasTop.width;
+            const h = canvasTop.height;
+            const cx = w / 2;
+            const cy = h / 2;
+
+            let robOffset = ((state.physicalPos - 3500) / 1000.0) * screenPitch;
+            const svgPitchUnits = (SENSOR_PITCH_MM * PPM_BASE) / BASE_SCALE;
+
+            // Line
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = 'rgba(255,255,255,0.5)';
+            ctx.fillRect(cx - 10, 0, 20, h);
+            ctx.shadowBlur = 0;
+
+            ctx.save();
+            ctx.translate(cx + robOffset, cy);
+
+            // Robot (Rotated 180)
+            // Screen Left (-X) <-> SVG Right (+X)
+            // Screen Right (+X) <-> SVG Left (-X)
+            ctx.rotate(Math.PI);
+            ctx.scale(currentScale, currentScale);
+            ctx.translate(-393, -500);
+
+            ctx.fillStyle = '#f97316';
+            ctx.fill(svgWheelL);
+            ctx.fill(svgWheelR);
+
+            ctx.fillStyle = 'rgba(26,26,26,0.95)';
+            ctx.strokeStyle = '#f97316';
+            ctx.lineWidth = 5;
+            ctx.fill(svgChassis);
+            ctx.stroke(svgChassis);
+
+            // Sensors
+            // We want Sensor 0 (Logic Left) to appear on Screen Left.
+            // Screen Left is SVG Right (+X).
+            // So Sensor 0 should be at Max X in SVG.
+            let startX = 393 + (3.5 * svgPitchUnits); // SVG Right Edge
+
+            for (let i = 0; i < 8; i++) {
+                let sx = startX - (i * svgPitchUnits); // Move towards SVG Left (Screen Right)
+                ctx.beginPath();
+                ctx.arc(sx, 212, 15, 0, Math.PI * 2);
+                let active = state.sensors[i] > 500;
+
+                if (active) {
+                    ctx.fillStyle = '#f97316';
+                    ctx.shadowBlur = 20;
+                    ctx.shadowColor = '#f97316';
+                } else {
+                    ctx.fillStyle = '#333';
+                    ctx.shadowBlur = 0;
+                }
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+            ctx.restore();
+
+            if (state.dragging || Math.abs(robOffset) < 5) {
+                if (state.dragging) {
+                    ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                    ctx.beginPath();
+                    ctx.arc(cx + robOffset, cy, 60, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+
+        function drawFrontView() {
+            const ctx = ctxFront;
+            const w = canvasFront.width;
+            const h = canvasFront.height;
+            const cx = w / 2;
+            const cy = h / 2;
+
+            let robOffset = ((state.physicalPos - 3500) / 1000.0) * screenPitch;
+            let lineOffset = robOffset;
+
+            // Floor
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(0, cy + 50, w, h);
+
+            // Line
+            ctx.fillStyle = '#ffffff';
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = 'white';
+            ctx.fillRect(cx + lineOffset - 10, cy + 50, 20, h);
+            ctx.shadowBlur = 0;
+
+            // Robot Profile
+            ctx.fillStyle = '#0f172a';
+            ctx.strokeStyle = '#f97316';
+            ctx.lineWidth = 2;
+
+            // Scale profile dims by relative scale (approx)
+            // Base was w=220 at scale 0.4.
+            // Ratio = currentScale / 0.4
+            let ratio = currentScale / 0.4;
+            let pW = 220 * ratio;
+            let pH = 20 * ratio;
+            let pRad = 5;
+
+            let rx = cx - (pW / 2), ry = cy - (pH / 2), rw = pW, rh = pH;
+            ctx.beginPath();
+            ctx.moveTo(rx + pRad, ry);
+            ctx.lineTo(rx + rw - pRad, ry);
+            ctx.quadraticCurveTo(rx + rw, ry, rx + rw, ry + pRad);
+            ctx.lineTo(rx + rw, ry + rh - pRad);
+            ctx.quadraticCurveTo(rx + rw, ry + rh, rx + rw - pRad, ry + rh);
+            ctx.lineTo(rx + pRad, ry + rh);
+            ctx.quadraticCurveTo(rx, ry + rh, rx, ry + rh - pRad);
+            ctx.lineTo(rx, ry + pRad);
+            ctx.quadraticCurveTo(rx, ry, rx + pRad, ry);
+            ctx.closePath();
+
+            ctx.fill();
+            ctx.stroke();
+
+            // Sensors
+            let startX = cx + (3.5 * screenPitch);
+            let sW = 10 * ratio;
+            let sH = 15 * ratio;
+
+            for (let i = 0; i < 8; i++) {
+                let x = startX - (i * screenPitch);
+                ctx.fillStyle = '#334155';
+                ctx.fillRect(x - (sW / 2), cy + (pH / 2), sW, sH);
+
+                if (state.sensors[i] > 500) {
+                    ctx.fillStyle = '#f97316';
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#f97316';
+                    ctx.beginPath();
+                    ctx.arc(x, cy + (pH / 2) + sH, 4 * ratio, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                } else {
+                    ctx.fillStyle = '#475569';
+                    ctx.beginPath();
+                    ctx.arc(x, cy + (pH / 2) + sH, 3 * ratio, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Wheels
+            ctx.fillStyle = '#f97316';
+            let wW = 20 * ratio;
+            let wH = 70 * ratio;
+            ctx.fillRect(cx - (pW / 2) - wW - 10 * ratio, cy - (pH / 2) - 10 * ratio, wW, wH);
+            ctx.fillRect(cx + (pW / 2) + 10 * ratio, cy - (pH / 2) - 10 * ratio, wW, wH);
+
+            // Cota (hidden if too small)
+            if (ratio > 0.6) {
+                let groundY = cy + 50;
+                let sensorTop = cy + (pH / 2);
+                ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                ctx.beginPath();
+                ctx.moveTo(cx + (pW / 2) + wW + 20, sensorTop); ctx.lineTo(cx + (pW / 2) + wW + 20, groundY);
+                ctx.stroke();
+                ctx.fillStyle = 'rgba(255,255,255,0.6)';
+                ctx.font = (10 * ratio) + 'px Consolas';
+                ctx.fillText("3mm - 5mm", cx + (pW / 2) + wW + 25, (sensorTop + groundY) / 2 + 3);
+            }
+        }
+
+        // Init
+        resize();
+        updateLogic();
+
+        // Show Back Button if Standalone
+        if (window.self === window.top) {
+            const btn = document.getElementById('backBtn');
+            if (btn) {
+                btn.style.display = 'block';
+                btn.style.top = '10px'; // Adjust position for standalone
+                btn.style.left = '10px';
+                btn.style.zIndex = '100';
+            }
+        }
+    </script>
+</body>
+
+</html>

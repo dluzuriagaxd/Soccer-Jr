@@ -1,7 +1,48 @@
 ---
-title: "Fase 2: Sensores"
-order: 5
-description: "Montaje técnico y calibración del QTR-8RC."
+title: "Lección 3.2: Fase 2 - Sensores"
+order: 6
+description: "Lección 3.2: Fase 2 - Sensores"
+---
+
+{/* ADMIN ONLY: VIDEO SECTION */}
+> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+>
+> **Video 1: Montaje Mecánico del QTR**
+> - Duración sugerida: 7-9 minutos
+> - Contenido:
+>   - Fijación con tornillos de 2mm (close-up)
+>   - Ajuste de altura (3-5mm) con galga o regla
+>   - Verificación de nivelación del sensor
+>   - Asegurar cables con cinta aislante (técnica correcta)
+>   - Prueba de vibración (sacudir el robot)
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+>
+> **Video 2: Instalación de Librería y Calibración**
+> - Duración sugerida: 10-12 minutos
+> - Contenido:
+>   - Instalación de librería QTRSensors en Arduino IDE
+>   - Conexión de pines (A0-A5, 2, 3) con diagrama
+>   - Carga del código completo
+>   - Proceso de calibración en vivo (mover robot sobre línea)
+>   - Interpretación de valores en Serial Monitor
+>   - Qué significan los números (0-7000)
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+>
+> **Video 3: Troubleshooting Sensores**
+> - Duración sugerida: 5-7 minutos
+> - Contenido:
+>   - Valores erráticos: causas y soluciones
+>   - Problemas de iluminación (luz solar directa)
+>   - Verificación de conexiones con multímetro
+>   - Sensor no responde: diagnóstico paso a paso
+>   - Ajuste fino de altura para mejor lectura
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+{/* END ADMIN ONLY */}
+
+---
+
+> **📋 Prerequisitos**: Haber completado Lección 3.1 (Potencia) - necesitas el código blink() funcionando
+
 ---
 
 # Sensores de Alta Precisión
@@ -16,8 +57,135 @@ El sensor QTR es el ojo de tu robot. Un montaje descuidado aquí arruinará cual
 Las vibraciones en carrera son fuertes. **Tip Pro**: Una vez conectados los cables jumper hembra al sensor, asegúralos con una vuelta de **cinta aislante**. Esto evita que se suelten en plena competencia.
 
 ## Software y Calibración
-1.  Carga el ejemplo `QTRRCExample` de la librería oficial.
-2.  **Proceso de Calibración**: Prepara una hoja blanca con una línea de cinta negra. Mueve el robot de lado a lado sobre la línea mientras los LEDs del Nano parpadean.
 
-> [!DEBUG]
-> **¿Valores erraticos?** Revisa si la luz del ambiente le afecta directamente. En competencias bajo sol extremo, es posible que necesites una "visera" o escudo de sombras sobre los sensores.
+Ahora vamos a integrar el sensor QTR a nuestro código. Primero, instala la librería oficial:
+
+1. Abre el Arduino IDE
+2. Ve a **Sketch → Include Library → Manage Libraries**
+3. Busca **"QTRSensors"** por Pololu
+4. Instala la última versión
+
+### Código Completo hasta Ahora
+
+Este código ya incluye la función `blink()` que creamos en la Fase 1 (Potencia), y ahora agregamos toda la lógica del sensor QTR:
+
+```cpp
+#include <QTRSensors.h>
+
+QTRSensors qtr;
+
+const uint8_t SensorCount = 8;
+uint16_t sensorValues[SensorCount];
+
+// --- Función Blink (Confirmación Visual) ---
+void blink() {
+  for(int i=0; i<5; i++){
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(200);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(200);
+  }
+}
+
+void setup()
+{
+  // configure the sensors
+  qtr.setTypeRC();
+  // Pines específicos para LFR-Pro (match con LFR-Telemetry.ino)
+  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
+
+  delay(500);
+  pinMode(LED_BUILTIN, OUTPUT);
+  
+  // 1. Señal de inicio de calibración
+  blink();
+  digitalWrite(LED_BUILTIN, HIGH); // encender LED durante calibración
+
+  // 2.5 ms RC read timeout (default) * 10 reads per calibrate() call
+  // = ~25 ms per calibrate() call.
+  // Call calibrate() 400 times to make calibration take about 10 seconds.
+  for (uint16_t i = 0; i < 400; i++)
+  {
+    qtr.calibrate();
+  }
+  digitalWrite(LED_BUILTIN, LOW); // apagar LED al finalizar
+  
+  // 2. Señal de fin de calibración
+  blink();
+
+  // print the calibration minimum values measured when emitters were on
+  Serial.begin(9600);
+  for (uint8_t i = 0; i < SensorCount; i++)
+  {
+    Serial.print(qtr.calibrationOn.minimum[i]);
+    Serial.print(' ');
+  }
+  Serial.println();
+
+  // print the calibration maximum values measured when emitters were on
+  for (uint8_t i = 0; i < SensorCount; i++)
+  {
+    Serial.print(qtr.calibrationOn.maximum[i]);
+    Serial.print(' ');
+  }
+  Serial.println();
+  Serial.println();
+  delay(1000);
+}
+
+void loop()
+{
+  // read calibrated sensor values and obtain a measure of the line position
+  // from 0 to 5000 (for a white line, use readLineWhite() instead)
+  uint16_t position = qtr.readLineBlack(sensorValues);
+
+  // print the sensor values as numbers from 0 to 1000, where 0 means maximum
+  // reflectance and 1000 means minimum reflectance, followed by the line
+  // position
+  for (uint8_t i = 0; i < SensorCount; i++)
+  {
+    Serial.print(sensorValues[i]);
+    Serial.print('\t');
+  }
+  Serial.println(position);
+
+  delay(250);
+}
+```
+
+### Explicación del Código
+
+**Instanciación y Configuración:**
+- `QTRSensors qtr;` - Crea el objeto del sensor
+- `qtr.setTypeRC();` - Configura para sensores tipo RC (resistencia-capacitancia)
+- `qtr.setSensorPins(...)` - Asigna los 8 pines analógicos y digitales
+
+**Proceso de Calibración:**
+- Durante la calibración, **mueve el robot de lado a lado** sobre la línea negra
+- El sensor aprende los valores mínimos (blanco) y máximos (negro)
+- 400 iteraciones aseguran una calibración robusta
+
+**Lectura de Posición:**
+- `qtr.readLineBlack(sensorValues)` devuelve un valor de **0 a 7000**
+- **3500** = línea centrada (ideal)
+- **0** = línea completamente a la izquierda
+- **7000** = línea completamente a la derecha
+
+### Prueba Práctica
+
+1. Carga el código
+2. Abre el **Serial Monitor** (115200 baud)
+3. Durante los primeros segundos (LED encendido), mueve el robot sobre la línea
+4. Después del `blink()` final, observa cómo cambia la posición al mover el robot
+
+> [!TIP]
+> Si los valores no cambian mucho, verifica:
+> - Distancia al suelo (3-5mm es óptimo)
+> - Contraste de la línea (cinta negra mate sobre blanco funciona mejor que brillante)
+> - Iluminación ambiente (evita sombras directas sobre los sensores)
+
+> [!WARNING]
+> **¿Valores erráticos?** Revisa si la luz del ambiente le afecta directamente. En competencias bajo sol extremo, es posible que necesites una "visera" o escudo de sombras sobre los sensores.
+
+---
+

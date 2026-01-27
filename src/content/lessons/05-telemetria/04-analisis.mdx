@@ -1,7 +1,37 @@
 ---
-title: "Análisis y Optimización"
-order: 13
-description: "Tutorial de interpretación de gráficas y ajuste fino."
+title: "Lección 5.4: Análisis y Optimización"
+order: 14
+description: "Lección 5.4: Análisis y Optimización"
+---
+
+<!-- ADMIN ONLY: VIDEO SECTION -->
+> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+>
+> **Video 1: Interpretación de Gráficas**
+> - Duración sugerida: 12-15 minutos
+> - Contenido:
+>   - Análisis de oscilaciones en las gráficas
+>   - Identificación de problemas (Kp alto, Kd bajo, etc.)
+>   - Correlación entre gráfica y comportamiento del robot
+>   - Lectura de archivos CSV en Excel/Google Sheets
+>   - Patrones comunes y qué significan
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+>
+> **Video 2: Optimización Basada en Datos**
+> - Duración sugerida: 10-12 minutos
+> - Contenido:
+>   - Caso de estudio: robot oscilando mucho
+>   - Ajuste de parámetros basado en telemetría
+>   - Comparación antes/después (gráficas y video)
+>   - Mejores tiempos de vuelta logrados
+>   - Tips finales para competencias
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+<!-- END ADMIN ONLY -->
+
+---
+
+> **📋 Prerequisitos**: Lección 5.3 (Captura de Datos) - tener datos reales capturados
+
 ---
 
 # Análisis de Ingeniería
@@ -17,17 +47,52 @@ Al observar las gráficas de telemetría, fíjate en:
 
 ## El Dashboard Pro
 
-Para un análisis más profundo de los logs CSV generados por `Potter.py`, utiliza nuestro Dashboard dedicado.
+Para un análisis más profundo de los logs CSV generados por `Plotter.py`, utiliza nuestro Dashboard dedicado.
+
+**Nota**: Esta lección incluye un enlace al Dashboard de Telemetría para cargar y analizar archivos CSV.
 
 ---
 
-<div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-brand-blue/20 to-black border border-brand-blue/20 my-12 text-center">
-    <h3 class="text-2xl font-black text-white mb-4">¿Listo para el análisis de nivel ingeniería?</h3>
-    <p class="text-white/60 mb-8 max-w-lg mx-auto">Carga tus archivos CSV en el Dashboard de Telemetría para desglosar el comportamiento de cada término PID.</p>
-    <a href="/telemetria" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-blue text-black font-black rounded-2xl hover:scale-105 transition-transform active:scale-95">
-        ABRIR DASHBOARD DE ANÁLISIS
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-        </svg>
-    </a>
-</div>
+## Resumen de la Estructura del Curso
+
+### Total de Lecciones: 14
+
+1. **Módulo 1: Introducción** (3 lecciones)
+   - Objetivos del Curso
+   - Lista de Materiales
+   - Reglas de Competencia Jr.
+
+2. **Módulo 2: Diseño** (1 lección)
+   - Diseño del Chasis
+
+3. **Módulo 3: Montaje** (4 lecciones)
+   - Fase 1: Potencia
+   - Fase 2: Sensores
+   - Fase 3: Motores
+   - Fase 4: Interfaz
+
+4. **Módulo 4: Programación** (2 lecciones)
+   - Teoría de Control
+   - Código Base PID
+
+5. **Módulo 5: Telemetría** (4 lecciones)
+   - Hardware Bluetooth
+   - Protocolo de Datos
+   - Captura de Datos
+   - Análisis y Optimización
+
+---
+
+## Notas para Reestructuración
+
+- Los componentes especiales usados en las lecciones:
+  - `MaterialLink` (usado en Lección 1.2)
+  - `DownloadButton` (usado en Lección 5.3)
+  - Enlaces a `/simulador` (en Lección 4.2)
+  - Enlaces a `/telemetria` (en Lección 5.4)
+
+- Cada lección tiene:
+  - `title`: Título de la lección
+  - `order`: Orden numérico (1-14)
+  - `description`: Descripción breve
+  - `slug`: Ruta en formato `modulo/leccion`

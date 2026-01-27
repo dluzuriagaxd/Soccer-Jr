@@ -1,7 +1,48 @@
 ---
-title: "Fase 3: Motores"
-order: 6
-description: "Filtrado de ruido (Caps 104) y control con TB6612FNG."
+title: "Lección 3.3: Fase 3 - Motores"
+order: 7
+description: "Lección 3.3: Fase 3 - Motores"
+---
+
+{/* ADMIN ONLY: VIDEO SECTION */}
+> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+>
+> **Video 1: Soldadura de Capacitores**
+> - Duración sugerida: 10-12 minutos
+> - Contenido:
+>   - Técnica para soldar capacitores 104 (muy pequeños)
+>   - Los 3 capacitores por motor (diagrama y ejecución)
+>   - Trenzado de cables del motor (por qué y cómo)
+>   - Verificación de continuidad con multímetro
+>   - Prueba de ruido: antes vs después de capacitores
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+>
+> **Video 2: Conexión del TB6612FNG**
+> - Duración sugerida: 8-10 minutos
+> - Contenido:
+>   - Diagrama de pines del TB6612FNG explicado
+>   - Conexión paso a paso (STBY, PWM, AIN, BIN)
+>   - Conexión de motores a las salidas A y B
+>   - Carga del código de prueba
+>   - Verificación de dirección de giro
+>   - Prueba de velocidad variable (PWM)
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+>
+> **Video 3: Troubleshooting Motores**
+> - Duración sugerida: 5-6 minutos
+> - Contenido:
+>   - Motor gira al revés: solución rápida
+>   - Motor no gira: diagnóstico sistemático
+>   - Ruido electromagnético persistente (más capacitores)
+>   - Driver se calienta mucho: posibles causas
+>   - Verificación de voltaje con multímetro
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+{/* END ADMIN ONLY */}
+
+---
+
+> **📋 Prerequisitos**: Haber completado Lecciones 3.1 (Potencia) y 3.2 (Sensores)
+
 ---
 
 # Propulsión y Filtrado
@@ -20,8 +61,140 @@ Debes soldar **3 capacitores cerámicos (104)** por cada motor de la siguiente m
 ## El Driver TB6612FNG
 Conecta las salidas A y B del driver a tus motores. A diferencia del L298N, este driver no desperdicia energía en calor, enviando toda la potencia de la batería de 9V directamente a las ruedas.
 
-## Prueba de Fuego
-Crea una función simple `Motores(int vel_izq, int vel_der)` y verifica que al enviar valores positivos, el robot avance. 
+## Código Completo hasta Ahora
 
-> [!DEBUG]
-> **¿Gira al revés?** No desoldes nada. Simplemente invierte los cables en las terminales del driver o cambia la polaridad en tu función de código.
+Ahora agregamos el control de motores a nuestro código. Este ya incluye `blink()` y el sistema QTR de las fases anteriores:
+
+```cpp
+#include <QTRSensors.h>
+
+// --- Pines Puente H (TB6612FNG) ---
+// Definiciones exactas de LFR-Telemetry.ino
+#define STBY 7
+// Motor izquierdo
+#define PWMA 5
+#define AIN1 6
+#define AIN2 4
+// Motor derecho
+#define PWMB 10
+#define BIN1 8
+#define BIN2 9
+
+// --- Función Blink (Confirmación Visual) ---
+void blink() {
+  for(int i=0; i<5; i++){
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(200);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(200);
+  }
+}
+
+// --- Sensores QTR ---
+QTRSensors qtr;
+const uint8_t SensorCount = 8;
+uint16_t sensorValues[SensorCount];
+
+// --- Funciones de Control de Motores ---
+void MotorIzquierdo(int velocidad) {
+  analogWrite(PWMA, constrain(velocidad, 0, 255));
+}
+
+void MotorDerecho(int velocidad) {
+  analogWrite(PWMB, constrain(velocidad, 0, 255));
+}
+
+void Motores(int velDer, int velIzq) {
+  MotorDerecho(velDer);
+  MotorIzquierdo(velIzq);
+}
+
+void setup() {
+  // Configuración de pines
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(STBY, OUTPUT);
+  pinMode(PWMA, OUTPUT);
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(PWMB, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
+  
+  // Inicializar comunicación serial
+  Serial.begin(115200);
+  
+  // 1. Secuencia inicial
+  blink();
+  
+  // 2. Configuración de sensores QTR
+  qtr.setTypeRC();
+  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
+  
+  // 3. Calibración
+  digitalWrite(LED_BUILTIN, HIGH);
+  for (uint16_t i = 0; i < 400; i++) {
+    qtr.calibrate();
+  }
+  digitalWrite(LED_BUILTIN, LOW);
+  
+  // 4. Finalización calibración
+  blink();
+  
+  // 5. Activar Motores (configurar dirección)
+  // LFR-Telemetry.ino Setup for Motors:
+  digitalWrite(STBY, HIGH);
+  digitalWrite(AIN1, LOW);   // Motor A: adelante
+  digitalWrite(AIN2, HIGH);
+  digitalWrite(BIN1, LOW);   // Motor B: adelante
+  digitalWrite(BIN2, HIGH);
+}
+
+void loop() {
+  // Leer posición de la línea
+  uint16_t position = qtr.readLineBlack(sensorValues);
+  
+  // Prueba de motores: avanzar a velocidad media si detecta línea
+  // Simple logic for testing:
+  if(position > 0 && position < 7000) {
+      Motores(100, 100); // Avanzar despacio
+  } else {
+      Motores(0, 0); // Parar si no ve línea
+  }
+  
+  delay(100);
+}
+```
+
+### Explicación del Código de Motores
+
+**Definición de Pines:**
+- `STBY`: Pin de standby (debe estar en HIGH para que el driver funcione)
+- `PWMA` y `PWMB`: Control de velocidad (PWM) para cada motor
+- `AIN1/AIN2` y `BIN1/BIN2`: Control de dirección de cada motor
+
+**Funciones de Control:**
+- `MotorDerecho(velocidad)`: Controla solo el motor derecho (0-255)
+- `MotorIzquierdo(velocidad)`: Controla solo el motor izquierdo (0-255)
+- `Motores(velDer, velIzq)`: Controla ambos motores simultáneamente
+- `constrain()`: Asegura que los valores estén entre 0 y 255
+
+**Configuración de Dirección:**
+- `AIN1=LOW, AIN2=HIGH`: Motor A gira hacia adelante
+- `BIN1=LOW, BIN2=HIGH`: Motor B gira hacia adelante
+- Para retroceder, invierte estos valores
+
+### Prueba de Fuego
+
+1. Carga el código
+2. Coloca el robot en el suelo (o eleva las ruedas)
+3. Después de la calibración, los motores deberían girar a velocidad 100
+4. Verifica que ambas ruedas giren en la misma dirección (adelante)
+
+> [!TIP]
+> **¿Por qué funciones separadas?** En el código PID final, necesitaremos ajustar cada motor independientemente para corregir la trayectoria. Crear estas funciones ahora nos facilita la integración posterior.
+
+> [!WARNING]
+> **¿Gira al revés?** No desoldes nada. Simplemente invierte los cables en las terminales del driver o cambia la polaridad en tu función de código (intercambia AIN1 con AIN2 o BIN1 con BIN2).
+
+---
+

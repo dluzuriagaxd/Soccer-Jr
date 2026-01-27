@@ -1,7 +1,39 @@
 ---
-title: "Fase 1: Potencia"
-order: 4
-description: "Montaje del microcontrolador y pruebas de corriente."
+title: "Lección 3.1: Fase 1 - Potencia"
+order: 5
+description: "Lección 3.1: Fase 1 - Potencia"
+---
+
+{/* ADMIN ONLY: VIDEO SECTION */}
+> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+>
+> **Video 1: Soldadura del Interruptor**
+> - Duración sugerida: 8-10 minutos
+> - Contenido:
+>   - Seguridad con el soldador (temperatura, ventilación)
+>   - Técnica de soldadura paso a paso (close-up)
+>   - Soldadura del interruptor al cable rojo
+>   - Verificación con multímetro (continuidad y voltaje)
+>   - Troubleshooting: cortocircuitos comunes y cómo detectarlos
+>   - Aislamiento con termoretráctil
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+>
+> **Video 2: Carga del Código Blink**
+> - Duración sugerida: 5-6 minutos
+> - Contenido:
+>   - Instalación del Arduino IDE (si no lo tienen)
+>   - Selección de placa (Arduino Nano) y puerto COM
+>   - Explicación del código blink() línea por línea
+>   - Proceso de carga (compilación y upload)
+>   - Verificación del parpadeo del LED
+>   - Qué hacer si no funciona (driver CH340, puerto incorrecto)
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+{/* END ADMIN ONLY */}
+
+---
+
+> **📋 Prerequisitos**: Ninguno (primera lección práctica)
+
 ---
 
 # Gestión de Energía
@@ -13,25 +45,38 @@ En esta fase, prepararemos el sistema eléctrico base.
 2.  **Preparación de la Batería**: Suelda el **interruptor basculante** al cable rojo (positivo) del broche de batería de 9V. 
 3.  **Conexión**: El cable rojo del interruptor va a la entrada **VIN** del Shield, y el negro a **GND**.
 
-## Prueba de Verificación: Blink
+## Prueba de Verificación: Función Blink
+
+Esta función no es solo un "Hola Mundo". La usaremos a lo largo del código final para confirmar visualmente diferentes etapas (inicio, fin de calibración, etc.). Por eso la creamos como una función reutilizable desde el principio.
+
 Carga el siguiente código para asegurar que la placa recibe corriente estable:
 
 ```cpp
+// Función Blink (Confirmación Visual)
+void blink() {
+  for(int i=0; i<5; i++){
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(200);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(200);
+  }
+}
+
 void setup() {
-  pinMode(13, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  blink(); // Llamar la función al iniciar
 }
 
 void loop() {
-  // Parpadear 5 veces rído para confirmar energía
-  for(int i=0; i<5; i++){
-    digitalWrite(13, HIGH);
-    delay(100);
-    digitalWrite(13, LOW);
-    delay(100);
-  }
-  delay(1000); // Esperar un segundo antes de repetir
+  // Vacío por ahora
 }
 ```
 
-> [!DEBUG]
+> [!TIP]
+> **¿Por qué una función?** En el código final, llamaremos `blink()` después de la calibración de sensores para confirmar que el robot está listo. Crear funciones reutilizables desde el inicio es una buena práctica de programación.
+
+> [!WARNING]
 > **¿No parpadea?** Verifica con un multímetro que lleguen 9V a los pines del Shield. Si el Arduino calienta mucho, desconecta de inmediato: podría haber un cortocircuito en las soldaduras del interruptor.
+
+---
+

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador: El Péndulo (Solo P)</title>
+
+    <!-- Modern Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Outfit:wght@400;700;900&family=JetBrains+Mono:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #020617;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-gradient: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+            --success-gradient: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+            --grid-color: rgba(255, 255, 255, 0.03);
+            --panel-bg: rgba(15, 23, 42, 0.85);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            user-select: none;
+        }
+
+        /* Main Layout: Flex Row */
+        .main-area {
+            flex: 1;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Canvas Container (Left) */
+        .canvas-container {
+            flex: 1;
+            position: relative;
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        /* Graph Panel (Right) */
+        .graph-panel {
+            width: 350px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .graph-header {
+            padding: 15px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .graph-legend {
+            display: flex;
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .dot-err {
+            background: #f97316;
+            box-shadow: 0 0 5px #f97316;
+        }
+
+        .dot-pos {
+            background: #3b82f6;
+            box-shadow: 0 0 5px #3b82f6;
+        }
+
+        .dot-sp {
+            background: #10b981;
+            opacity: 0.5;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Controls Panel */
+        .controls {
+            height: auto;
+            min-height: 220px;
+            background: var(--panel-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border-color);
+            padding: 20px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1.8fr 1fr;
+            gap: 30px;
+            align-items: center;
+            box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .control-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .block-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        /* Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            background: transparent;
+            margin: 10px 0;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            height: 28px;
+            width: 28px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            border: 3px solid #fff;
+            cursor: grab;
+            -webkit-appearance: none;
+            margin-top: -10px;
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.5);
+            transition: transform 0.2s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .slider-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Equation/Metrics */
+        .equation-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .eq-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .metric {
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .metric-val {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .metric-val.large {
+            font-size: 24px;
+        }
+
+        .val-p {
+            color: #f97316;
+        }
+
+        /* Orange */
+        .val-err {
+            color: #ef4444;
+        }
+
+        /* Red */
+        .val-adj {
+            color: #10b981;
+        }
+
+        /* Green */
+        .val-pos {
+            color: #3b82f6;
+        }
+
+        /* Blue */
+        .val-set {
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        .math-sym {
+            color: var(--text-muted);
+            font-size: 16px;
+            opacity: 0.5;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button.action-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        button.action-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        button.action-btn.primary {
+            background: var(--accent-gradient);
+            border: none;
+            box-shadow: 0 5px 20px rgba(249, 115, 22, 0.3);
+        }
+
+        button.action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+        }
+
+        /* Status Pill */
+        .status-pill {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            z-index: 100;
+        }
+
+        .warn-msg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(220, 38, 38, 0.9);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-weight: 900;
+            font-size: 24px;
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.4);
+            display: none;
+            z-index: 200;
+            backdrop-filter: blur(4px);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 900px) {
+            .main-area {
+                flex-direction: column;
+            }
+
+            .graph-panel {
+                width: 100%;
+                height: 200px;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .controls {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                height: auto;
+                padding-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-area">
+        <div class="canvas-container">
+            <canvas id="simCanvas"></canvas>
+            <div class="status-pill">El Péndulo (P-Only)</div>
+            <div id="warnMsg" class="warn-msg">¡SALIDA DE PISTA!</div>
+
+            <!-- Back Button -->
+            <a href="javascript:history.back()"
+                style="position:absolute; top:20px; left:20px; background:rgba(255,255,255,0.1); padding:8px 16px; border-radius:20px; color:#fff; text-decoration:none; font-size:12px; font-weight:700; backdrop-filter:blur(5px); border:1px solid rgba(255,255,255,0.1); z-index:100;">
+                ← VOLVER
+            </a>
+        </div>
+
+        <div class="graph-panel">
+            <div class="graph-header">
+                <span>Historial</span>
+                <div class="graph-legend">
+                    <div class="legend-item">
+                        <div class="dot dot-err"></div> Error
+                    </div>
+                    <div class="legend-item">
+                        <div class="dot dot-pos"></div> Pos
+                    </div>
+                </div>
+            </div>
+            <div style="flex:1; position:relative;">
+                <canvas id="graphCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <!-- KP Slider -->
+        <div class="control-block">
+            <div class="block-title">Control Proporcional (Kp)</div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:12px; color:var(--text-muted);">SUAVE (0.01)</span>
+                <span class="slider-val" id="dispKp">0.05</span>
+                <span style="font-size:12px; color:var(--text-muted);">OSCILA (0.5)</span>
+            </div>
+            <input type="range" id="kpSlider" min="0.01" max="0.5" step="0.01" value="0.05">
+            <div style="font-size: 11px; color:var(--text-muted); line-height:1.4;">
+                Aumenta Kp para reaccionar más rápido. <br>Si es muy alto, el robot "pendulará".
+            </div>
+        </div>
+
+        <!-- The Equation -->
+        <div class="control-block">
+            <div class="block-title" style="text-align:center;">CÁLCULO EN TIEMPO REAL</div>
+            <div class="equation-box">
+                <!-- Row 1: Error Calc -->
+                <div class="eq-row"
+                    style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 5px;">
+                    <div class="metric">
+                        <div class="metric-label">ERROR</div>
+                        <div class="metric-val val-err large" id="dispErrCalc">0</div>
+                    </div>
+                    <div class="math-sym">=</div>
+                    <div class="metric">
+                        <div class="metric-label">SETPOINT</div>
+                        <div class="metric-val val-set" id="dispSet">3500</div>
+                    </div>
+                    <div class="math-sym">-</div>
+                    <div class="metric">
+                        <div class="metric-label">POSICIÓN</div>
+                        <div class="metric-val val-pos" id="dispPos">3500</div>
+                    </div>
+                </div>
+
+                <!-- Row 2: PID Output -->
+                <div class="eq-row">
+                    <div class="metric">
+                        <div class="metric-label">AJUSTE</div>
+                        <div class="metric-val val-adj large" id="dispAdj">0</div>
+                    </div>
+                    <div class="math-sym">=</div>
+                    <div class="metric">
+                        <div class="metric-label">Kp</div>
+                        <div class="metric-val val-p" id="dispKpEq">0.05</div>
+                    </div>
+                    <div class="math-sym">×</div>
+                    <div class="metric">
+                        <div class="metric-label">ERROR</div>
+                        <div class="metric-val val-err" id="dispErr">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="control-block">
+            <div class="block-title">SIMULACIÓN</div>
+            <div class="btn-group">
+                <button class="action-btn primary" id="btnPlay" onclick="toggleSim()">▶ PAUSAR</button>
+                <button class="action-btn" onclick="stepSim()">⏯ PASO</button>
+                <button class="action-btn" onclick="resetSim()">↺ RESET</button>
+            </div>
+            <div
+                style="margin-top:10px; display:flex; justify-content:space-between; font-size:11px; color:var(--text-muted);">
+                <span>Vel. Base: 150</span>
+                <span>Inercia: 0.95</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONSTANTS & CONFIG ---
+        const PPM = 10;
+        const SVG_SCALE = 0.25;
+        const SENSOR_DIST_PX = 598 * SVG_SCALE; // Distance from center to sensors
+        const SENSOR_PITCH = 0.9525 * PPM;
+        const TRACK_WIDTH = 165;
+
+        // --- ASSETS (SVG Paths) ---
+        const svgChassis = new Path2D("M 298.74206,465.05562 V 699.38633 H 128.66332 v 151.1811 H 657.79717 V 699.38633 H 487.71843 V 465.05562 A 11.338583,11.338583 0 0 0 476.37985,453.71704 H 459.37198 V 245.84302 h 94.48819 A 18.897638,18.897638 0 0 0 572.7578,226.94538 V 196.70916 A 18.897638,18.897638 0 0 0 553.86017,177.81153 H 232.60032 a 18.897638,18.897638 0 0 0 -18.89763,18.89763 v 30.23622 a 18.897638,18.897638 0 0 0 18.89763,18.89764 h 94.48819 v 207.87402 h -17.00787 a 11.338583,11.338583 0 0 0 -11.33858,11.33858 z");
+        const svgWheelL = new Path2D("M 15.277486,933.71699 H 109.76568 V 688.04775 H 15.277486 Z");
+        const svgWheelR = new Path2D("M 676.69481,688.04775 V 933.71699 H 771.183 V 688.04775 Z");
+
+        // --- STATE ---
+        let sim = {
+            running: true,
+            dt: 0.016, // 60fps
+            kp: 0.05,
+            baseVel: 150
+        };
+
+        // Physics Parameters (from simulator.html default)
+        let phys = {
+            power: 1.0,     // Linear Speed Multiplier
+            turn: 0.9,      // Turning Sensitivity (0.9)
+            inertia: 0.95   // 0.95 = Heavy Lag (Simulates true system response)
+        };
+
+        let bot = {
+            x: 600,
+            y: 100,
+            ang: Math.PI,
+            vL: 0,
+            vR: 0,
+            pos: 3500,
+            err: 0,
+            sensors: [0, 0, 0, 0, 0, 0, 0, 0]
+        };
+
+        let history = {
+            err: [],
+            pos: [],
+            maxLen: 300
+        };
+
+        // --- CANVAS SETUP ---
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const gCanvas = document.getElementById('graphCanvas');
+        const gCtx = gCanvas.getContext('2d');
+
+        // Offscreen canvas for track
+        const trackCanvas = document.createElement('canvas');
+        const trackCtx = trackCanvas.getContext('2d', { willReadFrequently: true });
+
+        // --- UI ELEMENTS ---
+        const dispKp = document.getElementById('dispKp');
+        const dispKpEq = document.getElementById('dispKpEq');
+        const dispErr = document.getElementById('dispErr');
+        const dispErrCalc = document.getElementById('dispErrCalc');
+        const dispPos = document.getElementById('dispPos');
+        const dispAdj = document.getElementById('dispAdj');
+        const slider = document.getElementById('kpSlider');
+        const btnPlay = document.getElementById('btnPlay');
+        const warnMsg = document.getElementById('warnMsg');
+
+        // --- INITIALIZATION ---
+        function init() {
+            resize();
+            window.addEventListener('resize', resize);
+            drawTrackStatic(trackCtx);
+            loop();
+        }
+
+        // --- RESPONSIVE SCALING ---
+        let scaleToFit = 1.0;
+        let transX = 0;
+        let transY = 0;
+
+        function resize() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+
+            gCanvas.width = gCanvas.parentElement.clientWidth;
+            gCanvas.height = gCanvas.parentElement.clientHeight;
+
+            // Track Dimensions
+            const trackW = 1200;
+            const trackH = 800;
+
+            // Calculate Scale to Fit
+            let scaleX = canvas.width / trackW;
+            let scaleY = canvas.height / trackH;
+            scaleToFit = Math.min(scaleX, scaleY) * 0.95; // 95% fit margin
+
+            // Center
+            transX = (canvas.width - (trackW * scaleToFit)) / 2;
+            transY = (canvas.height - (trackH * scaleToFit)) / 2 + (50 * scaleToFit);
+
+            trackCanvas.width = trackW;
+            trackCanvas.height = trackH;
+            drawTrackStatic(trackCtx);
+        }
+
+        function drawTrackStatic(ctx) {
+            let w = ctx.canvas.width;
+            let h = ctx.canvas.height;
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(0, 0, w, h);
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = 2.0 * PPM;
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = 'rgba(255,255,255,0.5)';
+            ctx.strokeStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.moveTo(900, 100);
+            ctx.lineTo(300, 100);
+            ctx.bezierCurveTo(100, 100, 100, 400, 300, 400);
+            ctx.lineTo(500, 400);
+            ctx.bezierCurveTo(600, 400, 600, 600, 800, 600);
+            ctx.bezierCurveTo(1100, 600, 1100, 100, 900, 100);
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        }
+
+        // --- LOGIC ---
+        function update() {
+            sim.kp = parseFloat(slider.value);
+
+            readSensors();
+
+            let setpoint = 3500;
+            let sum = bot.sensors.reduce((a, b) => a + b, 0);
+            if (sum < 500) {
+                warnMsg.style.display = 'block';
+            } else {
+                warnMsg.style.display = 'none';
+            }
+
+            bot.err = bot.pos - setpoint;
+
+            let adj = sim.kp * bot.err;
+            if (adj > sim.baseVel) adj = sim.baseVel;
+            if (adj < -sim.baseVel) adj = -sim.baseVel;
+
+            let targetL = sim.baseVel - adj;
+            let targetR = sim.baseVel + adj;
+
+            // --- REALISTIC PHYSICS (Based on simulator.html) ---
+            // Inertia Filter
+            // k=1.0 -> Instant (No inertia)
+            // k=0.01 -> Heavy Lag
+            let k = 1.0 - phys.inertia;
+            if (k < 0.01) k = 0.01;
+
+            bot.vL = bot.vL * (1 - k) + targetL * k;
+            bot.vR = bot.vR * (1 - k) + targetR * k;
+
+            // Kinematics
+            let maxSpeedPx = (80 * PPM) * phys.power; // 800 px/s base
+            let vL_px = (bot.vL / 255) * maxSpeedPx;
+            let vR_px = (bot.vR / 255) * maxSpeedPx;
+
+            let vLin = (vL_px + vR_px) / 2;
+
+            // Turn Physics
+            // vAng = (Diff / TrackWidth) * Sensitivity
+            let vAng = ((vR_px - vL_px) / TRACK_WIDTH) * phys.turn;
+
+            bot.ang += vAng * sim.dt;
+            bot.x += Math.cos(bot.ang) * vLin * sim.dt;
+            bot.y += Math.sin(bot.ang) * vLin * sim.dt;
+
+            // History
+            history.err.push(bot.err);
+            history.pos.push(bot.pos);
+            if (history.err.length > history.maxLen) {
+                history.err.shift();
+                history.pos.shift();
+            }
+        }
+
+        function readSensors() {
+            let width = 7 * SENSOR_PITCH;
+            let startY = -width / 2;
+            let cx = Math.cos(bot.ang);
+            let cy = Math.sin(bot.ang);
+            let num = 0, den = 0;
+            for (let i = 0; i < 8; i++) {
+                let lat = startY + (i * SENSOR_PITCH);
+                let sx = bot.x + (SENSOR_DIST_PX * cx) + (lat * -cy);
+                let sy = bot.y + (SENSOR_DIST_PX * cy) + (lat * cx);
+                let val = 0;
+                if (sx > 0 && sx < trackCanvas.width && sy > 0 && sy < trackCanvas.height) {
+                    let p = trackCtx.getImageData(Math.floor(sx), Math.floor(sy), 1, 1).data;
+                    if (p[0] > 100) val = 1000;
+                }
+                bot.sensors[i] = val;
+                if (val > 0) { num += val * (i * 1000); den += val; }
+            }
+            if (den > 0) bot.pos = num / den;
+        }
+
+        // --- DRAWING ---
+        function draw() {
+            let w = canvas.width;
+            let h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            ctx.save();
+
+            // VIEW TRANSFORM
+            ctx.translate(transX, transY);
+            ctx.scale(scaleToFit, scaleToFit);
+
+            // 1. Draw Track (Static Image)
+            ctx.drawImage(trackCanvas, 0, 0);
+
+            // 2. Draw Robot (Moving)
+            ctx.save();
+            ctx.translate(bot.x, bot.y);
+            ctx.rotate(bot.ang + Math.PI / 2); // Visual fix: SVG is UP, 0 rad is Right. 
+            // Wait, SVG Chassis is Vertical (UP).
+            // If bot.ang = 0 (Right), we need to rotate +90?
+            // Let's verify standard. Usually mathematical 0 is X+.
+            // If robot logic moves X+ with cos(0), it moves Right.
+            // If SVG is drawn Upright, we must rotate +90.
+
+            ctx.scale(SVG_SCALE, SVG_SCALE);
+            ctx.translate(-393, -810); // Center SVG
+
+            ctx.fillStyle = '#f97316';
+            ctx.fill(svgWheelL);
+            ctx.fill(svgWheelR);
+            ctx.fillStyle = 'rgba(26,26,26,0.95)';
+            ctx.strokeStyle = '#f97316';
+            ctx.lineWidth = 4;
+            ctx.fill(svgChassis);
+            ctx.stroke(svgChassis);
+
+            // Sensors
+            let wS = (7 * SENSOR_PITCH) / SVG_SCALE;
+            let sensY = 212;
+            let sensX = 393;
+
+            for (let i = 0; i < 8; i++) {
+                let lat = (-wS / 2) + (i * SENSOR_PITCH / SVG_SCALE);
+                let isActive = bot.sensors[i] > 500;
+                ctx.beginPath();
+                ctx.arc(sensX + lat, sensY, 15, 0, Math.PI * 2);
+                ctx.fillStyle = isActive ? '#f97316' : '#334155';
+                ctx.fill();
+                if (isActive) {
+                    ctx.shadowColor = '#f97316';
+                    ctx.shadowBlur = 20;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+            ctx.restore();
+            ctx.restore();
+
+            drawGraph();
+            updateUI();
+        }
+
+        function drawGraph() {
+            let w = gCanvas.width;
+            let h = gCanvas.height;
+            // 1. Background
+            gCtx.fillStyle = '#0b1121';
+            gCtx.fillRect(0, 0, w, h);
+
+            // 2. Grid
+            gCtx.strokeStyle = '#1e293b';
+            gCtx.lineWidth = 1;
+            gCtx.beginPath();
+
+            // Horizontal (Quarter lines)
+            for (let i = 0; i <= 4; i++) {
+                let y = h * (i / 4);
+                gCtx.moveTo(0, y); gCtx.lineTo(w, y);
+            }
+            // Vertical 
+            for (let i = 0; i <= 10; i++) {
+                let x = w * (i / 10);
+                gCtx.moveTo(x, 0); gCtx.lineTo(x, h);
+            }
+            gCtx.stroke();
+
+            // 3. Center Line (Setpoint = 0) - Bright Cyan (or Green)
+            gCtx.save();
+            gCtx.strokeStyle = '#22d3ee'; // Cyan-400
+            gCtx.lineWidth = 2;
+            gCtx.shadowColor = '#22d3ee';
+            gCtx.shadowBlur = 10;
+            gCtx.beginPath();
+            gCtx.moveTo(0, h / 2); gCtx.lineTo(w, h / 2);
+            gCtx.stroke();
+            gCtx.restore();
+
+            // 4. Labels
+            gCtx.fillStyle = '#64748b';
+            gCtx.font = "10px Inter, sans-serif";
+            gCtx.textAlign = "right";
+            gCtx.fillText("+3500", w - 5, 12);
+            gCtx.fillText("0", w - 5, h / 2 - 5);
+            gCtx.fillText("-3500", w - 5, h - 5);
+
+            if (history.err.length < 2) return;
+
+            // 5. Error Trace (Neon Magenta)
+            // Range: -3500 (Bottom) to +3500 (Top). 
+            // NOTE: In canvas Y goes down. So +3500 should be Top (Y=0)? Or Bottom?
+            // Usually Key: "Error > 0 means Robot is Right of Line".
+            // Let's map +3500 to Top (0) and -3500 to Bottom (h).
+            // y = h/2 - (val / 3500) * (h/2)
+
+            gCtx.save();
+            gCtx.beginPath();
+            let step = w / history.maxLen;
+
+            history.err.forEach((val, i) => {
+                // Clamp for display safety
+                if (val > 3500) val = 3500;
+                if (val < -3500) val = -3500;
+
+                let y = (h / 2) - (val / 3500) * (h / 2);
+                let x = i * step;
+                if (i === 0) gCtx.moveTo(x, y); else gCtx.lineTo(x, y);
+            });
+
+            gCtx.lineJoin = 'round';
+            gCtx.lineWidth = 2;
+            gCtx.strokeStyle = '#d946ef'; // Fuchsia-500 (Neon Magenta)
+            gCtx.shadowColor = '#d946ef'; // Glow
+            gCtx.shadowBlur = 15;
+            gCtx.stroke();
+            gCtx.restore();
+        }
+
+        function updateUI() {
+            let adj = sim.kp * bot.err;
+            dispKp.innerText = sim.kp.toFixed(2);
+            dispKpEq.innerText = sim.kp.toFixed(2);
+            dispErr.innerText = Math.round(bot.err);
+            dispErrCalc.innerText = Math.round(bot.err);
+            dispPos.innerText = Math.round(bot.pos);
+            dispAdj.innerText = Math.round(adj);
+        }
+
+        // --- CONTROL ---
+        function loop() {
+            if (sim.running) update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        function toggleSim() {
+            sim.running = !sim.running;
+            btnPlay.innerText = sim.running ? "▶ PAUSAR" : "▶ INICIAR";
+        }
+
+        function stepSim() {
+            sim.running = false;
+            btnPlay.innerText = "▶ INICIAR";
+            update();
+            draw();
+        }
+
+        function resetSim() {
+            bot.x = 600; bot.y = 100; bot.ang = Math.PI;
+            bot.vL = 0; bot.vR = 0; bot.err = 0; bot.pos = 3500;
+            history.err = []; history.pos = [];
+            sim.running = false;
+            btnPlay.innerText = "▶ INICIAR";
+            warnMsg.style.display = 'none';
+            draw();
+        }
+
+        slider.addEventListener('input', () => {
+            sim.kp = parseFloat(slider.value);
+            draw();
+        });
+
+        init();
+    </script>
+</body>
+
+</html>

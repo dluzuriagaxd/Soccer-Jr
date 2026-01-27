@@ -13,14 +13,14 @@
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Bienvenida al Curso**
 > - Duración sugerida: 5-7 minutos
 > - Contenido:
 >   - Presentación del instructor
->   - Overview del robot final funcionando
+>   - Visión General del robot final funcionando
 >   - Qué hace especial a este curso (enfoque en ingeniería, no solo hobby)
 >   - Motivación: mostrar robots en competencias reales
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
@@ -33,7 +33,7 @@
 >   - Timeline esperado (cuánto tiempo toma cada fase)
 >   - Qué herramientas necesitarán (soldador, multimetro, etc.)
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -69,7 +69,7 @@ El curso está dividido en módulos que siguen el proceso real de desarrollo de 
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Tour de Componentes**
@@ -82,7 +82,7 @@ El curso está dividido en módulos que siguen el proceso real de desarrollo de 
 >   - Alternativas y sustituciones permitidas
 >   - Comparación: componente original vs genérico
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -100,7 +100,7 @@ Para este curso, utilizaremos una selección de componentes de nivel ingeniería
 ## Driver y Tracción
 
 - **Driver TB6612FNG** (MaterialLink: driver-tb6612fng)
-- **Motores TT** (MaterialLink: motores-tt)
+- **Motores TT (Relación 1:48)** (MaterialLink: motores-tt)
 
 ## Energía y Chasis
 
@@ -108,9 +108,9 @@ Para este curso, utilizaremos una selección de componentes de nivel ingeniería
 - **Chasis** (MaterialLink: chasis)
 
 ## Otros Componentes (Imprescindibles)
-*   **Capacitores Cerámicos 104 (x6)**: Para el filtrado de ruido en los motores.
+*   **Capacitores Cerámicos 104 (100nF) (x6)**: Para el filtrado de ruido en los motores.
 *   **Cables Jumper**: Macho-Hembra de varias medidas (10, 15 y 20cm).
-*   **Tornillos de 2mm**: Delgados con tuerca para la fijación del sensor QTR.
+*   **Tornillos M2 x 10mm**: Delgados con tuerca para la fijación del sensor QTR.
 *   **Cinta Aislante**: Para asegurar conectores y evitar cortocircuitos por vibración.
 
 ---
@@ -127,7 +127,7 @@ Para este curso, utilizaremos una selección de componentes de nivel ingeniería
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Introducción a Competencias**
@@ -148,7 +148,7 @@ Para este curso, utilizaremos una selección de componentes de nivel ingeniería
 >   - Tips de veteranos (calibración en pista, manejo de nervios)
 >   - Qué llevar el día de la competencia (checklist)
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -249,7 +249,7 @@ La categoría Junior no se trata solo de ganar, sino de:
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Principios de Diseño Mecánico**
@@ -272,7 +272,7 @@ La categoría Junior no se trata solo de ganar, sino de:
 >   - Exportar archivo SVG para corte láser
 >   - Mostrar el diseño final impreso/cortado
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -306,7 +306,7 @@ Crea una base que cumpla con:
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Soldadura del Interruptor**
@@ -330,7 +330,7 @@ Crea una base que cumpla con:
 >   - Verificación del parpadeo del LED
 >   - Qué hacer si no funciona (driver CH340, puerto incorrecto)
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -358,15 +358,15 @@ Carga el siguiente código para asegurar que la placa recibe corriente estable:
 void blink() {
   for(int i=0; i<5; i++){
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
+    delay(200);
     digitalWrite(LED_BUILTIN, LOW);
-    delay(100);
+    delay(200);
   }
 }
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
-  blink(); // Llamar la función
+  blink(); // Llamar la función al iniciar
 }
 
 void loop() {
@@ -377,7 +377,7 @@ void loop() {
 > [!TIP]
 > **¿Por qué una función?** En el código final, llamaremos `blink()` después de la calibración de sensores para confirmar que el robot está listo. Crear funciones reutilizables desde el inicio es una buena práctica de programación.
 
-> [!DEBUG]
+> [!WARNING]
 > **¿No parpadea?** Verifica con un multímetro que lleguen 9V a los pines del Shield. Si el Arduino calienta mucho, desconecta de inmediato: podría haber un cortocircuito en las soldaduras del interruptor.
 
 ---
@@ -388,7 +388,7 @@ void loop() {
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Montaje Mecánico del QTR**
@@ -421,7 +421,7 @@ void loop() {
 >   - Sensor no responde: diagnóstico paso a paso
 >   - Ajuste fino de altura para mejor lectura
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -456,57 +456,84 @@ Este código ya incluye la función `blink()` que creamos en la Fase 1 (Potencia
 ```cpp
 #include <QTRSensors.h>
 
+QTRSensors qtr;
+
+const uint8_t SensorCount = 8;
+uint16_t sensorValues[SensorCount];
+
 // --- Función Blink (Confirmación Visual) ---
 void blink() {
   for(int i=0; i<5; i++){
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
+    delay(200);
     digitalWrite(LED_BUILTIN, LOW);
-    delay(100);
+    delay(200);
   }
 }
 
-// --- Sensores QTR ---
-QTRSensors qtr;
-const uint8_t SensorCount = 8;
-uint16_t sensorValues[SensorCount];
+void setup()
+{
+  // configure the sensors
+  qtr.setTypeRC();
+  // Pines específicos para LFR-Pro (match con LFR-Telemetry.ino)
+  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
 
-void setup() {
-  // Configuración de pines
+  delay(500);
   pinMode(LED_BUILTIN, OUTPUT);
   
-  // Inicializar comunicación serial
-  Serial.begin(115200);
-  
-  // 1. Secuencia inicial
+  // 1. Señal de inicio de calibración
   blink();
-  
-  // 2. Configuración de sensores QTR
-  qtr.setTypeRC();
-  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
-  
-  // 3. Calibración (LED encendido durante el proceso)
-  digitalWrite(LED_BUILTIN, HIGH);
-  for (uint16_t i = 0; i < 400; i++) {
+  digitalWrite(LED_BUILTIN, HIGH); // encender LED durante calibración
+
+  // 2.5 ms RC read timeout (default) * 10 reads per calibrate() call
+  // = ~25 ms per calibrate() call.
+  // Call calibrate() 400 times to make calibration take about 10 seconds.
+  for (uint16_t i = 0; i < 400; i++)
+  {
     qtr.calibrate();
   }
-  digitalWrite(LED_BUILTIN, LOW);
+  digitalWrite(LED_BUILTIN, LOW); // apagar LED al finalizar
   
-  // 4. Finalización calibración
+  // 2. Señal de fin de calibración
   blink();
-  
-  delay(1000); // Pausa antes de empezar a leer
+
+  // print the calibration minimum values measured when emitters were on
+  Serial.begin(9600);
+  for (uint8_t i = 0; i < SensorCount; i++)
+  {
+    Serial.print(qtr.calibrationOn.minimum[i]);
+    Serial.print(' ');
+  }
+  Serial.println();
+
+  // print the calibration maximum values measured when emitters were on
+  for (uint8_t i = 0; i < SensorCount; i++)
+  {
+    Serial.print(qtr.calibrationOn.maximum[i]);
+    Serial.print(' ');
+  }
+  Serial.println();
+  Serial.println();
+  delay(1000);
 }
 
-void loop() {
-  // Leer posición de la línea (0-7000, donde 3500 es el centro)
+void loop()
+{
+  // read calibrated sensor values and obtain a measure of the line position
+  // from 0 to 5000 (for a white line, use readLineWhite() instead)
   uint16_t position = qtr.readLineBlack(sensorValues);
-  
-  // Imprimir posición para debugging
-  Serial.print("Posición: ");
+
+  // print the sensor values as numbers from 0 to 1000, where 0 means maximum
+  // reflectance and 1000 means minimum reflectance, followed by the line
+  // position
+  for (uint8_t i = 0; i < SensorCount; i++)
+  {
+    Serial.print(sensorValues[i]);
+    Serial.print('\t');
+  }
   Serial.println(position);
-  
-  delay(100); // Pequeña pausa para no saturar el Serial Monitor
+
+  delay(250);
 }
 ```
 
@@ -541,7 +568,7 @@ void loop() {
 > - Contraste de la línea (cinta negra mate sobre blanco funciona mejor que brillante)
 > - Iluminación ambiente (evita sombras directas sobre los sensores)
 
-> [!DEBUG]
+> [!WARNING]
 > **¿Valores erráticos?** Revisa si la luz del ambiente le afecta directamente. En competencias bajo sol extremo, es posible que necesites una "visera" o escudo de sombras sobre los sensores.
 
 ---
@@ -552,7 +579,7 @@ void loop() {
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Soldadura de Capacitores**
@@ -585,7 +612,7 @@ void loop() {
 >   - Driver se calienta mucho: posibles causas
 >   - Verificación de voltaje con multímetro
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -617,10 +644,13 @@ Ahora agregamos el control de motores a nuestro código. Este ya incluye `blink(
 #include <QTRSensors.h>
 
 // --- Pines Puente H (TB6612FNG) ---
+// Definiciones exactas de LFR-Telemetry.ino
 #define STBY 7
+// Motor izquierdo
 #define PWMA 5
 #define AIN1 6
 #define AIN2 4
+// Motor derecho
 #define PWMB 10
 #define BIN1 8
 #define BIN2 9
@@ -629,9 +659,9 @@ Ahora agregamos el control de motores a nuestro código. Este ya incluye `blink(
 void blink() {
   for(int i=0; i<5; i++){
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
+    delay(200);
     digitalWrite(LED_BUILTIN, LOW);
-    delay(100);
+    delay(200);
   }
 }
 
@@ -642,11 +672,11 @@ uint16_t sensorValues[SensorCount];
 
 // --- Funciones de Control de Motores ---
 void MotorIzquierdo(int velocidad) {
-  analogWrite(PWMB, constrain(velocidad, 0, 255));
+  analogWrite(PWMA, constrain(velocidad, 0, 255));
 }
 
 void MotorDerecho(int velocidad) {
-  analogWrite(PWMA, constrain(velocidad, 0, 255));
+  analogWrite(PWMB, constrain(velocidad, 0, 255));
 }
 
 void Motores(int velDer, int velIzq) {
@@ -686,7 +716,8 @@ void setup() {
   blink();
   
   // 5. Activar Motores (configurar dirección)
-  digitalWrite(STBY, HIGH);  // Activar driver
+  // LFR-Telemetry.ino Setup for Motors:
+  digitalWrite(STBY, HIGH);
   digitalWrite(AIN1, LOW);   // Motor A: adelante
   digitalWrite(AIN2, HIGH);
   digitalWrite(BIN1, LOW);   // Motor B: adelante
@@ -697,12 +728,13 @@ void loop() {
   // Leer posición de la línea
   uint16_t position = qtr.readLineBlack(sensorValues);
   
-  // Imprimir posición
-  Serial.print("Posición: ");
-  Serial.println(position);
-  
-  // Prueba de motores: avanzar a velocidad media
-  Motores(150, 150);
+  // Prueba de motores: avanzar a velocidad media si detecta línea
+  // Simple logic for testing:
+  if(position > 0 && position < 7000) {
+      Motores(100, 100); // Avanzar despacio
+  } else {
+      Motores(0, 0); // Parar si no ve línea
+  }
   
   delay(100);
 }
@@ -730,13 +762,13 @@ void loop() {
 
 1. Carga el código
 2. Coloca el robot en el suelo (o eleva las ruedas)
-3. Después de la calibración, los motores deberían girar a velocidad 150
+3. Después de la calibración, los motores deberían girar a velocidad 100
 4. Verifica que ambas ruedas giren en la misma dirección (adelante)
 
 > [!TIP]
 > **¿Por qué funciones separadas?** En el código PID final, necesitaremos ajustar cada motor independientemente para corregir la trayectoria. Crear estas funciones ahora nos facilita la integración posterior.
 
-> [!DEBUG]
+> [!WARNING]
 > **¿Gira al revés?** No desoldes nada. Simplemente invierte los cables en las terminales del driver o cambia la polaridad en tu función de código (intercambia AIN1 con AIN2 o BIN1 con BIN2).
 
 ---
@@ -747,7 +779,7 @@ void loop() {
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Implementación del Botón**
@@ -760,7 +792,7 @@ void loop() {
 >   - Prueba del botón (presionar y soltar)
 >   - Integración con el código existente
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -773,7 +805,7 @@ void loop() {
 Un robot que arranca solo es peligroso y difícil de calibrar. Usaremos un **módulo pulsador** conectado al **Pin 11**.
 
 ## Lógica de Control "Esperar y Arrancar"
-Implementaremos una función llamada `Iniciar()` que gestione el flujo de seguridad. El robot debe esperar a que el usuario interactúe antes de encender los motores.
+Implementaremos una función llamada `EsperarBoton()` que gestione el flujo de seguridad. El robot debe esperar a que el usuario interactúe antes de encender los motores.
 
 ### El Algoritmo Correcto
 1.  **Esperar**: Ciclo infinito hasta detectar el botón presionado.
@@ -782,73 +814,183 @@ Implementaremos una función llamada `Iniciar()` que gestione el flujo de seguri
 4.  **Confirmación**: Emitir un sonido (si tienes buzzer) o parpadear el LED y arrancar.
 
 ```cpp
-void Iniciar() {
-  while(digitalRead(11) == HIGH); // Espera presión (asumiendo Pull-up)
-  delay(200);                    // Antirrebote
-  while(digitalRead(11) == LOW);  // Espera a que sueltes
-  delay(500);                    // Tiempo de gracia para retirar la mano
+void EsperarBoton() {
+  while(digitalRead(11) == HIGH); // Espera presión (LOW)
+  delay(50);                      // Antirrebote
+  while(digitalRead(11) == LOW);  // Espera a que sueltes (HIGH)
+  delay(50);                      // Antirrebote
+}
+
+void setup() {
+    pinMode(11, INPUT_PULLUP); // Activar resistencia pull-up interna
+    Serial.begin(115200);      // Velocidad estándar para telemetría
 }
 ```
 
-> [!DEBUG]
+> [!WARNING]
 > **¿Arranca solo?** Revisa si tu pulsador es normalmente abierto o cerrado. Si el robot sale disparado sin tocar nada, invierte la lógica de `HIGH` y `LOW` en el código.
 
 ---
 
 ## Módulo 4: Programación
 
-### Lección 4.1: Teoría de Control
+### Lección 4.1: Teoría de Control (El Cerebro Matemático)
 **Order**: 9  
 **Slug**: `04-programacion/01-teoria-control`
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Fundamentos del PID**
+> **Video 1: Anatomía de un Sistema de Control**
 > - Duración sugerida: 12-15 minutos
 > - Contenido:
->   - Explicación visual de P, I, D con animaciones
->   - Cómo cada término afecta el movimiento del robot
->   - Ejemplos con gráficas (posición vs tiempo)
->   - Comparación: robot sin PID vs con PID (video lado a lado)
->   - Analogías del mundo real (ducha, termostato)
+>   - El concepto de "Lazo Cerrado" explicado con un videojuego.
+>   - Analogías visuales: La liga elástica (P) y el amortiguador de puerta (D).
+>   - Por qué "seguir la línea" es en realidad "minimizar el error".
+>   - Demostración física: Mover un robot con la mano simulando las fuerzas.
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
 >
 > **Video 2: Matemáticas del PID Simplificadas**
 > - Duración sugerida: 8-10 minutos
 > - Contenido:
->   - Cálculo paso a paso con números reales
->   - Ejemplo: posición 2000, setpoint 3500
->   - Cómo se traduce a velocidades de motores
->   - Efecto de Kp y Kd en los cálculos
->   - Pizarra/animación mostrando las fórmulas
+>   - Pizarra digital: Desglose de la fórmula Error = Setpoint - Input.
+>   - Cómo se convierte un número (Error) en voltaje para motores (PWM).
+>   - El problema de la oscilación y cómo la "D" lo soluciona.
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
-> **📋 Prerequisitos**: Haber completado todo el Módulo 3 (Montaje) - el robot debe estar armado
+> **📋 Prerequisitos**: Haber completado el Módulo 3 (Montaje). Tu robot debe estar listo para recibir órdenes.
 
 ---
 
-# Teoría de Control (PID)
+# Teoría de Control: El Algoritmo PID
 
-El control PID es el algoritmo más utilizado en robótica industrial y de competencia. Su función es calcular la corrección necesaria para que el robot se mantenga sobre la línea.
+Hasta ahora, tu robot es un poco "ciego". Si ve negro, gira; si ve blanco, gira al otro lado. Eso funciona para juguetes, pero para ganar carreras necesitamos algo mejor. Necesitamos que el robot sea inteligente.
 
-## Las Tres Acciones
+Vamos a enseñarle el algoritmo que usan los cohetes de la NASA y los coches autónomos para no chocar: el PID. No te asustes por el nombre, es solo una forma matemática de responder a la pregunta: "¿Qué tan mal voy y cómo lo arreglo?"
 
-1.  **Proporcional (P)**: La corrección es proporcional al error actual. Si el robot está muy lejos de la línea, la corrección es fuerte.
-2.  **Integral (I)**: Acumula el error histórico para eliminar el error de estado estacionario (offset).
-3.  **Derivativo (D)**: Predice la tendencia del error basándose en su velocidad de cambio, amortiguando las oscilaciones.
+## 1. El Concepto de "Error"
+En ingeniería, el robot siempre tiene una meta llamada Setpoint.
 
-## El Lazo Realimentado
+*   **Nuestra Meta (Setpoint)**: 3500 (El centro exacto de la línea).
+*   **Nuestra Realidad (Input)**: Lo que leen los sensores (0 a 7000).
 
-El sistema lee la posición del sensor, calcula la diferencia respecto al centro (Setpoint), y aplica la corrección a los motores. Este ciclo se repite cientos de veces por segundo.
+El Error es la resta entre lo que quieres y lo que tienes:
 
+$$
+Error = Setpoint - PosicionActual
+$$
+
+*   Si el error es 0, ¡felicidades! Vas perfecto.
+*   Si el error es grande, tienes que girar rápido.
+*   Si el error es pequeño, tienes que girar suave.
+
+{/* ADMIN ONLY: SIMULATION ZONE */}
+<div style="width: 100%; height: 500px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
+  <iframe src="/simulations/ojo-matematico.html" style="width: 100%; height: 100%; border: none;"></iframe>
+</div>
+<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
+  <a href="/simulations/ojo-matematico.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
+    ↗ Abrir simulador en pantalla completa
+  </a>
+</div>
+{/* END ADMIN ONLY */}
+
+## 2. Los Tres Entrenadores (P, I, D)
+Para mantener el error en cero, tu robot tiene tres "entrenadores" matemáticos en su cerebro que le gritan órdenes a los motores al mismo tiempo.
+
+### P - El Proporcional (La Liga Elástica)
+
+Su lema: *"¡Cuanto más te alejes, más fuerte te jalo!"*
+
+Imagina que tu robot está atado a la línea con una liga o goma elástica.
+*   Si te alejas poquito, la liga te jala suave.
+*   Si te alejas mucho, la liga te jala con mucha fuerza.
+
+A esto lo llamamos **Kp** (Constante Proporcional). Es la "fuerza" o rigidez de esa liga.
+
+$$
+SalidaP = Error \times Kp
+$$
+
+**El Problema**: Si la liga es muy fuerte (Kp alto), cuando el robot regrese a la línea vendrá tan rápido que... ¡se pasará de largo hacia el otro lado! Y empezará a rebotar de izquierda a derecha sin parar. A esto le llamamos **Oscilación**.
+
+{/* ADMIN ONLY: SIMULATION ZONE */}
 > [!TIP]
-> Un buen ajuste de las constantes Kp, Ki y Kd es la clave para una carrera fluida y rápida.
+> **Título**: Simulador - El Péndulo (Solo P)
+> En una futura actualización, aquí se insertará un simulador interactivo.
+> **Descripción funcional**: Un robot en una pista recta infinita.
+> - El estudiante solo podrá controlar el valor de Kp.
+> - Al subir Kp, verá cómo el robot empieza a oscilar violentamente (zig-zag) alrededor de la línea, demostrando que la acción Proporcional por sí sola es inestable.
+{/* END ADMIN ONLY */}
+
+### D - El Derivativo (El Freno Inteligente)
+
+Su lema: *"¡Cuidado, vas muy rápido! ¡Frena!"*
+
+Este es el entrenador precavido. Él no mira dónde estás, sino a qué velocidad te acercas o te alejas.
+
+Cuando la liga elástica (P) te jala con fuerza hacia la línea, el entrenador (D) dice: *"¡Oye, vas demasiado rápido, vamos a chocar! ¡Pon los frenos!"*.
+
+Su trabajo es evitar que te pases de largo. Actúa como un amortiguador; absorbe los golpes y evita los rebotes.
+
+A esto lo llamamos **Kd** (Constante Derivativa). Matemáticamente, mira la diferencia entre el error de ahora y el error de hace un instante.
+
+$$
+SalidaD = (ErrorActual - ErrorAnterior) \times Kd
+$$
+
+{/* ADMIN ONLY: SIMULATION ZONE */}
+> [!TIP]
+> **Título**: Simulador - El Amortiguador (P + D)
+> En una futura actualización, aquí se insertará un simulador interactivo.
+> **Descripción funcional**: El mismo escenario anterior, pero ahora se habilita el control Kd.
+> - El estudiante deberá agregar Kd a un sistema oscilante.
+> - Visualmente observará cómo las oscilaciones desaparecen y el movimiento se vuelve suave y "magnético" hacia la línea.
+{/* END ADMIN ONLY */}
+
+### I - El Integral (La Memoria)
+
+Su lema: *"¡Llevas mucho tiempo equivocado!"*
+
+Este entrenador tiene memoria. Acumula los errores del pasado.
+
+> [!NOTE]
+> **Nota de Ingeniero**: En robots de carreras muy rápidos (como el tuyo), este entrenador a veces es demasiado lento y "rencoroso" (se queda con el error acumulado y causa choques en las rectas). Por eso, en este curso, dejaremos al entrenador Integral descansando (**Ki = 0**). Nos concentraremos en un control PD perfecto.
+
+## 3. ¿Cómo se convierte esto en movimiento?
+El cerebro de tu Arduino hace este cálculo miles de veces por segundo para decidir la velocidad de cada motor:
+
+1.  Calcula el Error.
+2.  Calcula la Corrección (Suma de P y D).
+3.  Aplica la corrección a los motores (Mezcla Diferencial).
+
+```cpp
+// Fórmula Maestra del PID (Simplificada)
+Correccion = (Error * Kp) + ((Error - ErrorAnterior) * Kd);
+
+// Aplicar a los motores
+Velocidad_Izquierda = Velocidad_Base - Correccion;
+Velocidad_Derecha   = Velocidad_Base + Correccion;
+```
+
+*   Si la corrección es positiva, el motor derecho corre más y el izquierdo frena -> El robot gira a la **Derecha**.
+*   Si la corrección es negativa, sucede lo contrario -> El robot gira a la **Izquierda**.
+
+## 4. Tipos de Respuesta (Sintonización)
+Tu trabajo como ingeniero será encontrar los números perfectos para **Kp** y **Kd**. Verás tres comportamientos en tu robot:
+
+1.  **El "Borracho" (Sub-amortiguado)**: El robot va haciendo "S" sobre la línea.
+    *   *Diagnóstico*: Mucha fuerza (Kp alto) y poco freno (Kd bajo).
+2.  **El "Perezoso" (Sobre-amortiguado)**: El robot ve la curva pero tarda mucho en girar y se sale.
+    *   *Diagnóstico*: Demasiado freno (Kd muy alto) o poca fuerza (Kp bajo).
+3.  **El "Campeón" (Críticamente amortiguado)**: Se pega a la línea como un imán, reacciona rápido pero sin temblar.
+
+¡Prepárate! En la próxima lección escribiremos este código y verás la magia ocurrir.
 
 ---
 
@@ -858,7 +1000,7 @@ El sistema lee la posición del sensor, calcula la diferencia respecto al centro
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Implementación del Código**
@@ -881,7 +1023,7 @@ El sistema lee la posición del sensor, calcula la diferencia respecto al centro
 >   - Uso del Serial Monitor para debugging
 >   - Comparación: antes y después del ajuste
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -933,11 +1075,11 @@ uint16_t sensorValues[SensorCount];
 
 // --- Funciones de Control de Motores ---
 void MotorIzquierdo(int velocidad) {
-  analogWrite(PWMB, constrain(velocidad, 0, 255));
+  analogWrite(PWMA, constrain(velocidad, 0, 255));
 }
 
 void MotorDerecho(int velocidad) {
-  analogWrite(PWMA, constrain(velocidad, 0, 255));
+  analogWrite(PWMB, constrain(velocidad, 0, 255));
 }
 
 void Motores(int velDer, int velIzq) {
@@ -998,7 +1140,9 @@ void loop() {
   float d_term = (error - lastError) * Kd;
   lastError = error;
   
-  // 5. Término Integral (I) - Omitido por ahora
+  // 5. Término Integral (I) - Omitido intencionalmente
+  // En robots de seguimiento rápido, el término integral puede causar "windup" 
+  // (acumulación de error) y oscilaciones lentas. Por ahora lo dejamos en 0.
   float i_term = 0;
   
   // 6. Calcular ajuste total
@@ -1075,7 +1219,7 @@ El éxito del robot depende de encontrar los valores óptimos de `Kp` y `Kd`:
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Fabricación del Mini-Shield**
@@ -1098,7 +1242,7 @@ El éxito del robot depende de encontrar los valores óptimos de `Kp` y `Kd`:
 >   - Verificación de comunicación (enviar/recibir datos)
 >   - Troubleshooting: no se empareja, no envía datos
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -1137,7 +1281,7 @@ Te enseñaremos a fabricar una placa pequeña usando un pedazo de **baquelita pe
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Estructuras Binarias en C**
@@ -1149,7 +1293,7 @@ Te enseñaremos a fabricar una placa pequeña usando un pedazo de **baquelita pe
 >   - Ventajas vs texto ASCII (demostración de velocidad)
 >   - Visualización de bytes en hexadecimal
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -1187,7 +1331,7 @@ struct TelemetryPacket {
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+{/* ADMIN ONLY: VIDEO SECTION */}
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Código Final Completo**
@@ -1210,7 +1354,7 @@ struct TelemetryPacket {
 >   - Guardado de archivos CSV
 >   - Troubleshooting: no recibe datos, gráficas erráticas
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+{/* END ADMIN ONLY */}
 
 ---
 
@@ -1259,6 +1403,14 @@ int setPoint = 3500;
 int VelMax = 200; 
 int lastError = 0;
 
+// --- Función EsperarBoton (Seguridad) ---
+void EsperarBoton() {
+  while(digitalRead(11) == HIGH); // Esperar pulsación (LOW)
+  delay(50);                      // Debounce
+  while(digitalRead(11) == LOW);  // Esperar a que se suelte (HIGH)
+  delay(50);                      // Debounce
+}
+
 // --- Función Blink (Confirmación Visual) ---
 void blink() {
   for (int i = 0; i < 5; i++) {
@@ -1276,11 +1428,11 @@ uint16_t sensorValues[SensorCount];
 
 // --- Funciones de Control de Motores ---
 void MotorIzquierdo(int velocidad) {
-  analogWrite(PWMB, constrain(velocidad, 0, 255));
+  analogWrite(PWMA, constrain(velocidad, 0, 255));
 }
 
 void MotorDerecho(int velocidad) {
-  analogWrite(PWMA, constrain(velocidad, 0, 255));
+  analogWrite(PWMB, constrain(velocidad, 0, 255));
 }
 
 void Motores(int velDer, int velIzq) {
@@ -1291,6 +1443,7 @@ void Motores(int velDer, int velIzq) {
 void setup() {
   // Configuración de pines
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(11, INPUT_PULLUP); // Botón de inicio
   pinMode(STBY, OUTPUT);
   pinMode(PWMA, OUTPUT);
   pinMode(AIN1, OUTPUT);
@@ -1302,22 +1455,25 @@ void setup() {
   // Inicializar comunicaciones: Hardware Serial a 115200 (Alta velocidad)
   Serial.begin(115200);
 
-  // 1. Secuencia inicial
-  blink();
+  // 1. ESPERAR PRIMER BOTÓN PARA CALIBRAR
+  EsperarBoton();
 
   // Configuración de sensores
   qtr.setTypeRC();
   qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
 
-  // 2. Calibración
+  // 2. CALIBRACIÓN
   digitalWrite(LED_BUILTIN, HIGH);
   for (uint16_t i = 0; i < 400; i++) {
     qtr.calibrate();
   }
   digitalWrite(LED_BUILTIN, LOW);
 
-  // 3. Finalización calibración
+  // 3. SECUENCIA DE FINALIZACIÓN CALIBRACIÓN
   blink();
+
+  // 4. ESPERAR SEGUNDO BOTÓN PARA ARRANCAR
+  EsperarBoton();
 
   // Activar Motores
   digitalWrite(STBY, HIGH);
@@ -1425,9 +1581,9 @@ Descarga el script de Python oficial e instálalo en tu Arduino Nano. Este códi
 
 **Archivo de descarga**: `/downloads/LFR-Telemetry.ino`
 
-El script `Potter.py` te permitirá visualizar las gráficas en tiempo real y guardar un registro CSV de cada carrera.
+El script `Plotter.py` te permitirá visualizar las gráficas en tiempo real y guardar un registro CSV de cada carrera.
 
-**Archivo de descarga**: `/downloads/Potter.py`
+**Archivo de descarga**: `/downloads/Plotter.py`
 
 ### Requisitos
 Asegúrate de tener instaladas las librerías necesarias ejecutando:
@@ -1484,7 +1640,7 @@ Al observar las gráficas de telemetría, fíjate en:
 
 ## El Dashboard Pro
 
-Para un análisis más profundo de los logs CSV generados por `Potter.py`, utiliza nuestro Dashboard dedicado.
+Para un análisis más profundo de los logs CSV generados por `Plotter.py`, utiliza nuestro Dashboard dedicado.
 
 **Nota**: Esta lección incluye un enlace al Dashboard de Telemetría para cargar y analizar archivos CSV.
 

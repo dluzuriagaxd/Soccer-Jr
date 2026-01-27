@@ -1,7 +1,28 @@
 ---
-title: "Fase 4: Interfaz"
-order: 7
-description: "Lógica de arranque seguro con pulsador."
+title: "Lección 3.4: Fase 4 - Interfaz"
+order: 8
+description: "Lección 3.4: Fase 4 - Interfaz"
+---
+
+{/* ADMIN ONLY: VIDEO SECTION */}
+> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+>
+> **Video 1: Implementación del Botón**
+> - Duración sugerida: 6-8 minutos
+> - Contenido:
+>   - Conexión del pulsador al Pin 11
+>   - Explicación de pull-up interno (INPUT_PULLUP)
+>   - Código de la función Iniciar() línea por línea
+>   - Lógica de antirrebote explicada
+>   - Prueba del botón (presionar y soltar)
+>   - Integración con el código existente
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+{/* END ADMIN ONLY */}
+
+---
+
+> **📋 Prerequisitos**: Haber completado Lecciones 3.1, 3.2 y 3.3 (todo el montaje básico)
+
 ---
 
 # El Botón de Inicio
@@ -9,7 +30,7 @@ description: "Lógica de arranque seguro con pulsador."
 Un robot que arranca solo es peligroso y difícil de calibrar. Usaremos un **módulo pulsador** conectado al **Pin 11**.
 
 ## Lógica de Control "Esperar y Arrancar"
-Implementaremos una función llamada `Iniciar()` que gestione el flujo de seguridad. El robot debe esperar a que el usuario interactúe antes de encender los motores.
+Implementaremos una función llamada `EsperarBoton()` que gestione el flujo de seguridad. El robot debe esperar a que el usuario interactúe antes de encender los motores.
 
 ### El Algoritmo Correcto
 1.  **Esperar**: Ciclo infinito hasta detectar el botón presionado.
@@ -18,13 +39,23 @@ Implementaremos una función llamada `Iniciar()` que gestione el flujo de seguri
 4.  **Confirmación**: Emitir un sonido (si tienes buzzer) o parpadear el LED y arrancar.
 
 ```cpp
-void Iniciar() {
-  while(digitalRead(11) == HIGH); // Espera presión (asumiendo Pull-up)
-  delay(200);                    // Antirrebote
-  while(digitalRead(11) == LOW);  // Espera a que sueltes
-  delay(500);                    // Tiempo de gracia para retirar la mano
+void EsperarBoton() {
+  while(digitalRead(11) == HIGH); // Espera presión (LOW)
+  delay(50);                      // Antirrebote
+  while(digitalRead(11) == LOW);  // Espera a que sueltes (HIGH)
+  delay(50);                      // Antirrebote
+}
+
+void setup() {
+    pinMode(11, INPUT_PULLUP); // Activar resistencia pull-up interna
+    Serial.begin(115200);      // Velocidad estándar para telemetría
 }
 ```
 
-> [!DEBUG]
+> [!WARNING]
 > **¿Arranca solo?** Revisa si tu pulsador es normalmente abierto o cerrado. Si el robot sale disparado sin tocar nada, invierte la lógica de `HIGH` y `LOW` en el código.
+
+---
+
+## Módulo 4: Programación
+

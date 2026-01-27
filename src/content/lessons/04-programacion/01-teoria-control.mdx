@@ -1,22 +1,162 @@
 ---
-title: "Teoría de Control"
-order: 8
-description: "Conceptos básicos de control realimentado y PID."
+title: "Lección 4.1: Teoría de Control (El Cerebro Matemático)"
+order: 9
+description: "Lección 4.1: Teoría de Control (El Cerebro Matemático)"
 ---
 
-# Teoría de Control (PID)
+{/* ADMIN ONLY: VIDEO SECTION */}
+> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+>
+> **Video 1: Anatomía de un Sistema de Control**
+> - Duración sugerida: 12-15 minutos
+> - Contenido:
+>   - El concepto de "Lazo Cerrado" explicado con un videojuego.
+>   - Analogías visuales: La liga elástica (P) y el amortiguador de puerta (D).
+>   - Por qué "seguir la línea" es en realidad "minimizar el error".
+>   - Demostración física: Mover un robot con la mano simulando las fuerzas.
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+>
+> **Video 2: Matemáticas del PID Simplificadas**
+> - Duración sugerida: 8-10 minutos
+> - Contenido:
+>   - Pizarra digital: Desglose de la fórmula Error = Setpoint - Input.
+>   - Cómo se convierte un número (Error) en voltaje para motores (PWM).
+>   - El problema de la oscilación y cómo la "D" lo soluciona.
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+{/* END ADMIN ONLY */}
 
-El control PID es el algoritmo más utilizado en robótica industrial y de competencia. Su función es calcular la corrección necesaria para que el robot se mantenga sobre la línea.
+---
 
-## Las Tres Acciones
+> **📋 Prerequisitos**: Haber completado el Módulo 3 (Montaje). Tu robot debe estar listo para recibir órdenes.
 
-1.  **Proporcional (P)**: La corrección es proporcional al error actual. Si el robot está muy lejos de la línea, la corrección es fuerte.
-2.  **Integral (I)**: Acumula el error histórico para eliminar el error de estado estacionario (offset).
-3.  **Derivativo (D)**: Predice la tendencia del error basándose en su velocidad de cambio, amortiguando las oscilaciones.
+---
 
-## El Lazo Reaslimentado
+# Teoría de Control: El Algoritmo PID
 
-El sistema lee la posición del sensor, calcula la diferencia respecto al centro (Setpoint), y aplica la corrección a los motores. Este ciclo se repite cientos de veces por segundo.
+Hasta ahora, tu robot es un poco "ciego". Si ve negro, gira; si ve blanco, gira al otro lado. Eso funciona para juguetes, pero para ganar carreras necesitamos algo mejor. Necesitamos que el robot sea inteligente.
 
+Vamos a enseñarle el algoritmo que usan los cohetes de la NASA y los coches autónomos para no chocar: el PID. No te asustes por el nombre, es solo una forma matemática de responder a la pregunta: "¿Qué tan mal voy y cómo lo arreglo?"
+
+## 1. El Concepto de "Error"
+En ingeniería, el robot siempre tiene una meta llamada Setpoint.
+
+*   **Nuestra Meta (Setpoint)**: 3500 (El centro exacto de la línea).
+*   **Nuestra Realidad (Input)**: Lo que leen los sensores (0 a 7000).
+
+El Error es la resta entre lo que quieres y lo que tienes:
+
+$$
+Error = Setpoint - PosicionActual
+$$
+
+*   Si el error es 0, ¡felicidades! Vas perfecto.
+*   Si el error es grande, tienes que girar rápido.
+*   Si el error es pequeño, tienes que girar suave.
+
+{/* ADMIN ONLY: SIMULATION ZONE */}
+<div style="width: 100%; height: 500px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
+  <iframe src="/simulations/ojo-matematico.html" style="width: 100%; height: 100%; border: none;"></iframe>
+</div>
+<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
+  <a href="/simulations/ojo-matematico.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
+    ↗ Abrir simulador en pantalla completa
+  </a>
+</div>
+{/* END ADMIN ONLY */}
+
+## 2. Los Tres Entrenadores (P, I, D)
+Para mantener el error en cero, tu robot tiene tres "entrenadores" matemáticos en su cerebro que le gritan órdenes a los motores al mismo tiempo.
+
+### P - El Proporcional (La Liga Elástica)
+
+Su lema: *"¡Cuanto más te alejes, más fuerte te jalo!"*
+
+Imagina que tu robot está atado a la línea con una liga o goma elástica.
+*   Si te alejas poquito, la liga te jala suave.
+*   Si te alejas mucho, la liga te jala con mucha fuerza.
+
+A esto lo llamamos **Kp** (Constante Proporcional). Es la "fuerza" o rigidez de esa liga.
+
+$$
+SalidaP = Error \times Kp
+$$
+
+**El Problema**: Si la liga es muy fuerte (Kp alto), cuando el robot regrese a la línea vendrá tan rápido que... ¡se pasará de largo hacia el otro lado! Y empezará a rebotar de izquierda a derecha sin parar. A esto le llamamos **Oscilación**.
+
+{/* ADMIN ONLY: SIMULATION ZONE */}
+<div style="width: 100%; height: 600px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
+  <iframe src="/simulations/pendulo-p.html" style="width: 100%; height: 100%; border: none;"></iframe>
+</div>
+<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
+  <a href="/simulations/pendulo-p.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
+    ↗ Abrir "El Péndulo" en pantalla completa
+  </a>
+</div>
+{/* END ADMIN ONLY */}
+
+### D - El Derivativo (El Freno Inteligente)
+
+Su lema: *"¡Cuidado, vas muy rápido! ¡Frena!"*
+
+Este es el entrenador precavido. Él no mira dónde estás, sino a qué velocidad te acercas o te alejas.
+
+Cuando la liga elástica (P) te jala con fuerza hacia la línea, el entrenador (D) dice: *"¡Oye, vas demasiado rápido, vamos a chocar! ¡Pon los frenos!"*.
+
+Su trabajo es evitar que te pases de largo. Actúa como un amortiguador; absorbe los golpes y evita los rebotes.
+
+A esto lo llamamos **Kd** (Constante Derivativa). Matemáticamente, mira la diferencia entre el error de ahora y el error de hace un instante.
+
+$$
+SalidaD = (ErrorActual - ErrorAnterior) \times Kd
+$$
+
+{/* ADMIN ONLY: SIMULATION ZONE */}
 > [!TIP]
-> Un buen ajuste de las constantes Kp, Ki y Kd es la clave para una carrera fluida y rápida.
+> **Título**: Simulador - El Amortiguador (P + D)
+> En una futura actualización, aquí se insertará un simulador interactivo.
+> **Descripción funcional**: El mismo escenario anterior, pero ahora se habilita el control Kd.
+> - El estudiante deberá agregar Kd a un sistema oscilante.
+> - Visualmente observará cómo las oscilaciones desaparecen y el movimiento se vuelve suave y "magnético" hacia la línea.
+{/* END ADMIN ONLY */}
+
+### I - El Integral (La Memoria)
+
+Su lema: *"¡Llevas mucho tiempo equivocado!"*
+
+Este entrenador tiene memoria. Acumula los errores del pasado.
+
+> [!NOTE]
+> **Nota de Ingeniero**: En robots de carreras muy rápidos (como el tuyo), este entrenador a veces es demasiado lento y "rencoroso" (se queda con el error acumulado y causa choques en las rectas). Por eso, en este curso, dejaremos al entrenador Integral descansando (**Ki = 0**). Nos concentraremos en un control PD perfecto.
+
+## 3. ¿Cómo se convierte esto en movimiento?
+El cerebro de tu Arduino hace este cálculo miles de veces por segundo para decidir la velocidad de cada motor:
+
+1.  Calcula el Error.
+2.  Calcula la Corrección (Suma de P y D).
+3.  Aplica la corrección a los motores (Mezcla Diferencial).
+
+```cpp
+// Fórmula Maestra del PID (Simplificada)
+Correccion = (Error * Kp) + ((Error - ErrorAnterior) * Kd);
+
+// Aplicar a los motores
+Velocidad_Izquierda = Velocidad_Base - Correccion;
+Velocidad_Derecha   = Velocidad_Base + Correccion;
+```
+
+*   Si la corrección es positiva, el motor derecho corre más y el izquierdo frena -> El robot gira a la **Derecha**.
+*   Si la corrección es negativa, sucede lo contrario -> El robot gira a la **Izquierda**.
+
+## 4. Tipos de Respuesta (Sintonización)
+Tu trabajo como ingeniero será encontrar los números perfectos para **Kp** y **Kd**. Verás tres comportamientos en tu robot:
+
+1.  **El "Borracho" (Sub-amortiguado)**: El robot va haciendo "S" sobre la línea.
+    *   *Diagnóstico*: Mucha fuerza (Kp alto) y poco freno (Kd bajo).
+2.  **El "Perezoso" (Sobre-amortiguado)**: El robot ve la curva pero tarda mucho en girar y se sale.
+    *   *Diagnóstico*: Demasiado freno (Kd muy alto) o poca fuerza (Kp bajo).
+3.  **El "Campeón" (Críticamente amortiguado)**: Se pega a la línea como un imán, reacciona rápido pero sin temblar.
+
+¡Prepárate! En la próxima lección escribiremos este código y verás la magia ocurrir.
+
+---
+

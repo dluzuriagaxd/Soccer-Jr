@@ -1,43 +1,219 @@
 ---
-title: "Código Base PID"
-order: 9
-description: "Implementación limpia del algoritmo PID en Arduino."
+title: "Lección 4.2: Código Base PID"
+order: 10
+description: "Lección 4.2: Código Base PID"
 ---
 
-# Implementación del Código
+{/* ADMIN ONLY: VIDEO SECTION */}
+> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+>
+> **Video 1: Implementación del Código**
+> - Duración sugerida: 15-18 minutos
+> - Contenido:
+>   - Explicación línea por línea del código completo
+>   - Cómo se integra todo (blink, QTR, motores, PID)
+>   - Carga al Arduino
+>   - Primera prueba en pista (expectativas realistas)
+>   - Observación del comportamiento inicial
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+>
+> **Video 2: Ajuste de Parámetros**
+> - Duración sugerida: 12-15 minutos
+> - Contenido:
+>   - Proceso de tuning paso a paso
+>   - Empezar con Kp solo (Kd=0)
+>   - Agregar Kd para suavizar oscilaciones
+>   - Ejemplos de valores buenos vs malos
+>   - Uso del Serial Monitor para debugging
+>   - Comparación: antes y después del ajuste
+> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+{/* END ADMIN ONLY */}
 
-En esta lección, ensamblaremos todas las piezas de software para que el robot pueda seguir la línea de forma independiente.
+---
 
-## Estructura del Código
+> **📋 Prerequisitos**: Haber completado Lección 4.1 (Teoría de Control) - entender qué hace cada término
+
+---
+
+# Implementación del Código PID
+
+En esta lección, ensamblaremos todas las piezas de software para que el robot pueda seguir la línea de forma independiente usando control PID.
+
+## Código Completo hasta Ahora
+
+Este código integra todo lo que hemos construido (blink, QTR, motores) y ahora agregamos el **algoritmo PID**:
 
 ```cpp
+#include <QTRSensors.h>
+
+// --- Pines Puente H (TB6612FNG) ---
+#define STBY 7
+#define PWMA 5
+#define AIN1 6
+#define AIN2 4
+#define PWMB 10
+#define BIN1 8
+#define BIN2 9
+
+// --- Constantes PID ---
+float Kp = 0.2; 
+float Kd = 0.05;
+int setPoint = 3500;  // Centro del sensor (0-7000)
+int VelMax = 200;     // Velocidad base
+int lastError = 0;    // Para calcular el término derivativo
+
+// --- Función Blink (Confirmación Visual) ---
+void blink() {
+  for(int i=0; i<5; i++){
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(100);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(100);
+  }
+}
+
+// --- Sensores QTR ---
+QTRSensors qtr;
+const uint8_t SensorCount = 8;
+uint16_t sensorValues[SensorCount];
+
+// --- Funciones de Control de Motores ---
+void MotorIzquierdo(int velocidad) {
+  analogWrite(PWMA, constrain(velocidad, 0, 255));
+}
+
+void MotorDerecho(int velocidad) {
+  analogWrite(PWMB, constrain(velocidad, 0, 255));
+}
+
+void Motores(int velDer, int velIzq) {
+  MotorDerecho(velDer);
+  MotorIzquierdo(velIzq);
+}
+
+void setup() {
+  // Configuración de pines
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(STBY, OUTPUT);
+  pinMode(PWMA, OUTPUT);
+  pinMode(AIN1, OUTPUT);
+  pinMode(AIN2, OUTPUT);
+  pinMode(PWMB, OUTPUT);
+  pinMode(BIN1, OUTPUT);
+  pinMode(BIN2, OUTPUT);
+  
+  // Inicializar comunicación serial
+  Serial.begin(115200);
+  
+  // 1. Secuencia inicial
+  blink();
+  
+  // 2. Configuración de sensores QTR
+  qtr.setTypeRC();
+  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
+  
+  // 3. Calibración
+  digitalWrite(LED_BUILTIN, HIGH);
+  for (uint16_t i = 0; i < 400; i++) {
+    qtr.calibrate();
+  }
+  digitalWrite(LED_BUILTIN, LOW);
+  
+  // 4. Finalización calibración
+  blink();
+  
+  // 5. Activar Motores
+  digitalWrite(STBY, HIGH);
+  digitalWrite(AIN1, LOW);
+  digitalWrite(AIN2, HIGH);
+  digitalWrite(BIN1, LOW);
+  digitalWrite(BIN2, HIGH);
+}
+
 void loop() {
+  // 1. Leer posición de la línea (0-7000)
   uint16_t position = qtr.readLineBlack(sensorValues);
-  int error = position - 3500;
-
-  int motorSpeed = kp * error + kd * (error - lastError);
+  
+  // 2. Calcular error (diferencia entre posición actual y setpoint)
+  int error = setPoint - (int)position;
+  
+  // 3. Término Proporcional (P)
+  float p_term = error * Kp;
+  
+  // 4. Término Derivativo (D)
+  float d_term = (error - lastError) * Kd;
   lastError = error;
-
-  int leftMotorSpeed = baseSpeed + motorSpeed;
-  int rightMotorSpeed = baseSpeed - motorSpeed;
-
-  setMotors(leftMotorSpeed, rightMotorSpeed);
+  
+  // 5. Término Integral (I) - Omitido intencionalmente
+  // En robots de seguimiento rápido, el término integral puede causar "windup" 
+  // (acumulación de error) y oscilaciones lentas. Por ahora lo dejamos en 0.
+  float i_term = 0;
+  
+  // 6. Calcular ajuste total
+  int ajuste = (int)(p_term + i_term + d_term);
+  
+  // 7. Aplicar ajuste a los motores
+  int velDer = constrain(VelMax + ajuste, 0, 255);
+  int velIzq = constrain(VelMax - ajuste, 0, 255);
+  
+  Motores(velDer, velIzq);
+  
+  // Debug (opcional): imprimir valores
+  Serial.print("Pos:");
+  Serial.print(position);
+  Serial.print(" | Error:");
+  Serial.print(error);
+  Serial.print(" | P:");
+  Serial.print(p_term);
+  Serial.print(" | D:");
+  Serial.println(d_term);
 }
 ```
 
+### Explicación del Algoritmo PID
+
+**Cálculo del Error:**
+- `error = setPoint - position`
+- Si `position = 3500` (centro), entonces `error = 0` (perfecto)
+- Si `position = 0` (línea a la izquierda), entonces `error = 3500` (positivo)
+- Si `position = 7000` (línea a la derecha), entonces `error = -3500` (negativo)
+
+**Término Proporcional (P):**
+- `p_term = error * Kp`
+- Corrección proporcional al error
+- `Kp` más alto = reacción más agresiva
+
+**Término Derivativo (D):**
+- `d_term = (error - lastError) * Kd`
+- Predice la tendencia del error
+- Amortigua las oscilaciones
+- `Kd` más alto = más suavidad en las correcciones
+
+**Aplicación a Motores:**
+- Si `ajuste > 0`: la línea está a la izquierda → motor derecho más rápido
+- Si `ajuste < 0`: la línea está a la derecha → motor izquierdo más rápido
+
 ## Ajuste de Parámetros
 
-El código base es robusto, pero el éxito dependerá de los valores que asignes a `kp`, `ki` y `kd`. 
+El éxito del robot depende de encontrar los valores óptimos de `Kp` y `Kd`:
+
+**Valores iniciales recomendados:**
+- `Kp = 0.2` (puedes probar entre 0.1 y 0.5)
+- `Kd = 0.05` (puedes probar entre 0.01 y 0.1)
+- `VelMax = 200` (empieza conservador, luego aumenta)
+
+**Proceso de ajuste:**
+1. Empieza con `Kp = 0.2, Kd = 0`
+2. Si oscila mucho, reduce `Kp`
+3. Si es muy lento para reaccionar, aumenta `Kp`
+4. Una vez que siga la línea (aunque oscile), agrega `Kd` para suavizar
+
+> [!TIP]
+> **¿Quieres experimentar sin riesgo?** Usa el simulador para probar diferentes valores de Kp y Kd antes de cargar el código al robot. Esto te ahorra tiempo y baterías.
+
+**Nota**: Esta lección incluye un enlace al simulador para experimentar con diferentes configuraciones PID antes de cargar el código al robot.
 
 ---
 
-<div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-brand-orange/20 to-black border border-brand-orange/20 my-12 text-center">
-    <h3 class="text-2xl font-black text-white mb-4">¿Quieres ver cómo afectan las constantes antes de cargar el código?</h3>
-    <p class="text-white/60 mb-8 max-w-lg mx-auto">Nuestro simulador interactivo te permite experimentar en tiempo real con diferentes configuraciones de pista y valores PID.</p>
-    <a href="/simulador" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-orange text-black font-black rounded-2xl hover:scale-105 transition-transform active:scale-95">
-        PROBAR LÓGICA EN EL SIMULADOR
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-        </svg>
-    </a>
-</div>
+## Módulo 5: Telemetría
+
