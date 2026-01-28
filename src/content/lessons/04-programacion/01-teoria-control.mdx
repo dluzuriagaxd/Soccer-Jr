@@ -108,15 +108,17 @@ $$
 SalidaD = (ErrorActual - ErrorAnterior) \times Kd
 $$
 
-<AdminOnly>
-{/* ADMIN NOTE: Future simulator spec (hidden from students) */}
-> [!TIP]
-> **Título**: Simulador - El Amortiguador (P + D)
-> En una futura actualización, aquí se insertará un simulador interactivo.
-> **Descripción funcional**: El mismo escenario anterior, pero ahora se habilita el control Kd.
-> - El estudiante deberá agregar Kd a un sistema oscilante.
-> - Visualmente observará cómo las oscilaciones desaparecen y el movimiento se vuelve suave y "magnético" hacia la línea.
-</AdminOnly>
+<div class="simulator-container" style="background:#0f172a; border-radius:12px; overflow:hidden; border:1px solid #334155; margin: 30px 0;">
+  <div style="background:#1e293b; padding:10px 20px; font-size:12px; font-weight:bold; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #334155;">
+    SIMULADOR INTERACTIVO
+  </div>
+  <iframe src="/simulations/pendulo-pd.html" style="width:100%; height:500px; border:none;" title="Simulador PD"></iframe>
+</div>
+<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
+  <a href="/simulations/pendulo-pd.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
+    ↗ Abrir "El Amortiguador" en pantalla completa
+  </a>
+</div>
 
 ### I - El Integral (La Memoria)
 
