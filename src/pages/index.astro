@@ -55,7 +55,7 @@ if (!maintenance || isAdmin) {
 ---
 
 {showLandingPage ? (
-    <LandingPage />
+    <LandingPage isAdmin={isAdmin} />
 ) : (
     <MainLayout
         title="LFR Telemetry - Coming Soon"

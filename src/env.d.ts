@@ -6,6 +6,7 @@ declare namespace App {
         cf: import("@cloudflare/workers-types").CfProperties;
         ctx: import("@cloudflare/workers-types").ExecutionContext;
         runtime: import("@astrojs/cloudflare").Runtime<Env>;
+        isAdmin?: boolean;
     }
 }
 

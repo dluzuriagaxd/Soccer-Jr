@@ -1,0 +1,19 @@
+---
+interface Props {
+    isAdmin?: boolean;
+}
+
+// Try to get from props first, then fall back to Astro.locals
+const { isAdmin: isAdminProp } = Astro.props;
+const isAdmin = isAdminProp ?? Astro.locals.isAdmin === true;
+console.log(
+    "[AdminOnly] Prop:",
+    isAdminProp,
+    "| Locals:",
+    Astro.locals.isAdmin,
+    "| Final:",
+    isAdmin,
+);
+---
+
+{isAdmin ? <slot /> : null}

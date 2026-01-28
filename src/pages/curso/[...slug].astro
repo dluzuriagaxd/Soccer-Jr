@@ -6,6 +6,10 @@ import LessonLayout from "../../layouts/LessonLayout.astro";
 
 const { slug } = Astro.params;
 
+console.log("========================================");
+console.log("[COURSE PAGE] Loading lesson:", slug);
+console.log("========================================");
+
 if (!slug) {
   return Astro.redirect("/404");
 }
@@ -17,6 +21,69 @@ if (!entry) {
 }
 
 const { Content, headings } = await entry.render();
+
+// --- AUTH CHECK ---
+import { drizzle } from "drizzle-orm/d1";
+import { eq } from "drizzle-orm";
+import * as schema from "../../db/schema";
+
+const sessionCookie = Astro.cookies.get("better-auth.session_token");
+let isAdmin = false;
+
+if (sessionCookie?.value) {
+  try {
+    const locals = Astro.locals as any;
+    const env = locals.runtime?.env || locals.env;
+
+    if (env?.DB) {
+      const db = drizzle(env.DB, { schema });
+      // Better-auth tokens in cookies might have a .signature part
+      const tokenId = sessionCookie.value.split(".")[0];
+      console.log("[Lesson Page] Searching for token ID:", tokenId);
+      const session = await db
+        .select()
+        .from(schema.session)
+        .where(eq(schema.session.token, tokenId))
+        .get();
+
+      if (session) {
+        const user = await db
+          .select()
+          .from(schema.user)
+          .where(eq(schema.user.id, session.userId))
+          .get();
+
+        isAdmin = user?.role === "admin";
+        console.log(
+          "[Lesson Page] User found:",
+          user?.email,
+          "| Role:",
+          user?.role,
+          "| isAdmin:",
+          isAdmin,
+        );
+      } else {
+        console.log("[Lesson Page] No session found for token");
+      }
+    } else {
+      console.log("[Lesson Page] No DB available");
+    }
+  } catch (error) {
+    console.error("[Lesson] Error checking user role:", error);
+  }
+}
+
+// Pass to locals for the AdminOnly component to read
+Astro.locals.isAdmin = isAdmin;
+console.log(
+  "[Lesson Page] Setting Astro.locals.isAdmin =",
+  isAdmin,
+  "for email:",
+  sessionCookie ? "has session" : "no session",
+);
+// ------------------
+
+import AdminOnly from "../../components/AdminOnly.astro";
 
 // Fetch and sort all lessons to find navigation links
 const allLessons = (await getCollection("lessons")).sort(
@@ -50,5 +117,5 @@ const nextLesson =
   prevLesson={prevLesson}
   nextLesson={nextLesson}
 >
-  <Content />
+  <Content components={{ AdminOnly }} />
 </LessonLayout>

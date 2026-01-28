@@ -1,11 +1,8 @@
-# Curso Completo: Seguidor de Línea Jr.
-
-> **Nota**: Este documento contiene toda la estructura y contenido del curso actual.
-> Puedes editar este archivo para reestructurar el curso, y luego se actualizarán los archivos individuales de las lecciones.
-
+# Curso Completo: Seguidor de Línea Jr. - Telemetría Pro
 ---
 
-## Módulo 1: Introducción
+
+## Módulo: Introduccion
 
 ### Lección 1.1: Objetivos del Curso
 **Order**: 1  
@@ -13,7 +10,7 @@
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Bienvenida al Curso**
@@ -33,7 +30,7 @@
 >   - Timeline esperado (cuánto tiempo toma cada fase)
 >   - Qué herramientas necesitarán (soldador, multimetro, etc.)
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -63,13 +60,15 @@ El curso está dividido en módulos que siguen el proceso real de desarrollo de 
 
 ---
 
+---
+
 ### Lección 1.2: Lista de Materiales
 **Order**: 2  
 **Slug**: `01-introduccion/02-materiales`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Tour de Componentes**
@@ -82,7 +81,7 @@ El curso está dividido en módulos que siguen el proceso real de desarrollo de 
 >   - Alternativas y sustituciones permitidas
 >   - Comparación: componente original vs genérico
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -120,14 +119,19 @@ Para este curso, utilizaremos una selección de componentes de nivel ingeniería
 
 ---
 
+---
+
 ### Lección 1.3: Reglas de Competencia Jr.
 **Order**: 3  
-**Slug**: `01-introduccion/03-reglas-competencia`  
+**Slug**: `01-introduccion/03-reglas-competencia`
+
+---
+
 **Description**: "Reglas oficiales de la categoría Junior y estrategias de adaptación a diferentes competencias."
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Introducción a Competencias**
@@ -148,7 +152,7 @@ Para este curso, utilizaremos una selección de componentes de nivel ingeniería
 >   - Tips de veteranos (calibración en pista, manejo de nervios)
 >   - Qué llevar el día de la competencia (checklist)
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -243,13 +247,18 @@ La categoría Junior no se trata solo de ganar, sino de:
 
 ## Módulo 2: Diseño
 
+---
+
+
+## Módulo: Diseno
+
 ### Lección 2.1: Diseño del Chasis
 **Order**: 4  
 **Slug**: `02-diseno/01-chasis`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Principios de Diseño Mecánico**
@@ -272,7 +281,7 @@ La categoría Junior no se trata solo de ganar, sino de:
 >   - Exportar archivo SVG para corte láser
 >   - Mostrar el diseño final impreso/cortado
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -300,13 +309,18 @@ Crea una base que cumpla con:
 
 ## Módulo 3: Montaje
 
+---
+
+
+## Módulo: Montaje
+
 ### Lección 3.1: Fase 1 - Potencia
 **Order**: 5  
 **Slug**: `03-montaje/01-fase1-potencia`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Soldadura del Interruptor**
@@ -330,7 +344,7 @@ Crea una base que cumpla con:
 >   - Verificación del parpadeo del LED
 >   - Qué hacer si no funciona (driver CH340, puerto incorrecto)
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -382,13 +396,15 @@ void loop() {
 
 ---
 
+---
+
 ### Lección 3.2: Fase 2 - Sensores
 **Order**: 6  
 **Slug**: `03-montaje/02-fase2-sensores`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Montaje Mecánico del QTR**
@@ -421,7 +437,7 @@ void loop() {
 >   - Sensor no responde: diagnóstico paso a paso
 >   - Ajuste fino de altura para mejor lectura
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -573,13 +589,15 @@ void loop()
 
 ---
 
+---
+
 ### Lección 3.3: Fase 3 - Motores
 **Order**: 7  
 **Slug**: `03-montaje/03-fase3-motores`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Soldadura de Capacitores**
@@ -612,7 +630,7 @@ void loop()
 >   - Driver se calienta mucho: posibles causas
 >   - Verificación de voltaje con multímetro
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -773,13 +791,15 @@ void loop() {
 
 ---
 
+---
+
 ### Lección 3.4: Fase 4 - Interfaz
 **Order**: 8  
 **Slug**: `03-montaje/04-fase4-interfaz`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Implementación del Botón**
@@ -792,7 +812,7 @@ void loop() {
 >   - Prueba del botón (presionar y soltar)
 >   - Integración con el código existente
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -834,13 +854,18 @@ void setup() {
 
 ## Módulo 4: Programación
 
+---
+
+
+## Módulo: Programacion
+
 ### Lección 4.1: Teoría de Control (El Cerebro Matemático)
 **Order**: 9  
 **Slug**: `04-programacion/01-teoria-control`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Anatomía de un Sistema de Control**
@@ -859,7 +884,7 @@ void setup() {
 >   - Cómo se convierte un número (Error) en voltaje para motores (PWM).
 >   - El problema de la oscilación y cómo la "D" lo soluciona.
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -889,7 +914,7 @@ $$
 *   Si el error es grande, tienes que girar rápido.
 *   Si el error es pequeño, tienes que girar suave.
 
-{/* ADMIN ONLY: SIMULATION ZONE */}
+{/* SIMULATION (Visible to all logged-in users) */}
 <div style="width: 100%; height: 500px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
   <iframe src="/simulations/ojo-matematico.html" style="width: 100%; height: 100%; border: none;"></iframe>
 </div>
@@ -898,7 +923,6 @@ $$
     ↗ Abrir simulador en pantalla completa
   </a>
 </div>
-{/* END ADMIN ONLY */}
 
 ## 2. Los Tres Entrenadores (P, I, D)
 Para mantener el error en cero, tu robot tiene tres "entrenadores" matemáticos en su cerebro que le gritan órdenes a los motores al mismo tiempo.
@@ -919,14 +943,15 @@ $$
 
 **El Problema**: Si la liga es muy fuerte (Kp alto), cuando el robot regrese a la línea vendrá tan rápido que... ¡se pasará de largo hacia el otro lado! Y empezará a rebotar de izquierda a derecha sin parar. A esto le llamamos **Oscilación**.
 
-{/* ADMIN ONLY: SIMULATION ZONE */}
-> [!TIP]
-> **Título**: Simulador - El Péndulo (Solo P)
-> En una futura actualización, aquí se insertará un simulador interactivo.
-> **Descripción funcional**: Un robot en una pista recta infinita.
-> - El estudiante solo podrá controlar el valor de Kp.
-> - Al subir Kp, verá cómo el robot empieza a oscilar violentamente (zig-zag) alrededor de la línea, demostrando que la acción Proporcional por sí sola es inestable.
-{/* END ADMIN ONLY */}
+{/* SIMULATION (Visible to all logged-in users) */}
+<div style="width: 100%; height: 600px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
+  <iframe src="/simulations/pendulo-p.html" style="width: 100%; height: 100%; border: none;"></iframe>
+</div>
+<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
+  <a href="/simulations/pendulo-p.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
+    ↗ Abrir "El Péndulo" en pantalla completa
+  </a>
+</div>
 
 ### D - El Derivativo (El Freno Inteligente)
 
@@ -944,14 +969,15 @@ $$
 SalidaD = (ErrorActual - ErrorAnterior) \times Kd
 $$
 
-{/* ADMIN ONLY: SIMULATION ZONE */}
+<AdminOnly>
+{/* ADMIN NOTE: Future simulator spec (hidden from students) */}
 > [!TIP]
 > **Título**: Simulador - El Amortiguador (P + D)
 > En una futura actualización, aquí se insertará un simulador interactivo.
 > **Descripción funcional**: El mismo escenario anterior, pero ahora se habilita el control Kd.
 > - El estudiante deberá agregar Kd a un sistema oscilante.
 > - Visualmente observará cómo las oscilaciones desaparecen y el movimiento se vuelve suave y "magnético" hacia la línea.
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ### I - El Integral (La Memoria)
 
@@ -962,26 +988,129 @@ Este entrenador tiene memoria. Acumula los errores del pasado.
 > [!NOTE]
 > **Nota de Ingeniero**: En robots de carreras muy rápidos (como el tuyo), este entrenador a veces es demasiado lento y "rencoroso" (se queda con el error acumulado y causa choques en las rectas). Por eso, en este curso, dejaremos al entrenador Integral descansando (**Ki = 0**). Nos concentraremos en un control PD perfecto.
 
-## 3. ¿Cómo se convierte esto en movimiento?
-El cerebro de tu Arduino hace este cálculo miles de veces por segundo para decidir la velocidad de cada motor:
+## 3. De Números a Movimiento: La Mezcla Diferencial
 
-1.  Calcula el Error.
-2.  Calcula la Corrección (Suma de P y D).
-3.  Aplica la corrección a los motores (Mezcla Diferencial).
+Hasta ahora hemos calculado un número llamado "Corrección" o "Ajuste". Pero, ¿cómo hace ese número para que el robot gire? La respuesta está en un concepto llamado **tracción diferencial**.
+
+### El Concepto: Diferentes Velocidades = Giro
+
+Tu robot tiene dos ruedas independientes. Si ambas giran a la misma velocidad, el robot avanza recto. Pero si una rueda gira más rápido que la otra, el robot **gira** hacia el lado de la rueda más lenta.
+
+**Piénsalo como un kayak:**
+- Si remas igual de fuerte con ambos remos → vas recto
+- Si remas más fuerte con el remo derecho → giras a la izquierda
+- Si remas más fuerte con el remo izquierdo → giras a la derecha
+
+Lo mismo pasa con tu robot. La diferencia de velocidad entre las ruedas crea el giro.
+
+<AdminOnly>
+> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+>
+> **Video 3: La Mezcla Diferencial Explicada**
+> - Duración sugerida: 5-7 minutos
+> - Contenido:
+>   - Demostración física con el robot (sin programar)
+>   - Girar manualmente cada rueda a diferentes velocidades
+>   - Mostrar con cámara cenital cómo el robot gira
+>   - Analogía visual con kayak o excavadora
+>   - Diagrama animado de vista superior del robot
+>   - Transición a cómo el código implementa esto
+> - Elementos visuales recomendados:
+>   - Flechas superpuestas mostrando velocidad de cada rueda
+>   - Trayectoria curva del robot marcada
+>   - Comparación lado a lado: velocidades iguales vs diferentes
+> - Preview: `https://www.youtube.com/embed/VIDEO_ID` (reemplazar)
+</AdminOnly>
+
+### Ejemplo Numérico
+
+Imagina que tu **Velocidad Base** es 200 (ambos motores a 200 PWM).
+
+**Escenario 1: Robot va recto (Error = 0)**
+- Corrección = 0
+- Motor Izquierdo = 200 - 0 = **200**
+- Motor Derecho = 200 + 0 = **200**
+- Resultado: ✅ Avanza recto
+
+**Escenario 2: Línea a la izquierda (Error > 0, por ejemplo +500)**
+- Corrección = +100 (después de aplicar Kp y Kd)
+- Motor Izquierdo = 200 - 100 = **100** ⬇️ (más lento)
+- Motor Derecho = 200 + 100 = **300** ⬆️ (más rápido)
+- Resultado: 🔄 Gira a la IZQUIERDA (donde está la línea)
+
+**Escenario 3: Línea a la derecha (Error < 0, por ejemplo -500)**
+- Corrección = -100
+- Motor Izquierdo = 200 - (-100) = **300** ⬆️ (más rápido)
+- Motor Derecho = 200 + (-100) = **100** ⬇️ (más lento)
+- Resultado: 🔄 Gira a la DERECHA (donde está la línea)
+
+<AdminOnly>
+> [!TIP]
+> **Título**: Simulador - Vista Superior del Robot (Solo visible para administradores)
+> 
+> En una futura actualización, aquí se insertará un simulador interactivo.
+> 
+> **Descripción funcional del simulador:**
+> - **Vista:** Perspectiva cenital (desde arriba) del robot
+> - **Elementos visuales:**
+>   - Rectángulo representando el chasis del robot
+>   - Dos círculos o rectángulos para las ruedas (izquierda y derecha)
+>   - Línea negra simulada en el fondo
+>   - Indicadores de velocidad en cada rueda (barras o números)
+> - **Controles interactivos:**
+>   - Slider "Velocidad Base" (0-255)
+>   - Slider "Corrección" (-255 a +255)
+>   - Botón "Reset" para volver al centro
+>   - Checkbox "Mostrar trayectoria" (deja rastro del movimiento)
+> - **Cálculo automático:**
+>   - Motor Izq = Base - Corrección
+>   - Motor Der = Base + Corrección
+>   - Mostrar estos valores en tiempo real
+> - **Comportamiento:**
+>   - El robot se mueve en la simulación según las velocidades
+>   - Se ve claramente el radio de giro cuando hay diferencia
+>   - Animación suave para que sea educativo
+> - **Panel de información:**
+>   - "Corrección = 0 → Va recto"
+>   - "Corrección > 0 → Gira izquierda"
+>   - "Corrección < 0 → Gira derecha"
+> 
+> **Objetivo pedagógico:** Que el estudiante experimente visualmente cómo diferentes correcciones afectan el movimiento del robot ANTES de verlo en el código.
+</AdminOnly>
+
+### La Fórmula Maestra
+
+Ahora que entiendes el concepto, aquí está cómo se traduce a código:
 
 ```cpp
-// Fórmula Maestra del PID (Simplificada)
+// Paso 1: Calcular la corrección (ya lo vimos con P y D)
 Correccion = (Error * Kp) + ((Error - ErrorAnterior) * Kd);
 
-// Aplicar a los motores
+// Paso 2: Aplicar la corrección a cada motor de forma OPUESTA
 Velocidad_Izquierda = Velocidad_Base - Correccion;
 Velocidad_Derecha   = Velocidad_Base + Correccion;
 ```
 
-*   Si la corrección es positiva, el motor derecho corre más y el izquierdo frena -> El robot gira a la **Derecha**.
-*   Si la corrección es negativa, sucede lo contrario -> El robot gira a la **Izquierda**.
+**¿Por qué se suma en uno y se resta en el otro?**
 
-## 4. Tipos de Respuesta (Sintonización)
+Porque queremos que cuando la línea esté a un lado, ESE lado frene y el OTRO acelere:
+- ✅ **Línea a la izquierda** (corrección positiva) → Izquierdo FRENA (-), Derecho ACELERA (+) → Gira izquierda
+- ✅ **Línea a la derecha** (corrección negativa) → Izquierdo ACELERA (-), Derecho FRENA (+) → Gira derecha
+
+Es como si el robot "persiguiera" la línea siempre girando hacia donde está.
+
+## 4. Resumen del Algoritmo
+
+El cerebro de tu Arduino hace este cálculo miles de veces por segundo:
+
+```cpp
+// Fórmula completa
+Correccion = (Error * Kp) + ((Error - ErrorAnterior) * Kd);
+Velocidad_Izquierda = Velocidad_Base - Correccion;
+Velocidad_Derecha   = Velocidad_Base + Correccion;
+```
+
+## 5. Tipos de Respuesta (Sintonización)
 Tu trabajo como ingeniero será encontrar los números perfectos para **Kp** y **Kd**. Verás tres comportamientos en tu robot:
 
 1.  **El "Borracho" (Sub-amortiguado)**: El robot va haciendo "S" sobre la línea.
@@ -994,13 +1123,15 @@ Tu trabajo como ingeniero será encontrar los números perfectos para **Kp** y *
 
 ---
 
+---
+
 ### Lección 4.2: Código Base PID
 **Order**: 10  
 **Slug**: `04-programacion/02-codigo-base`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Implementación del Código**
@@ -1023,7 +1154,7 @@ Tu trabajo como ingeniero será encontrar los números perfectos para **Kp** y *
 >   - Uso del Serial Monitor para debugging
 >   - Comparación: antes y después del ajuste
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -1213,13 +1344,18 @@ El éxito del robot depende de encontrar los valores óptimos de `Kp` y `Kd`:
 
 ## Módulo 5: Telemetría
 
+---
+
+
+## Módulo: Telemetria
+
 ### Lección 5.1: Hardware Bluetooth
 **Order**: 11  
 **Slug**: `05-telemetria/01-hardware-bluetooth`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Fabricación del Mini-Shield**
@@ -1242,7 +1378,7 @@ El éxito del robot depende de encontrar los valores óptimos de `Kp` y `Kd`:
 >   - Verificación de comunicación (enviar/recibir datos)
 >   - Troubleshooting: no se empareja, no envía datos
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -1275,13 +1411,15 @@ Te enseñaremos a fabricar una placa pequeña usando un pedazo de **baquelita pe
 
 ---
 
+---
+
 ### Lección 5.2: Protocolo de Datos
 **Order**: 12  
 **Slug**: `05-telemetria/02-protocolo-datos`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Estructuras Binarias en C**
@@ -1293,7 +1431,7 @@ Te enseñaremos a fabricar una placa pequeña usando un pedazo de **baquelita pe
 >   - Ventajas vs texto ASCII (demostración de velocidad)
 >   - Visualización de bytes en hexadecimal
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -1325,13 +1463,15 @@ struct TelemetryPacket {
 
 ---
 
+---
+
 ### Lección 5.3: Captura de Datos
 **Order**: 13  
 **Slug**: `05-telemetria/03-captura-datos`
 
 ---
 
-{/* ADMIN ONLY: VIDEO SECTION */}
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Código Final Completo**
@@ -1354,7 +1494,7 @@ struct TelemetryPacket {
 >   - Guardado de archivos CSV
 >   - Troubleshooting: no recibe datos, gráficas erráticas
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-{/* END ADMIN ONLY */}
+</AdminOnly>
 
 ---
 
@@ -1591,13 +1731,15 @@ Asegúrate de tener instaladas las librerías necesarias ejecutando:
 
 ---
 
+---
+
 ### Lección 5.4: Análisis y Optimización
 **Order**: 14  
 **Slug**: `05-telemetria/04-analisis`
 
 ---
 
-<!-- ADMIN ONLY: VIDEO SECTION -->
+<AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Interpretación de Gráficas**
@@ -1619,7 +1761,7 @@ Asegúrate de tener instaladas las librerías necesarias ejecutando:
 >   - Mejores tiempos de vuelta logrados
 >   - Tips finales para competencias
 > - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-<!-- END ADMIN ONLY -->
+</AdminOnly>
 
 ---
 
@@ -1689,3 +1831,6 @@ Para un análisis más profundo de los logs CSV generados por `Plotter.py`, util
   - `order`: Orden numérico (1-14)
   - `description`: Descripción breve
   - `slug`: Ruta en formato `modulo/leccion`
+
+---
+
