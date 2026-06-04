@@ -1,3 +1,4 @@
+//Este programa es utilizado para telemetría y calibración.
 #include <QTRSensors.h>
 
 // --- Data Structure ---
