@@ -1,56 +1,79 @@
 ---
-title: "Lección 1.1: Objetivos del Curso"
+title: "Objetivos del Curso: Robot Soccer Jr."
 order: 1
-description: "Lección 1.1: Objetivos del Curso"
+description: "Bienvenida al curso de construcción de robots futbolistas. Aprende qué vas a construir, cómo funciona y qué habilidades desarrollarás."
 ---
 
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Bienvenida al Curso**
-> - Duración sugerida: 5-7 minutos
-> - Contenido:
->   - Presentación del instructor
->   - Visión General del robot final funcionando
->   - Qué hace especial a este curso (enfoque en ingeniería, no solo hobby)
->   - Motivación: mostrar robots en competencias reales
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Bienvenida y Robot en Acción**
+> - Duración: 5-7 min
+> - Mostrar el robot terminado en una cancha real, empujando el balón y metiendo gol.
+> - Presentación del instructor y roadmap del curso.
 >
-> **Video 2: Roadmap del Curso**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Explicación visual de los 5 módulos
->   - Mostrar físicamente cada componente que se usará
->   - Timeline esperado (cuánto tiempo toma cada fase)
->   - Qué herramientas necesitarán (soldador, multimetro, etc.)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: ¿Qué vamos a aprender?**
+> - Duración: 6-8 min
+> - Explicar visualmente los 5 módulos con recursos físicos en mano.
 </AdminOnly>
 
 ---
 
-# Introducción al Curso
+# 🤖 Bienvenido al Curso: Robot Soccer Junior
 
-Bienvenido al curso **Seguidor de Línea Jr.**, un programa diseñado para llevarte desde los conceptos básicos de robótica hasta la implementación de sistemas de control de nivel ingeniería.
+Vas a construir un **robot de fútbol teledirigido** usando componentes electrónicos reales, impresión 3D y programación en dos etapas: primero con bloques visuales y luego con código profesional en C++.
 
-## ¿Qué aprenderás?
+## ¿Qué vas a construir?
 
-En este curso, no solo construirás un robot; entenderás la ciencia detrás de su movimiento. Los objetivos principales son:
+Un robot compacto (máximo **20×20 cm**) capaz de:
+- 🏎️ Moverse en **4 direcciones** controladas desde tu celular por **Bluetooth**
+- ⚽ **Empujar una pelota** hacia la portería del oponente
+- 🔋 Operar **10-15 minutos continúos** con una batería de litio 18650 2S
 
-1.  **Diseño y Mecánica**: Comprender la importancia del centro de masa y la tracción.
-2.  **Electrónica**: Aprender a gestionar potencia y señales de sensores de alta precisión.
-3.  **Algoritmos de Control**: Implementar un controlador **PID (Proporcional, Integral, Derivativo)**.
-4.  **Telemetría**: Utilizar herramientas profesionales para analizar datos en tiempo real y optimizar el rendimiento.
+## Stack Tecnológico del Robot
 
-## Metodología
+| Componente | Función |
+|---|---|
+| **Arduino Uno R3** | "El cerebro" — procesa comandos y controla motores |
+| **Shield L293D / Módulo L298N** | Puente H — amplifica señales para mover motores |
+| **2 Motores Amarillos TT** | Las ruedas — propulsan el robot |
+| **Módulo Bluetooth HC-05** | Radio — recibe comandos desde tu celular |
+| **Batería 18650 2S (7.4V)** | La energía — alimenta todo el sistema |
+| **Interruptor Basculante** | El "on/off" de seguridad |
+| **Chasis Impresión 3D** | La estructura — diseñada por ti |
 
-El curso está dividido en módulos que siguen el proceso real de desarrollo de un producto tecnológico:
-*   **Investigación**: Selección de materiales.
-*   **Diseño**: Planos y estructura.
-*   **Prototipado**: Montaje paso a paso.
-*   **Software**: Programación y lógica.
-*   **Optimización**: Mejora basada en datos (Telemetría).
+## ¿Qué habilidades vas a desarrollar?
 
-¡Prepárate para llevar tu robot al siguiente nivel!
+```
+DISEÑO          →   ELECTRÓNICA     →   PROGRAMACIÓN    →   COMPETENCIA
+──────────────      ─────────────────   ─────────────────   ───────────
+• Diseño 3D         • Motores DC        • SteamakersBlocks   • Estrategia
+• Centro de masa    • Puentes H         • C++ (Arduino)      • Calibración
+• Pala delantera    • Bluetooth         • Control RC         • Análisis
+• Tolerancias       • Protección LiPo   • Diagramas de flujo • Iteración
+```
+
+## Metodología: De Bloques a Código
+
+Este curso sigue un proceso de **dos fases de programación**:
+
+1. **SteamakersBlocks** (Bloques visuales): Aprende la lógica del control sin preocuparte por la sintaxis.
+2. **C++ en Arduino IDE**: Traduce tu programa a código profesional y entiende cada línea.
+
+> [!TIP]
+> Muchos campeones de robotics comenzaron con bloques visuales. No es un paso "para niños" — es ingeniería incremental. ¡Los mejores equipos documentan su lógica primero antes de escribir una sola línea de código!
+
+## El Simulador: Practica sin Riesgos
+
+Antes de armar el robot real, usaremos el **Simulador de Soccer Jr.** para entender:
+- Cómo funciona la **tracción diferencial** (dos ruedas independientes)
+- La diferencia de rendimiento entre el **L293D y el L298N**
+- La física del **balón** (inercia, rebotes)
+- El comportamiento de la **batería 18650** bajo carga
+
+**[→ Abrir Simulador Soccer Jr.](/simulador)**
 
 ---
 
+> [!IMPORTANT]
+> Antes de la próxima lección, descarga e instala: **Arduino IDE 2.x** desde [arduino.cc](https://www.arduino.cc) y **SteamakersBlocks** según las instrucciones de tu instructor.

@@ -1,191 +1,227 @@
 ---
-title: "Lección 3.2: Fase 2 - Sensores"
+title: "Fase 2: Driver de Motores y Propulsión"
 order: 6
-description: "Lección 3.2: Fase 2 - Sensores"
+description: "Conecta el Shield L293D o el Módulo L298N a los motores amarillos TT. Aprende a filtrar ruido electromagnético con capacitores cerámicos."
 ---
 
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Montaje Mecánico del QTR**
-> - Duración sugerida: 7-9 minutos
-> - Contenido:
->   - Fijación con tornillos de 2mm (close-up)
->   - Ajuste de altura (3-5mm) con galga o regla
->   - Verificación de nivelación del sensor
->   - Asegurar cables con cinta aislante (técnica correcta)
->   - Prueba de vibración (sacudir el robot)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Soldadura de Capacitores en Motores**
+> - Duración: 10-12 min
+> - Técnica para soldar capacitores 104 (muy pequeños) en las terminales del motor
+> - Demostración: ruido en el osciloscópio antes vs después de capacitores
 >
-> **Video 2: Instalación de Librería y Calibración**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Instalación de librería QTRSensors en Arduino IDE
->   - Conexión de pines (A0-A5, 2, 3) con diagrama
->   - Carga del código completo
->   - Proceso de calibración en vivo (mover robot sobre línea)
->   - Interpretación de valores en Serial Monitor
->   - Qué significan los números (0-7000)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
->
-> **Video 3: Troubleshooting Sensores**
-> - Duración sugerida: 5-7 minutos
-> - Contenido:
->   - Valores erráticos: causas y soluciones
->   - Problemas de iluminación (luz solar directa)
->   - Verificación de conexiones con multímetro
->   - Sensor no responde: diagnóstico paso a paso
->   - Ajuste fino de altura para mejor lectura
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Conexión del Driver — L293D y L298N**
+> - Duración: 12-15 min (grabar los dos casos por separado)
+> - Diagrama de conexión y prueba de dirección de cada motor
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Haber completado Lección 3.1 (Potencia) - necesitas el código blink() funcionando
+> **📋 Prerrequisitos:** Haber completado Fase 1 — Arduino arrancando y LED parpadeando con la batería.
 
 ---
 
-# Sensores de Alta Precisión
+# Fase 2: Driver de Motores ⚙️
 
-El sensor QTR es el ojo de tu robot. Un montaje descuidado aquí arruinará cualquier código PID por bueno que sea.
+Los motores DC no pueden conectarse directamente al Arduino — el microcontrolador solo puede entregar **40mA por pin**, mientras que cada motor TT puede consumir hasta **600mA**. El **Puente H** (L293D o L298N) actúa como amplificador de corriente.
 
-## Montaje Mecánico
-*   Usa los **tornillos de 2mm** para fijar el sensor al chasis. No lo pegues; necesitas poder ajustarlo.
-*   **La Regla de Oro**: La distancia óptima al suelo es de **3mm a 5mm**. Si está muy alto, no detectará la línea; si está muy bajo, chocará con las imperfecciones de la pista.
+## ¿Por qué los Capacitores Cerámicos? (CRÍTICO)
 
-## Seguridad en Conexiones
-Las vibraciones en carrera son fuertes. **Tip Pro**: Una vez conectados los cables jumper hembra al sensor, asegúralos con una vuelta de **cinta aislante**. Esto evita que se suelten en plena competencia.
+Los motores DC generan **chispas microscópicas** en sus escobillas. Estas chispas crean interferencias electromagnéticas (EMI) que literalmente confunden al Arduino, causando **reinicios aleatorios en plena competencia**.
 
-## Software y Calibración
+```
+SIN CAPACITORES:                    CON CAPACITORES 104:
+     Motor → ~~ruido~~               Motor → ~~sin ruido~~
+     Arduino se reinicia            Arduino estable ✅
+```
 
-Ahora vamos a integrar el sensor QTR a nuestro código. Primero, instala la librería oficial:
+**Dónde soldar los 3 capacitores por motor:**
 
-1. Abre el Arduino IDE
-2. Ve a **Sketch → Include Library → Manage Libraries**
-3. Busca **"QTRSensors"** por Pololu
-4. Instala la última versión
+```
+     Motor DC (vista de terminales)
+     
+     Terminal + ──┬──────── Terminal –
+                  │              │
+               [104]          [104]   ← Un capacitor entre terminales
+                  │              │
+               [104]             │   ← Un capacitor de cada terminal a la carcasa
+                  │              │
+              ┌───────────────────┐
+              │  CARCASA METÁLICA  │
+              └───────────────────┘
+              
+     Total: 3 capacitores × 2 motores = 6 capacitores en total
+     Capacitor: Cerámico 104 = 100nF = 0.1µF (sin polaridad, da igual el sentido)
+```
 
-### Código Completo hasta Ahora
+## Diagrama de Conexión: Shield L293D
 
-Este código ya incluye la función `blink()` que creamos en la Fase 1 (Potencia), y ahora agregamos toda la lógica del sensor QTR:
+El Shield L293D se monta directamente sobre el Arduino Uno (pin a pin):
+
+```
+SHIELD L293D montado sobre ARDUINO UNO
+──────────────────────────────────────
+
+ Alimentación del Shield:
+   Batería+ (post-switch) → Terminal VM del shield  (voltaje motores: 7.4V)
+   Arduino 5V             → Terminal VCC del shield (lógica: 5V)
+   GND compartido         → GND del shield
+
+ Motor IZQUIERDO → Terminales M1 del shield
+   Cable rojo motor IZQ → M1A
+   Cable negro motor IZQ→ M1B
+   (Si gira al revés, simplemente intercambia M1A y M1B)
+
+ Motor DERECHO → Terminales M2 del shield
+   Cable rojo motor DER → M2A
+   Cable negro motor DER→ M2B
+
+ Control de velocidad por PWM — Pines del Arduino:
+   Motor IZQ velocidad → Pin 6  (PWMA en firmware)
+   Motor IZQ dir A     → Pin 7  (AIN1)
+   Motor IZQ dir B     → Pin 8  (AIN2)
+   Motor DER velocidad → Pin 5  (PWMB)
+   Motor DER dir A     → Pin 9  (BIN1)
+   Motor DER dir B     → Pin 10 (BIN2)
+```
+
+## Diagrama de Conexión: Módulo L298N
+
+El L298N se conecta con cables jumper individuales:
+
+```
+MÓDULO L298N ←────────────────────────────────────── ARDUINO UNO
+─────────────────────────────────────────────────────────────────
+
+Módulo L298N          Cable          Arduino Uno
+──────────────        ──────         ──────────────
+ENA            ←──── JUMPER ────────  Pin 6  (PWM)
+IN1            ←──── JUMPER ────────  Pin 7
+IN2            ←──── JUMPER ────────  Pin 8
+IN3            ←──── JUMPER ────────  Pin 9
+IN4            ←──── JUMPER ────────  Pin 10
+ENB            ←──── JUMPER ────────  Pin 5  (PWM)
+GND            ←──── NEGRO  ────────  GND
+5V (del L298N) ──────────────────── (NO conectar al 5V del Arduino — conflicto!)
+
+Módulo L298N          Cable          BATERÍA / POTENCIA
+──────────────        ──────         ──────────────────
+12V (o VIN)    ←──── ROJO   ────────  + Batería (post-switch)
+GND            ←──── NEGRO  ────────  – Batería
+
+Módulo L298N          Motor Izquierdo
+──────────────        ──────────────────
+OUT1           ─────── Cable rojo
+OUT2           ─────── Cable negro
+(Si gira al revés: intercambia OUT1 y OUT2)
+
+Módulo L298N          Motor Derecho
+──────────────        ──────────────────
+OUT3           ─────── Cable rojo
+OUT4           ─────── Cable negro
+```
+
+> [!WARNING]
+> El módulo L298N tiene un regulador de 5V integrado. Cuando usas más de 12V, **quita el jumper** que conecta ese regulador o se puede quemar. Con 7.4V-8.4V puedes **dejar el jumper** y usar su 5V para alimentar el Arduino (puentea al pin 5V del Uno).
+
+## Código de Prueba: Fase 2 — Motores
+
+Este código acumula la función `blink()` de la Fase 1 y agrega el control básico de motores:
 
 ```cpp
-#include <QTRSensors.h>
+// ============================================
+// FASE 2: Motores — Prueba de Propulsión
+// Verifica dirección y velocidad de ambos motores
+// ============================================
 
-QTRSensors qtr;
+// --- Pines del driver (mismos para L293D y L298N) ---
+#define MOTOR_IZQ_EN  6    // PWM: velocidad motor izquierdo
+#define MOTOR_IZQ_A   7    // Dirección 1
+#define MOTOR_IZQ_B   8    // Dirección 2
+#define MOTOR_DER_EN  5    // PWM: velocidad motor derecho
+#define MOTOR_DER_A   9    // Dirección 1
+#define MOTOR_DER_B   10   // Dirección 2
 
-const uint8_t SensorCount = 8;
-uint16_t sensorValues[SensorCount];
-
-// --- Función Blink (Confirmación Visual) ---
-void blink() {
-  for(int i=0; i<5; i++){
+// --- Función Blink (de Fase 1) ---
+void blink(int veces = 3, int ms = 150) {
+  for (int i = 0; i < veces; i++) {
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(200);
+    delay(ms);
     digitalWrite(LED_BUILTIN, LOW);
-    delay(200);
+    delay(ms);
   }
 }
 
-void setup()
-{
-  // configure the sensors
-  qtr.setTypeRC();
-  // Pines específicos para LFR-Pro (match con LFR-Telemetry.ino)
-  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
+// --- Control de motores ---
+void moverMotorIzq(int velocidad) {
+  // velocidad: -255 a 255 (negativo = reversa)
+  int v = constrain(abs(velocidad), 0, 255);
+  if (velocidad > 0) {
+    digitalWrite(MOTOR_IZQ_A, HIGH);
+    digitalWrite(MOTOR_IZQ_B, LOW);
+  } else if (velocidad < 0) {
+    digitalWrite(MOTOR_IZQ_A, LOW);
+    digitalWrite(MOTOR_IZQ_B, HIGH);
+  } else {
+    digitalWrite(MOTOR_IZQ_A, LOW);
+    digitalWrite(MOTOR_IZQ_B, LOW);
+  }
+  analogWrite(MOTOR_IZQ_EN, v);
+}
 
-  delay(500);
+void moverMotorDer(int velocidad) {
+  int v = constrain(abs(velocidad), 0, 255);
+  if (velocidad > 0) {
+    digitalWrite(MOTOR_DER_A, HIGH);
+    digitalWrite(MOTOR_DER_B, LOW);
+  } else if (velocidad < 0) {
+    digitalWrite(MOTOR_DER_A, LOW);
+    digitalWrite(MOTOR_DER_B, HIGH);
+  } else {
+    digitalWrite(MOTOR_DER_A, LOW);
+    digitalWrite(MOTOR_DER_B, LOW);
+  }
+  analogWrite(MOTOR_DER_EN, v);
+}
+
+void setup() {
+  // Configurar pines
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(MOTOR_IZQ_EN, OUTPUT); pinMode(MOTOR_IZQ_A, OUTPUT); pinMode(MOTOR_IZQ_B, OUTPUT);
+  pinMode(MOTOR_DER_EN, OUTPUT); pinMode(MOTOR_DER_A, OUTPUT); pinMode(MOTOR_DER_B, OUTPUT);
   
-  // 1. Señal de inicio de calibración
-  blink();
-  digitalWrite(LED_BUILTIN, HIGH); // encender LED durante calibración
-
-  // 2.5 ms RC read timeout (default) * 10 reads per calibrate() call
-  // = ~25 ms per calibrate() call.
-  // Call calibrate() 400 times to make calibration take about 10 seconds.
-  for (uint16_t i = 0; i < 400; i++)
-  {
-    qtr.calibrate();
-  }
-  digitalWrite(LED_BUILTIN, LOW); // apagar LED al finalizar
-  
-  // 2. Señal de fin de calibración
-  blink();
-
-  // print the calibration minimum values measured when emitters were on
-  Serial.begin(9600);
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(qtr.calibrationOn.minimum[i]);
-    Serial.print(' ');
-  }
-  Serial.println();
-
-  // print the calibration maximum values measured when emitters were on
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(qtr.calibrationOn.maximum[i]);
-    Serial.print(' ');
-  }
-  Serial.println();
-  Serial.println();
+  // Señal de inicio
+  blink(5, 100);
   delay(1000);
 }
 
-void loop()
-{
-  // read calibrated sensor values and obtain a measure of the line position
-  // from 0 to 5000 (for a white line, use readLineWhite() instead)
-  uint16_t position = qtr.readLineBlack(sensorValues);
-
-  // print the sensor values as numbers from 0 to 1000, where 0 means maximum
-  // reflectance and 1000 means minimum reflectance, followed by the line
-  // position
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(sensorValues[i]);
-    Serial.print('\t');
-  }
-  Serial.println(position);
-
-  delay(250);
+void loop() {
+  // Secuencia de prueba:
+  
+  // 1. Avanzar 2 segundos
+  moverMotorIzq(180);  moverMotorDer(180);
+  delay(2000);
+  
+  // 2. Detener
+  moverMotorIzq(0);    moverMotorDer(0);
+  delay(500);
+  
+  // 3. Retroceder 2 segundos
+  moverMotorIzq(-180); moverMotorDer(-180);
+  delay(2000);
+  
+  // 4. Detener
+  moverMotorIzq(0);    moverMotorDer(0);
+  delay(2000);
 }
 ```
 
-### Explicación del Código
-
-**Instanciación y Configuración:**
-- `QTRSensors qtr;` - Crea el objeto del sensor
-- `qtr.setTypeRC();` - Configura para sensores tipo RC (resistencia-capacitancia)
-- `qtr.setSensorPins(...)` - Asigna los 8 pines analógicos y digitales
-
-**Proceso de Calibración:**
-- Durante la calibración, **mueve el robot de lado a lado** sobre la línea negra
-- El sensor aprende los valores mínimos (blanco) y máximos (negro)
-- 400 iteraciones aseguran una calibración robusta
-
-**Lectura de Posición:**
-- `qtr.readLineBlack(sensorValues)` devuelve un valor de **0 a 7000**
-- **3500** = línea centrada (ideal)
-- **0** = línea completamente a la izquierda
-- **7000** = línea completamente a la derecha
-
-### Prueba Práctica
-
-1. Carga el código
-2. Abre el **Serial Monitor** (115200 baud)
-3. Durante los primeros segundos (LED encendido), mueve el robot sobre la línea
-4. Después del `blink()` final, observa cómo cambia la posición al mover el robot
+### ¿Qué verificar?
+- ✅ Ambos motores giran hacia adelante al avanzar
+- ✅ Ambos motores giran hacia atrás al retroceder
+- ❌ **¿Un motor gira al revés?** → Intercambia los dos cables de ESE motor en el driver (sin tocar el código)
 
 > [!TIP]
-> Si los valores no cambian mucho, verifica:
-> - Distancia al suelo (3-5mm es óptimo)
-> - Contraste de la línea (cinta negra mate sobre blanco funciona mejor que brillante)
-> - Iluminación ambiente (evita sombras directas sobre los sensores)
-
-> [!WARNING]
-> **¿Valores erráticos?** Revisa si la luz del ambiente le afecta directamente. En competencias bajo sol extremo, es posible que necesites una "visera" o escudo de sombras sobre los sensores.
-
----
-
+> **Trenza los cables de los motores** (enróllalos entre sí antes de conectar al driver). Esto crea un campo magnético de cancelación mutua que reduce aún más el ruido electromagnético. ¡Los ingenieros de F1 hacen lo mismo en sus sistemas de telemetría!

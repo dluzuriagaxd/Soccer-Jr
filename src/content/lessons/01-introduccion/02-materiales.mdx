@@ -1,57 +1,107 @@
 ---
-title: "Lección 1.2: Lista de Materiales"
+title: "Lista de Materiales: Robot Soccer Jr."
 order: 2
-description: "Lección 1.2: Lista de Materiales"
+description: "Todos los componentes necesarios para construir tu robot futbolista, con especificaciones técnicas y dónde conseguirlos."
 ---
 
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Tour de Componentes**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Mostrar físicamente cada componente en mano
->   - Explicar la función de cada uno en el robot
->   - Dónde comprarlos (tiendas recomendadas)
->   - Qué buscar al comprar (calidad, compatibilidad)
->   - Alternativas y sustituciones permitidas
->   - Comparación: componente original vs genérico
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> - Duración: 10-12 min
+> - Mostrar físicamente cada componente, su función, dónde comprarlo y alternativas.
+> - Demostración side-by-side: Shield L293D vs Módulo L298N — diferencias físicas y eléctricas.
 </AdminOnly>
 
 ---
 
-# Lista de Materiales
+# 🛒 Lista de Materiales
 
-Para este curso, utilizaremos una selección de componentes de nivel ingeniería que aseguran un rendimiento competitivo.
+Estos son todos los componentes que necesitas para tu Robot Soccer Jr. El kit está diseñado para ser **asequible, educativo y compatible con competencias Jr. oficiales**.
 
-## Electrónica y Control
+## 🧠 Electrónica y Control
 
-- **Arduino Nano V3** (MaterialLink: arduino-nano)
-- **Sensor QTR-8RC** (MaterialLink: sensor-qtr-8rc)
-- **Módulo Bluetooth HC-05/HC-06** (MaterialLink: modulo-bluetooth)
-- **Módulo Pulsador** (MaterialLink: modulo-pulsador)
+| Componente | Especificación | Notas |
+|---|---|---|
+| **Arduino Uno R3** | ATmega328P, 5V, 14 pines digitales | El "cerebro" del robot |
+| **Shield L293D** ó **Módulo L298N** | Ver comparación abajo | Solo uno de los dos |
+| **Módulo Bluetooth HC-05** | SPP (Serial Port Profile), 2.4GHz | Solo para control RC |
+| **Interruptor Basculante** | 250V AC / 3A — contacto simple | On/Off de seguridad |
 
-## Driver y Tracción
+> [!WARNING]
+> El **HC-05** (clásico) y el **HC-06** son diferentes: el HC-05 puede ser maestro o esclavo, el HC-06 solo es esclavo. Para este curso, **cualquiera funciona** — ambos se configuran igual como receptor.
 
-- **Driver TB6612FNG** (MaterialLink: driver-tb6612fng)
-- **Motores TT (Relación 1:48)** (MaterialLink: motores-tt)
+## ⚡ Driver de Motores: ¿Shield L293D o Módulo L298N?
 
-## Energía y Chasis
+Esta es la decisión más importante antes de comprar. Aquí la comparación honesta:
 
-- **Fuente de Energía (Batería 9V + Broche)** (MaterialLink: fuente-energia)
-- **Chasis** (MaterialLink: chasis)
-
-## Otros Componentes (Imprescindibles)
-*   **Capacitores Cerámicos 104 (100nF) (x6)**: Para el filtrado de ruido en los motores.
-*   **Cables Jumper**: Macho-Hembra de varias medidas (10, 15 y 20cm).
-*   **Tornillos M2 x 10mm**: Delgados con tuerca para la fijación del sensor QTR.
-*   **Cinta Aislante**: Para asegurar conectores y evitar cortocircuitos por vibración.
-
----
+```
+┌─────────────────────┬─────────────────────┬─────────────────────┐
+│ Característica      │ Shield L293D        │ Módulo L298N        │
+├─────────────────────┼─────────────────────┼─────────────────────┤
+│ Montaje             │ Directo sobre UNO   │ Cableado externo    │
+│ Chip Driver         │ SN754410 / L293D    │ L298N               │
+│ Tecnología          │ CMOS                │ Bipolar (Darlington)│
+│ Eficiencia          │ ~80%                │ ~70%                │
+│ Caída de voltaje    │ ~1.4V               │ ~2.0V               │
+│ Corriente max/ch.   │ 600mA               │ 2A                  │
+│ Precio aprox.       │ $5-8 USD            │ $2-4 USD            │
+│ Recomendado para    │ Montaje limpio      │ Proyectos con cable │
+└─────────────────────┴─────────────────────┴─────────────────────┘
+```
 
 > [!IMPORTANT]
-> No sustituyas el driver **TB6612FNG** por un L298N. El TB6612FNG es mucho más eficiente y compacto, vital para nuestra arquitectura.
+> Con **batería 18650 2S (7.4V)** y el **L298N**: Los motores solo reciben ~5.4V efectivos (7.4V - 2.0V de caída interna). Con el **L293D**: reciben ~6.0V. Ambos funcionan con motores amarillos TT, pero el L293D dará más velocidad.
+
+## 🔧 Propulsión
+
+| Componente | Especificación | Notas |
+|---|---|---|
+| **Motores Amarillos TT** (×2) | DC 3-6V, reducción 1:48 | **Obligatorios en categoría Jr.** |
+| **Ruedas para TT Motor** (×2) | Diámetro 65mm | Compatibles con eje del motor |
+
+## 🔋 Energía
+
+| Componente | Especificación | Notas |
+|---|---|---|
+| **Batería 18650 2S** | 7.4V nominal, 8.4V cargada, 3000mAh | El paquete de dos celdas en serie |
+| **Cargador 18650 2S** | Salida 8.4V CC, balanceo de celdas | Indispensable — no uses cualquier cargador |
+| **Conector XT30 o XT60** | Macho en batería, hembra en robot | Para conexión segura y desconexión rápida |
+
+> [!CAUTION]
+> **Seguridad con baterías de litio 18650:**
+> - Nunca las cargues sin supervisión
+> - Nunca las descargues por debajo de **3.0V por celda** (6.0V total)
+> - Nunca las cortocircuites — pueden incendiarse
+> - Siempre usa el cargador específico para 2S con balanceo
+
+## 🖨️ Estructura
+
+| Componente | Especificación | Notas |
+|---|---|---|
+| **Chasis Impreso 3D** | PLA o PETG, diseño propio | Lo diseñarás en el Módulo 2 |
+| **Tornillos M3 × 10mm** (×8) | Con tuercas M3 | Para fijar motores y placa |
+| **Tornillos M2 × 6mm** (×4) | Para fijar el Arduino al chasis | |
+
+## 🔌 Accesorios Esenciales
+
+- **Cables Jumper** Macho-Hembra y Macho-Macho (pack variado, 10-20cm)
+- **Capacitores Cerámicos 104 (100nF) × 6** — Filtrado de ruido en motores
+- **Resistencias: 1kΩ × 1 y 2kΩ × 1** — Divisor de tensión para pin RX del HC-05
+- **Resistencias: 10kΩ × 2** — Divisor de tensión para lectura de batería en A0
+- **Cinta Aislante** — Para asegurar conexiones contra vibraciones
+- **Multímetro Digital** — Indispensable para verificar voltajes y continuidad
+
+## Herramientas de Trabajo
+
+| Herramienta | Para qué |
+|---|---|
+| Soldador + estaño | Capacitores en motores, interruptor |
+| Alicate de corte | Recortar cables |
+| Destornilladores | M2 y M3 |
+| Regla / calibrador | Medir para el diseño 3D |
 
 ---
 
+> [!TIP]
+> Antes de comprar, revisa si tu **escuela o club de robótica** ya tiene algunos de estos componentes disponibles para préstamo. Los Arduinos Uno y módulos Bluetooth suelen estar en los kits escolares.

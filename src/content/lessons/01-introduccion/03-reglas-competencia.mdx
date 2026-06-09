@@ -1,126 +1,133 @@
 ---
-title: "Lección 1.3: Reglas de Competencia Jr."
+title: "Reglas de Competencia Soccer Jr."
 order: 3
-description: "Lección 1.3: Reglas de Competencia Jr."
----
-
-**Description**: "Reglas oficiales de la categoría Junior y estrategias de adaptación a diferentes competencias."
-
+description: "Reglamento oficial de la categoría Soccer Junior para robots con control remoto y estrategias para ganar."
 ---
 
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Introducción a Competencias**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Footage de competencias reales (diferentes países/eventos)
->   - Explicación de reglas con ejemplos visuales
->   - Mostrar robots que cumplen vs no cumplen reglas
->   - Proceso típico de una competencia (registro, inspección, carreras)
->   - Ambiente y presión de competir
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
->
-> **Video 2: Estrategias de Competencia**
-> - Duración sugerida: 6-8 minutos
-> - Contenido:
->   - Casos de estudio de equipos exitosos
->   - Errores comunes de novatos y cómo evitarlos
->   - Tips de veteranos (calibración en pista, manejo de nervios)
->   - Qué llevar el día de la competencia (checklist)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Competencia en Acción**
+> - Duración: 8-10 min
+> - Footage de partidos reales, explicación de reglas con ejemplos visuales.
+> - Cómo es el proceso de inspección técnica y las penalizaciones comunes.
 </AdminOnly>
 
 ---
 
-# Competencias de Seguidor de Línea Jr.
+# ⚽ Reglas de Competencia: Soccer Junior
 
-Este robot no es solo un proyecto educativo: es tu boleto al mundo competitivo de la robótica. Las competencias de seguidor de línea son eventos donde la velocidad, precisión y confiabilidad de tu diseño se ponen a prueba contra otros equipos.
+El **Soccer Junior** es una categoría de robótica competitiva donde dos robots teledirigidos se enfrentan en una cancha miniatura para empujar un balón a la portería del oponente.
 
-## Categoría Junior: Especificaciones Oficiales
+## 🏟️ El Campo de Juego
 
-La categoría **Junior** tiene reglas específicas diseñadas para nivelar el campo de juego y fomentar la creatividad dentro de límites técnicos:
+```
+┌─────────────────────────────────────────────────────────┐
+│  ┌──┐                                              ┌──┐  │
+│  │  │          ┌─────────────┐                     │  │  │
+│  │  │          │   CENTRO    │                     │  │  │
+│  │  │     ╔════╪═════════════╪════╗                │  │  │
+│  │G │     ║    │    ⬤ ○     │    ║                │G │  │
+│  │O │     ╚════╪═════════════╪════╝                │O │  │
+│  │A │          │             │                     │A │  │
+│  │L │          └─────────────┘                     │L │  │
+│  └──┘                                              └──┘  │
+│  ← PORTERÍA ROJA →                    ← PORTERÍA AZUL →  │
+└─────────────────────────────────────────────────────────┘
+         122 cm × 183 cm (medidas estándar)
+```
 
-### 1. Restricción de Motores
-**Motores Amarillos (TT Motors)** son obligatorios en la mayoría de competencias Jr. Estos motores de plástico amarillo son:
-*   **Accesibles**: Bajo costo y fáciles de conseguir.
-*   **Justos**: Todos los equipos tienen la misma potencia base.
-*   **Desafiantes**: Al tener menos torque que motores metálicos, obligan a optimizar el código y el diseño mecánico.
+| Elemento | Dimensión estándar |
+|---|---|
+| Campo (largo × ancho) | 183 cm × 122 cm |
+| Portería (ancho × alto) | 30 cm × 20 cm |
+| Balón | Pelota de ping-pong naranja (40mm) |
+| Paredes | Madera o acrílico, h=10cm mínimo |
+
+## 📏 Especificaciones del Robot
+
+### 1. Dimensiones Máximas
+El robot debe **caber en un cuadrado de 20×20 cm** (medido en proyección horizontal).
 
 > [!WARNING]
-> Usar motores diferentes (como motores metálicos N20 o micro metal gearmotors) te descalificará automáticamente en categoría Jr. Verifica siempre el reglamento específico de tu competencia.
+> La medición se hace con el robot en posición de inicio, con todos los accesorios extendidos. Un robot de 20.1 cm es **descalificado automáticamente**.
 
-### 2. Dimensiones Máximas
-El robot debe caber dentro de un cuadrado de **20cm x 20cm** (medido en su proyección superior). La altura generalmente no tiene restricción, pero el diseño compacto es clave para:
-*   **Estabilidad**: Un centro de gravedad bajo mejora el agarre en curvas cerradas.
-*   **Velocidad en Curvas**: Menos masa alejada del centro = menos inercia = giros más rápidos.
+### 2. Restricción de Motores — CRÍTICO
+**Solo se permiten motores amarillos TT (plástico)** en categoría Junior. Esto garantiza equidad.
 
-### 3. Sensores Permitidos
-La mayoría de competencias Jr. permiten:
-*   Sensores infrarrojos reflectivos (como el QTR-8RC que usamos).
-*   Algunos eventos permiten hasta 8 sensores, otros limitan a 6. **Revisa el reglamento**.
+| ✅ Permitido | ❌ Prohibido |
+|---|---|
+| Motores TT amarillos plástico | Motores metálicos N20 |
+| Motores TT con engranajes estándar | Micro Metal Gearmotors |
+| Motor doble eje TT | Servomotores continuos de metal |
 
-### 4. Autonomía Total
-Una vez que presionas el botón de inicio:
-*   **No puedes tocar el robot** hasta que cruce la meta o salga de la pista.
-*   **No hay control remoto**: Todo el comportamiento debe estar programado.
+### 3. Sistema de Control Permitido
+- **Bluetooth (HC-05 / HC-06)**: Permitido ✅
+- **WiFi RC**: Consulta el reglamento específico
+- **IR Remote**: Permitido en algunas competencias ✅
+- **Control autónomo con sensores**: No aplica para Soccer Jr. RC
 
-## Adaptación a Diferentes Competencias
+### 4. Prohibiciones de Diseño Mecánico
 
-Cada evento tiene sus particularidades. Aquí te enseñamos a adaptarte:
+> [!CAUTION]
+> Estas características **descalifican** tu robot en inspección técnica:
+> - Mecanismos de **agarre activo** del balón (loops, imanes, ganchos)
+> - Dispositivos que **retengan** la pelota más de 0.3 segundos
+> - Superficies pegajosas o con Velcro dirigidas al balón
+> - Partes cortantes o con puntas que puedan dañar el campo
 
-### Tipos de Pista Comunes
+### 5. Diseño de Pala Delantera (Dribbler Pasivo)
+La **pala delantera** es tu ventaja competitiva legal. Debe:
+- Ser parte fija del chasis (no móvil activamente)
+- Permitir que el balón ruede libremente (no retenerlo)
+- Ayudar a guiar el balón en la dirección de avance
 
-#### Pista Clásica (Línea Negra sobre Blanco)
-*   **Ancho de línea**: 18-25mm (varía por competencia).
-*   **Curvas**: Radios de 10cm a 30cm.
-*   **Estrategia**: Ajusta tu `baseSpeed` según la complejidad. Pistas con curvas cerradas requieren velocidad moderada pero PID agresivo.
+## ⏱️ Formato del Partido
 
-#### Pista Invertida (Línea Blanca sobre Negro)
-*   Algunos eventos usan este formato.
-*   **Solución**: Cambia `qtr.readLineBlack()` por `qtr.readLineWhite()` en tu código. ¡Lleva ambas versiones del firmware!
+| Aspecto | Regla estándar |
+|---|---|
+| Duración del partido | 2 × 3 minutos |
+| Descanso entre tiempos | 1 minuto |
+| Sistema de puntuación | 1 punto por gol |
+| Empate | Tiempo extra + penales (depende del evento) |
+| Jugadores por equipo | 1 robot en campo (algunos eventos: 2v2) |
 
-#### Obstáculos y Gaps
-*   **Gaps**: Espacios sin línea que el robot debe "recordar" y cruzar en línea recta.
-*   **Estrategia**: Implementa lógica de "último error conocido" para mantener la trayectoria.
+## 🎯 Proceso en el Día de Competencia
 
-### Variaciones en el Reglamento
+```
+LLEGADA → INSCRIPCIÓN → INSPECCIÓN → PRÁCTICA → PARTIDO → PREMIACIÓN
 
-| Aspecto | Variación Común | Tu Estrategia |
-|---------|----------------|---------------|
-| **Tiempo de Calibración** | 5-10 segundos | Optimiza tu rutina de calibración del QTR para ser rápida pero efectiva |
-| **Número de Vueltas** | 1-3 vueltas | Ajusta la agresividad del PID: más vueltas = prioriza estabilidad sobre velocidad pura |
-| **Penalizaciones por Salida** | Descalificación vs. Penalización de Tiempo | Si hay penalización (no descalificación), puedes arriesgar más en las curvas |
-| **Zona de Inicio** | Línea recta vs. Curva | Si inicia en curva, considera un `baseSpeed` inicial bajo que aumente gradualmente |
+1. Inscripción:   Registrar robot con nombre del equipo y número
+2. Inspección:    Verificar dimensiones, motores, y que no haya agarre
+3. Práctica:      15-30 min en la cancha oficial para calibrar
+4. Partido:       Enfrentamientos según bracket del evento
+5. Premiación:    Top 3 de la categoría
+```
 
-## Mentalidad Competitiva
+## 🏆 Estrategias Ganadoras
 
-### Antes de la Competencia
-1.  **Lee el Reglamento Completo**: No asumas que todas las competencias son iguales.
-2.  **Practica en Condiciones Similares**: Si la competencia es al aire libre, prueba tu robot bajo luz solar (los sensores IR pueden comportarse diferente).
-3.  **Lleva Repuestos**: Batería extra, cables, y un Arduino Nano de respaldo.
+### Estrategia 1: La Pala Ancha
+Una pala frontal más ancha que el balón tiene mejor cobertura de control.
 
-### Durante la Competencia
-*   **Calibra en la Pista Oficial**: Cada superficie refleja diferente. Usa los minutos de práctica para recalibrar.
-*   **Observa a la Competencia**: Mira qué estrategias usan otros equipos (velocidad vs. estabilidad).
-*   **Mantén la Calma**: Si fallas en la primera ronda, tienes tiempo para ajustar parámetros.
+### Estrategia 2: La Diagonal Rápida
+Los robots que atacan en diagonal confunden al oponente y tienen mejor ángulo de tiro.
 
-### Después de la Competencia
-*   **Analiza tus Datos de Telemetría**: Revisa los logs CSV para ver dónde perdiste tiempo.
-*   **Documenta tus Aprendizajes**: Qué funcionó, qué no, y qué cambiarías para la próxima.
+### Estrategia 3: Giro Brusco
+Un giro en el lugar (ambos motores en sentidos opuestos) permite cambiar de dirección sin retroceder, ganando tiempo crucial.
 
-## El Espíritu de la Categoría Jr.
-
-La categoría Junior no se trata solo de ganar, sino de:
-*   **Aprender el método científico**: Hipótesis (ajustar Kp) → Experimento (correr el robot) → Análisis (telemetría) → Iteración.
-*   **Desarrollar resiliencia**: Los mejores equipos no son los que nunca fallan, sino los que se recuperan rápido.
-*   **Compartir conocimiento**: La comunidad de robótica crece cuando todos enseñamos lo que aprendemos.
+### Estrategia 4: Defensa en Línea
+Posicionarse frente a tu portería y rebotar el balón lateralmente hacia los costados del campo.
 
 > [!TIP]
-> Muchos campeones nacionales e internacionales comenzaron en categoría Jr. con motores amarillos y un Arduino Nano. La limitación de recursos no es una desventaja; es una oportunidad para demostrar ingenio.
+> **La clave no es la velocidad — es el control.** Un robot más lento con mejor maniobrabilidad gana más partidos que uno rápido pero que choca con las paredes. Practica en el simulador para desarrollar "musculatura" de control antes del partido real.
 
----
+## Lista de Verificación Pre-Competencia
 
-
-## Módulo 2: Diseño
-
+- [ ] Robot entra en cuadrado de 20×20 cm
+- [ ] Solo motores amarillos TT instalados
+- [ ] Batería completamente cargada (8.4V)
+- [ ] HC-05 emparejado con el celular del operador
+- [ ] App de control probada y funcionando
+- [ ] Pala delantera fija y sin mecanismos de agarre
+- [ ] Tornillos apretados (las vibraciones los aflojan)
+- [ ] Repuesto: cable USB de carga + batería de respaldo

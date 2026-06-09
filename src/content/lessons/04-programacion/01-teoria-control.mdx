@@ -1,266 +1,204 @@
 ---
-title: "Lección 4.1: Teoría de Control (El Cerebro Matemático)"
+title: "Programación en SteamakersBlocks"
 order: 9
-description: "Lección 4.1: Teoría de Control (El Cerebro Matemático)"
+description: "Programa el control Bluetooth de tu robot Soccer Jr. usando bloques visuales en SteamakersBlocks antes de escribir una línea de código."
 ---
 
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Anatomía de un Sistema de Control**
-> - Duración sugerida: 12-15 minutos
-> - Contenido:
->   - El concepto de "Lazo Cerrado" explicado con un videojuego.
->   - Analogías visuales: La liga elástica (P) y el amortiguador de puerta (D).
->   - Por qué "seguir la línea" es en realidad "minimizar el error".
->   - Demostración física: Mover un robot con la mano simulando las fuerzas.
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Intro a SteamakersBlocks**
+> - Duración: 8-10 min
+> - Interfaz, cómo conectar el Arduino, cómo subir el programa
+> - Filosofía: "piensa la lógica primero, escribe el código después"
 >
-> **Video 2: Matemáticas del PID Simplificadas**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Pizarra digital: Desglose de la fórmula Error = Setpoint - Input.
->   - Cómo se convierte un número (Error) en voltaje para motores (PWM).
->   - El problema de la oscilación y cómo la "D" lo soluciona.
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Construyendo el Programa de Control**
+> - Duración: 15-18 min (screen recording completo)
+> - Construir el programa completo paso a paso con bloques
+> - Probar en el robot físico mientras se construye
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Haber completado el Módulo 3 (Montaje). Tu robot debe estar listo para recibir órdenes.
+> **📋 Prerrequisitos:** Robot físico completamente armado y funcionando con el código de Fase 3.
 
 ---
 
-# Teoría de Control: El Algoritmo PID
+# 🧱 Programación con SteamakersBlocks
 
-Hasta ahora, tu robot es un poco "ciego". Si ve negro, gira; si ve blanco, gira al otro lado. Eso funciona para juguetes, pero para ganar carreras necesitamos algo mejor. Necesitamos que el robot sea inteligente.
+SteamakersBlocks es una plataforma de programación visual donde construyes programas **arrastrando bloques** en lugar de escribir código. Es idéntico en lógica al Arduino C++, pero sin preocuparte por la sintaxis.
 
-Vamos a enseñarle el algoritmo que usan los cohetes de la NASA y los coches autónomos para no chocar: el PID. No te asustes por el nombre, es solo una forma matemática de responder a la pregunta: "¿Qué tan mal voy y cómo lo arreglo?"
+## ¿Por qué Empezar con Bloques?
 
-## 1. El Concepto de "Error"
-En ingeniería, el robot siempre tiene una meta llamada Setpoint.
+```
+La Curva de Aprendizaje del Programador de Robots:
 
-*   **Nuestra Meta (Setpoint)**: 3500 (El centro exacto de la línea).
-*   **Nuestra Realidad (Input)**: Lo que leen los sensores (0 a 7000).
+  Dificultad
+  ──────────                                          ●  C++ Avanzado (PID, optimización)
+      │                                       ●  C++ con librerías
+      │                               ●  C++ básico Arduino
+      │                   ●  SteamakersBlocks (hoy estamos aquí)
+      │           ●  Pseudocódigo
+      │   ●  Flowchart (diagramas de flujo)
+      └─────────────────────────────────────────────────►  Tiempo
+      
+  Los bloques NO son "para niños" — son la misma lógica
+  que usa un ingeniero al diseñar el algoritmo antes de codificar.
+```
 
-El Error es la resta entre lo que quieres y lo que tienes:
+## Diagrama de Flujo: Lógica del Control RC
 
-$$
-Error = Setpoint - PosicionActual
-$$
+Antes de construir los bloques, entiende la lógica con un diagrama de flujo:
 
-*   Si el error es 0, ¡felicidades! Vas perfecto.
-*   Si el error es grande, tienes que girar rápido.
-*   Si el error es pequeño, tienes que girar suave.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    INICIO DEL PROGRAMA                      │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  CONFIGURACIÓN (setup):                                     │
+│  • Definir pines de motores como SALIDA                     │
+│  • Iniciar comunicación Bluetooth a 9600 baudios            │
+│  • Parpadear LED 5 veces → Robot LISTO                      │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+                   ┌───────────────┐
+                   │   REPETIR     │◄──────────────────┐
+                   │   SIEMPRE     │                   │
+                   └───────┬───────┘                   │
+                           │                           │
+                           ▼                           │
+                ┌──────────────────────┐               │
+                │ ¿Hay dato Bluetooth  │               │
+                │ disponible?          │               │
+                └─────┬──────────┬─────┘               │
+                      │ SÍ       │ NO                  │
+                      │          └────────────────────►│
+                      ▼                                │
+           ┌─────────────────────┐                     │
+           │ Leer el comando     │                     │
+           │ (un carácter ASCII) │                     │
+           └──────────┬──────────┘                     │
+                      │                                │
+                      ▼                                │
+           ┌─────────────────────────────────────────┐ │
+           │      ¿Cuál es el comando?               │ │
+           └──┬─────┬─────┬─────┬─────┬─────────────┘ │
+              │     │     │     │     │               │
+             'F'   'B'   'L'   'R'  Otro             │
+              │     │     │     │     │               │
+              ▼     ▼     ▼     ▼     ▼               │
+           [Adel][Retr][GiroL][GiroR][Stop]            │
+              │     │     │     │     │               │
+              └─────┴─────┴─────┴─────┴──────────────►┘
+```
 
-{/* SIMULATION (Visible to all logged-in users) */}
-<div style="width: 100%; height: 500px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
-  <iframe src="/simulations/ojo-matematico.html" style="width: 100%; height: 100%; border: none;"></iframe>
-</div>
-<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
-  <a href="/simulations/ojo-matematico.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
-    ↗ Abrir simulador en pantalla completa
-  </a>
-</div>
+## Construir el Programa en SteamakersBlocks
 
-## 2. Los Tres Entrenadores (P, I, D)
-Para mantener el error en cero, tu robot tiene tres "entrenadores" matemáticos en su cerebro que le gritan órdenes a los motores al mismo tiempo.
+### Bloque 1: Configuración Inicial
 
-### P - El Proporcional (La Liga Elástica)
+En SteamakersBlocks, el programa tiene dos secciones principales:
+- **Al iniciar** (equivale a `setup()`)
+- **Para siempre** (equivale a `loop()`)
 
-Su lema: *"¡Cuanto más te alejes, más fuerte te jalo!"*
+```
+┌─────────────────────────────────────────────────────────┐
+│  🟦 AL INICIAR                                          │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │ 🔌 configurar pin [6] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [7] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [8] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [5] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [9] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [10] como [SALIDA]            │   │
+│  │ 📡 iniciar Bluetooth en pin [2] y [3] a [9600]  │   │
+│  │ 💡 parpadear LED [5] veces a [100ms]            │   │
+│  └─────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────┘
+```
 
-Imagina que tu robot está atado a la línea con una liga o goma elástica.
-*   Si te alejas poquito, la liga te jala suave.
-*   Si te alejas mucho, la liga te jala con mucha fuerza.
+### Bloque 2: Leer y Responder
 
-A esto lo llamamos **Kp** (Constante Proporcional). Es la "fuerza" o rigidez de esa liga.
+```
+┌─────────────────────────────────────────────────────────┐
+│  🔄 PARA SIEMPRE                                        │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │  🔍 SI [Bluetooth tiene datos]                  │   │
+│  │     ENTONCES                                    │   │
+│  │     📥 guardar en [comando] ← [leer Bluetooth]  │   │
+│  │                                                 │   │
+│  │     🔀 SI [comando] = ['F']                     │   │
+│  │        ENTONCES: 🚀 mover ambos motores adelante│   │
+│  │                                                 │   │
+│  │     🔀 SI SINO [comando] = ['B']                │   │
+│  │        ENTONCES: 🔙 mover ambos motores atrás   │   │
+│  │                                                 │   │
+│  │     🔀 SI SINO [comando] = ['L']                │   │
+│  │        ENTONCES: ↰ solo motor derecho avanza    │   │
+│  │                                                 │   │
+│  │     🔀 SI SINO [comando] = ['R']                │   │
+│  │        ENTONCES: ↱ solo motor izquierdo avanza  │   │
+│  │                                                 │   │
+│  │     🔀 SI NO (cualquier otro)                   │   │
+│  │        ENTONCES: ⏹️ parar todos los motores     │   │
+│  └─────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────┘
+```
 
-$$
-SalidaP = Error \times Kp
-$$
+### Bloques para "Mover Motor Adelante/Atrás"
 
-**El Problema**: Si la liga es muy fuerte (Kp alto), cuando el robot regrese a la línea vendrá tan rápido que... ¡se pasará de largo hacia el otro lado! Y empezará a rebotar de izquierda a derecha sin parar. A esto le llamamos **Oscilación**.
+Cada acción de motor usa 3 bloques internamente:
 
-{/* SIMULATION (Visible to all logged-in users) */}
-<div style="width: 100%; height: 600px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
-  <iframe src="/simulations/pendulo-p.html" style="width: 100%; height: 100%; border: none;"></iframe>
-</div>
-<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
-  <a href="/simulations/pendulo-p.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
-    ↗ Abrir "El Péndulo" en pantalla completa
-  </a>
-</div>
+```
+"Mover Motor Izquierdo Adelante" =
+  ┌──────────────────────────────────────┐
+  │ 📤 escribir en pin [7]  valor [ALTO] │  ← AIN1 = HIGH
+  │ 📤 escribir en pin [8]  valor [BAJO] │  ← AIN2 = LOW
+  │ 📊 PWM en pin [6] valor [180]        │  ← Velocidad 180/255
+  └──────────────────────────────────────┘
 
-### D - El Derivativo (El Freno Inteligente)
+"Parar Motor Izquierdo" =
+  ┌──────────────────────────────────────┐
+  │ 📤 escribir en pin [7]  valor [BAJO] │
+  │ 📤 escribir en pin [8]  valor [BAJO] │
+  │ 📊 PWM en pin [6] valor [0]          │
+  └──────────────────────────────────────┘
+```
 
-Su lema: *"¡Cuidado, vas muy rápido! ¡Frena!"*
+## Tabla de Equivalencia: Bloques ↔ C++
 
-Este es el entrenador precavido. Él no mira dónde estás, sino a qué velocidad te acercas o te alejas.
+Una vez que tu programa de bloques funciona, esta tabla te muestra la equivalencia directa con el código C++:
 
-Cuando la liga elástica (P) te jala con fuerza hacia la línea, el entrenador (D) dice: *"¡Oye, vas demasiado rápido, vamos a chocar! ¡Pon los frenos!"*.
+| Bloque Visual | Código C++ equivalente |
+|---|---|
+| 🔌 `configurar pin [N] como SALIDA` | `pinMode(N, OUTPUT);` |
+| 📤 `escribir en pin [N] ALTO` | `digitalWrite(N, HIGH);` |
+| 📊 `PWM en pin [N] valor [V]` | `analogWrite(N, V);` |
+| 📡 `iniciar Bluetooth [RX] [TX] a [baud]` | `SoftwareSerial bt(RX,TX); bt.begin(baud);` |
+| 🔍 `Bluetooth tiene datos` | `bt.available()` |
+| 📥 `leer Bluetooth` | `(char)bt.read()` |
+| 🔀 `SI [condición] ENTONCES` | `if (condicion) { ... }` |
+| 🔄 `PARA SIEMPRE` | `void loop() { ... }` |
+| 💡 `parpadear LED N veces` | `blink(N, 150);` |
 
-Su trabajo es evitar que te pases de largo. Actúa como un amortiguador; absorbe los golpes y evita los rebotes.
-
-A esto lo llamamos **Kd** (Constante Derivativa). Matemáticamente, mira la diferencia entre el error de ahora y el error de hace un instante.
-
-$$
-SalidaD = (ErrorActual - ErrorAnterior) \times Kd
-$$
-
-<div class="simulator-container" style="background:#0f172a; border-radius:12px; overflow:hidden; border:1px solid #334155; margin: 30px 0;">
-  <div style="background:#1e293b; padding:10px 20px; font-size:12px; font-weight:bold; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #334155;">
-    SIMULADOR INTERACTIVO
-  </div>
-  <iframe src="/simulations/pendulo-pd.html" style="width:100%; height:500px; border:none;" title="Simulador PD"></iframe>
-</div>
-<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
-  <a href="/simulations/pendulo-pd.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
-    ↗ Abrir "El Amortiguador" en pantalla completa
-  </a>
-</div>
-
-### I - El Integral (La Memoria)
-
-Su lema: *"¡Llevas mucho tiempo equivocado!"*
-
-Este entrenador tiene memoria. Acumula los errores del pasado.
-
-> [!NOTE]
-> **Nota de Ingeniero**: En robots de carreras muy rápidos (como el tuyo), este entrenador a veces es demasiado lento y "rencoroso" (se queda con el error acumulado y causa choques en las rectas). Por eso, en este curso, dejaremos al entrenador Integral descansando (**Ki = 0**). Nos concentraremos en un control PD perfecto.
-
-## 3. De Números a Movimiento: La Mezcla Diferencial
-
-Hasta ahora hemos calculado un número llamado "Corrección" o "Ajuste". Pero, ¿cómo hace ese número para que el robot gire? La respuesta está en un concepto llamado **tracción diferencial**.
-
-### El Concepto: Diferentes Velocidades = Giro
-
-Tu robot tiene dos ruedas independientes. Si ambas giran a la misma velocidad, el robot avanza recto. Pero si una rueda gira más rápido que la otra, el robot **gira** hacia el lado de la rueda más lenta.
-
-**Piénsalo como un kayak:**
-- Si remas igual de fuerte con ambos remos → vas recto
-- Si remas más fuerte con el remo derecho → giras a la izquierda
-- Si remas más fuerte con el remo izquierdo → giras a la derecha
-
-Lo mismo pasa con tu robot. La diferencia de velocidad entre las ruedas crea el giro.
-
-<AdminOnly>
-> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
->
-> **Video 3: La Mezcla Diferencial Explicada**
-> - Duración sugerida: 5-7 minutos
-> - Contenido:
->   - Demostración física con el robot (sin programar)
->   - Girar manualmente cada rueda a diferentes velocidades
->   - Mostrar con cámara cenital cómo el robot gira
->   - Analogía visual con kayak o excavadora
->   - Diagrama animado de vista superior del robot
->   - Transición a cómo el código implementa esto
-> - Elementos visuales recomendados:
->   - Flechas superpuestas mostrando velocidad de cada rueda
->   - Trayectoria curva del robot marcada
->   - Comparación lado a lado: velocidades iguales vs diferentes
-> - Preview: `https://www.youtube.com/embed/VIDEO_ID` (reemplazar)
-</AdminOnly>
-
-### Ejemplo Numérico
-
-Imagina que tu **Velocidad Base** es 200 (ambos motores a 200 PWM).
-
-**Escenario 1: Robot va recto (Error = 0)**
-- Corrección = 0
-- Motor Izquierdo = 200 - 0 = **200**
-- Motor Derecho = 200 + 0 = **200**
-- Resultado: ✅ Avanza recto
-
-**Escenario 2: Línea a la izquierda (Error > 0, por ejemplo +500)**
-- Corrección = +100 (después de aplicar Kp y Kd)
-- Motor Izquierdo = 200 - 100 = **100** ⬇️ (más lento)
-- Motor Derecho = 200 + 100 = **300** ⬆️ (más rápido)
-- Resultado: 🔄 Gira a la IZQUIERDA (donde está la línea)
-
-**Escenario 3: Línea a la derecha (Error < 0, por ejemplo -500)**
-- Corrección = -100
-- Motor Izquierdo = 200 - (-100) = **300** ⬆️ (más rápido)
-- Motor Derecho = 200 + (-100) = **100** ⬇️ (más lento)
-- Resultado: 🔄 Gira a la DERECHA (donde está la línea)
-
-<AdminOnly>
 > [!TIP]
-> **Título**: Simulador - Vista Superior del Robot (Solo visible para administradores)
-> 
-> En una futura actualización, aquí se insertará un simulador interactivo.
-> 
-> **Descripción funcional del simulador:**
-> - **Vista:** Perspectiva cenital (desde arriba) del robot
-> - **Elementos visuales:**
->   - Rectángulo representando el chasis del robot
->   - Dos círculos o rectángulos para las ruedas (izquierda y derecha)
->   - Línea negra simulada en el fondo
->   - Indicadores de velocidad en cada rueda (barras o números)
-> - **Controles interactivos:**
->   - Slider "Velocidad Base" (0-255)
->   - Slider "Corrección" (-255 a +255)
->   - Botón "Reset" para volver al centro
->   - Checkbox "Mostrar trayectoria" (deja rastro del movimiento)
-> - **Cálculo automático:**
->   - Motor Izq = Base - Corrección
->   - Motor Der = Base + Corrección
->   - Mostrar estos valores en tiempo real
-> - **Comportamiento:**
->   - El robot se mueve en la simulación según las velocidades
->   - Se ve claramente el radio de giro cuando hay diferencia
->   - Animación suave para que sea educativo
-> - **Panel de información:**
->   - "Corrección = 0 → Va recto"
->   - "Corrección > 0 → Gira izquierda"
->   - "Corrección < 0 → Gira derecha"
-> 
-> **Objetivo pedagógico:** Que el estudiante experimente visualmente cómo diferentes correcciones afectan el movimiento del robot ANTES de verlo en el código.
-</AdminOnly>
+> Cuando tu programa de SteamakersBlocks está funcionando perfectamente, muchas plataformas tienen un botón "Ver Código" que muestra el C++ generado automáticamente. Úsalo para **comparar** tu programa de bloques con el código — así es como se aprende a programar profesionalmente.
 
-### La Fórmula Maestra
+## Ejercicio: Agregar un Nuevo Comportamiento en Bloques
 
-Ahora que entiendes el concepto, aquí está cómo se traduce a código:
+Después de que el control básico funcione, intenta agregar en SteamakersBlocks:
 
-```cpp
-// Paso 1: Calcular la corrección (ya lo vimos con P y D)
-Correccion = (Error * Kp) + ((Error - ErrorAnterior) * Kd);
+**"Modo Turbo"**: Si el celular envía la letra `T`, los motores van a velocidad 230 en lugar de 180.
 
-// Paso 2: Aplicar la corrección a cada motor de forma OPUESTA
-Velocidad_Izquierda = Velocidad_Base - Correccion;
-Velocidad_Derecha   = Velocidad_Base + Correccion;
+```
+Pista: Agrega un bloque SI SINO adicional:
+
+  🔀 SI SINO [comando] = ['T']
+     ENTONCES:
+     📊 PWM en pin [6] valor [230]   ← Turbo motor izquierdo
+     📊 PWM en pin [5] valor [230]   ← Turbo motor derecho
 ```
 
-**¿Por qué se suma en uno y se resta en el otro?**
-
-Porque queremos que cuando la línea esté a un lado, ESE lado frene y el OTRO acelere:
-- ✅ **Línea a la izquierda** (corrección positiva) → Izquierdo FRENA (-), Derecho ACELERA (+) → Gira izquierda
-- ✅ **Línea a la derecha** (corrección negativa) → Izquierdo ACELERA (-), Derecho FRENA (+) → Gira derecha
-
-Es como si el robot "persiguiera" la línea siempre girando hacia donde está.
-
-## 4. Resumen del Algoritmo
-
-El cerebro de tu Arduino hace este cálculo miles de veces por segundo:
-
-```cpp
-// Fórmula completa
-Correccion = (Error * Kp) + ((Error - ErrorAnterior) * Kd);
-Velocidad_Izquierda = Velocidad_Base - Correccion;
-Velocidad_Derecha   = Velocidad_Base + Correccion;
-```
-
-## 5. Tipos de Respuesta (Sintonización)
-Tu trabajo como ingeniero será encontrar los números perfectos para **Kp** y **Kd**. Verás tres comportamientos en tu robot:
-
-1.  **El "Borracho" (Sub-amortiguado)**: El robot va haciendo "S" sobre la línea.
-    *   *Diagnóstico*: Mucha fuerza (Kp alto) y poco freno (Kd bajo).
-2.  **El "Perezoso" (Sobre-amortiguado)**: El robot ve la curva pero tarda mucho en girar y se sale.
-    *   *Diagnóstico*: Demasiado freno (Kd muy alto) o poca fuerza (Kp bajo).
-3.  **El "Campeón" (Críticamente amortiguado)**: Se pega a la línea como un imán, reacciona rápido pero sin temblar.
-
-¡Prepárate! En la próxima lección escribiremos este código y verás la magia ocurrir.
-
----
-
+En la próxima lección, vamos a escribir exactamente este mismo programa **en código C++** y verás que es prácticamente la misma lógica, solo con diferente sintaxis.

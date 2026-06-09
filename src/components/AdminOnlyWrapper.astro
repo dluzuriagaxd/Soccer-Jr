@@ -1,0 +1,19 @@
+---
+import AdminOnly from "./AdminOnly.astro";
+
+interface Props {
+    isAdmin: boolean;
+}
+
+const { isAdmin } = Astro.props;
+
+// Create a component factory that passes isAdmin
+const AdminOnlyWithAuth = (props: any) => {
+    return AdminOnly({ ...props, isAdmin });
+};
+---
+
+<script define:vars={{ AdminOnlyWithAuth }}>
+    // Export for use in MDX
+    globalThis.AdminOnlyWithAuth = AdminOnlyWithAuth;
+</script>

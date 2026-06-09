@@ -1,57 +1,132 @@
 ---
-title: "Lección 2.1: Diseño del Chasis"
+title: "3D Chassis Design: Soccer Jr."
 order: 4
-description: "Lección 2.1: Diseño del Chasis"
+description: "Learn to design your chassis in Tinkercad: center of mass, front guide geometry, and component layout for maximum on-field performance."
 ---
 
 <AdminOnly>
-> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+> **🎥 VIDEO SECTION (Visible to admins only)**
 >
-> **Video 1: Principios de Diseño Mecánico**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Centro de masa explicado con ejemplos físicos
->   - Distribución de peso: demostración con balanza
->   - Comparación lado a lado: diseño bueno vs malo
->   - Efecto del centro de masa en curvas (video slow-motion)
->   - Materiales: acrílico vs impresión 3D vs corte láser
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Design Principles for Soccer Robots**
+> - Duration: 10–12 min
+> - Low center of mass: live demonstration with physical model
+> - Front guide designs and angle variations
+> - Common beginner design mistakes
 >
-> **Video 2: Tutorial de Tinkercad**
-> - Duración sugerida: 15-18 minutos
-> - Contenido:
->   - Paso a paso del diseño en Tinkercad (screen recording)
->   - Medidas específicas para cada componente
->   - Uso de la regla para posicionar agujeros
->   - Exportar archivo STL para impresión 3D
->   - Exportar archivo SVG para corte láser
->   - Mostrar el diseño final impreso/cortado
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Tinkercad Tutorial — Soccer Jr.**
+> - Duration: 18–20 min (full screen recording)
+> - Step by step: base plate, motor holes, battery holder, Arduino mount
 </AdminOnly>
 
 ---
 
-# Diseño y Mecánica
+# 🖨️ 3D Chassis Design
 
-En el nivel "Junior Engineering", dejamos atrás los chasis de acrílico genéricos. Nuestro objetivo es que **tú diseñes tu propia estructura**.
+The chassis is not just "the base" — it's the component that defines **how your robot moves on the field**. A good design can compensate for motor limitations; a poor design can ruin even the best code.
 
-## El Poder del Dibujo Técnico
+## Core Design Principles
 
-Antes de fabricar, debemos medir. Utilizaremos **Tinkercad** como nuestra herramienta de diseño principal para aprender:
-1.  **Precisión**: Uso de la regla para posicionar agujeros de motores y sensores.
-2.  **Distribución de Peso**: Planificar dónde irá la batería de 9V para mantener un centro de masa equilibrado.
-3.  **Fabricación Digital**: Preparar archivos para **Impresión 3D** o **Corte Láser**.
+### 1. Low and Centered Center of Mass
 
-## Reto de Diseño
-Crea una base que cumpla con:
-*   Espacio dedicado para el Shield de expansión.
-*   Soporte frontal ajustable para el sensor QTR-8RC.
-*   Huecos pasantes para trenzar los cables de los motores.
+The **center of mass (CoM)** is the point where the robot's entire weight effectively acts. For Soccer Jr., the ideal CoM position is:
+
+```
+Side View — Ideal Center of Mass:
+
+        ┌────────────────────────────┐
+        │  Arduino    HC-05  Switch  │  ← Top layer (electronics)
+        ├────────────────────────────┤
+        │  [18650 2S Battery Pack]   │  ← As low as possible
+        ├────────────────────────────┤
+        │      Motor  ⬤  Motor       │
+    ────┴────────────────────────────┴────  ← Field surface
+                    ↑
+            Center of Mass (CoM)
+            should be as close
+            to the ground as possible
+```
+
+**Why?** A low CoM improves stability during sharp turns. A high CoM will cause the robot to tip (and skid) in tight maneuvers.
+
+### 2. The Front Guide (Passive Ball Controller)
+
+The **front guide** is a concave geometry at the front of the robot. Its job is to **keep the ball centered** as the robot moves forward — the ball naturally settles into the curve and doesn't roll sideways.
+
+```
+Top View — Front Guide Geometry:
+
+Type A: Concave (Recommended)          Type B: Flat
+┌─────────────────────────┐           ┌─────────────────────────┐
+│     Robot Body          │           │     Robot Body          │
+│   ┌─────────────────┐   │           │   ┌─────────────────┐   │
+│   │                 │   │           │   │                 │   │
+│   │    ⬤ Ball       │   │           │   │    ⬤ Ball       │   │
+│   └─────────────────┘   │           │   └─────────────────┘   │
+│     ╰──── Guide ────╯   │           │     └──── Guide ────┘   │
+└─────────────────────────┘           └─────────────────────────┘
+  Ball stays centered while moving      Ball can escape sideways
+```
+
+**Recommended dimensions:**
+- Width: **5 to 8 cm** (slightly wider than a ping-pong ball at 4 cm)
+- Concave depth: **5 to 8 mm**
+- Thickness: minimum **3 mm in PLA** for impact resistance
+
+> [!NOTE]
+> **More advanced robots** in higher competition categories (e.g., Middle Size League) feature an **active kicker** — a solenoid mechanism that fires the ball at high speed. The Soccer Jr. front guide is the simpler, passive equivalent: it guides the ball instead of launching it.
+
+### 3. Component Layout
+
+```
+Top View of Chassis (20×20 cm):
+
+┌────────────────────────────────────────┐
+│  ←─── 20 cm ──────────────────────→   │
+│  ┌────────────────────────────────┐   ↑
+│  │  [TT Motor L]    [TT Motor R]  │   │ 20cm
+│  │  [    Arduino Uno R3         ] │   │
+│  │  [  18650 2S Battery Pack    ] │   │
+│  │  [Driver]  [HC-05]  [Switch]  │   ↓
+│  └────────────────────────────────┘
+│       ╔══ FRONT GUIDE ══╗             │
+└────────────────────────────────────────┘
+         ↑ FRONT OF ROBOT
+```
+
+**Golden Rule for Layout:**
+- **Battery low and rear** → low CoM + counterbalances the front guide weight
+- **Arduino above battery** → easy USB access for programming
+- **Driver to one side** → short cable runs to both motors
+
+## Steps in Tinkercad
+
+### Step 1: Create the Base Plate
+1. Go to [tinkercad.com](https://www.tinkercad.com) (free, no install)
+2. Insert a **Box** of **200mm × 150mm × 5mm** (chassis base)
+3. Set color to "Plastic – Light Gray"
+
+### Step 2: Motor Mounting Holes
+TT motors have a specific bolt pattern. Add cylinders as "holes":
+- Shaft diameter: **6 mm**
+- Mounting bolt spacing: **10 mm × 28 mm**
+
+### Step 3: Battery Holder
+- Create a "corral" box of **72 mm × 35 mm × 25 mm** for the 18650 2S pack
+- Leave side openings for ventilation and connector access
+
+### Step 4: The Front Guide
+- Add a box of **70 mm × 8 mm × 15 mm** at the front
+- For the concave curve, use the "Paraboloid" shape or round the edges with "Fillet"
+
+### Step 5: Export for Printing
+- **File → Export → STL**
+- Recommended print settings:
+  - Material: **PLA** (easy to print and repair)
+  - Infill: **30%** (sufficient strength without extra weight)
+  - Layer height: **0.2 mm** (good speed/quality balance)
 
 > [!TIP]
-> Un chasis diseñado por ti es más ligero, más resistente y permite que el mantenimiento sea mucho más sencillo. ¡Mide dos veces, corta (o imprime) una!
+> Print a **small test piece first** (just one corner with a motor hole) to verify tolerances before committing to a full chassis print. A 6 mm hole in the design might come out at 5.8 mm on your printer — and that matters.
 
----
-
-## Módulo 3: Montaje
-
+> [!WARNING]
+> If your chassis measures exactly 20×20 cm in the design, **add 0.5 mm of margin** on all sides — PLA deforms slightly as it cools. Design at **19×19 cm** and you'll have the correct margin for technical inspection.
