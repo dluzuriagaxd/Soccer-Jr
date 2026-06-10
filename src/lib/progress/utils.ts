@@ -1,9 +1,4 @@
-import { eq, and, desc } from "drizzle-orm";
-import {
-    activities,
-    userActivityProgress,
-    activityTypes
-} from "@/db/schema";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import type {
     ActivityRecord,
     UserActivityProgressRecord,
@@ -13,8 +8,8 @@ import type {
     OverallProgress,
     ProgressByType,
     ActivityWithProgress,
+    ActivityTypeRecord
 } from "./types";
-import type { DrizzleD1Database } from "drizzle-orm/d1";
 
 // ============================================================================
 // Core Progress Functions
@@ -24,49 +19,49 @@ import type { DrizzleD1Database } from "drizzle-orm/d1";
  * Get or create progress record for a user and activity
  */
 export async function getOrCreateProgress(
-    db: DrizzleD1Database<any>,
+    supabase: SupabaseClient,
     userId: string,
     activityId: string
 ): Promise<UserActivityProgressRecord> {
-    const existing = await db
-        .select()
-        .from(userActivityProgress)
-        .where(
-            and(
-                eq(userActivityProgress.userId, userId),
-                eq(userActivityProgress.activityId, activityId)
-            )
-        )
-        .get();
+    // 1. Try to fetch existing
+    const { data: existing, error: fetchError } = await supabase
+        .from('user_activity_progress')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('activity_id', activityId)
+        .single();
 
     if (existing) {
-        return existing as UserActivityProgressRecord;
+        return mapToCamelCase(existing) as UserActivityProgressRecord;
     }
 
-    // Create new progress record
-    const newProgress = {
-        id: crypto.randomUUID(),
-        userId,
-        activityId,
-        status: "not_started" as ActivityStatus,
-        lastVisitedAt: new Date(),
-        progressPercentage: 0,
-        timeSpentSeconds: 0,
-        attemptsCount: 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-    };
+    // 2. If not found, create new progress record
+    const { data: newProgress, error: insertError } = await supabase
+        .from('user_activity_progress')
+        .insert({
+            user_id: userId,
+            activity_id: activityId,
+            status: "not_started",
+            last_visited_at: new Date().toISOString(),
+            progress_percentage: 0,
+            time_spent_seconds: 0,
+            attempts_count: 0,
+        })
+        .select()
+        .single();
 
-    await db.insert(userActivityProgress).values(newProgress);
+    if (insertError) {
+        throw new Error(`Failed to create progress: ${insertError.message}`);
+    }
 
-    return newProgress as UserActivityProgressRecord;
+    return mapToCamelCase(newProgress) as UserActivityProgressRecord;
 }
 
 /**
  * Update progress for an activity
  */
 export async function updateProgress(
-    db: DrizzleD1Database<any>,
+    supabase: SupabaseClient,
     userId: string,
     activityId: string,
     updates: {
@@ -79,13 +74,19 @@ export async function updateProgress(
         notes?: string;
     }
 ): Promise<void> {
-    const progress = await getOrCreateProgress(db, userId, activityId);
+    const progress = await getOrCreateProgress(supabase, userId, activityId);
 
     const updateData: any = {
-        ...updates,
-        lastVisitedAt: new Date(),
-        updatedAt: new Date(),
+        last_visited_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
     };
+
+    if (updates.status) updateData.status = updates.status;
+    if (updates.progressPercentage !== undefined) updateData.progress_percentage = updates.progressPercentage;
+    if (updates.timeSpentSeconds !== undefined) updateData.time_spent_seconds = updates.timeSpentSeconds;
+    if (updates.score !== undefined) updateData.score = updates.score;
+    if (updates.maxScore !== undefined) updateData.max_score = updates.maxScore;
+    if (updates.notes !== undefined) updateData.notes = updates.notes;
 
     // Convert metadata to JSON string if provided
     if (updates.metadata) {
@@ -94,30 +95,30 @@ export async function updateProgress(
 
     // Set timestamps based on status
     if (updates.status === "in_progress" && !progress.startedAt) {
-        updateData.startedAt = new Date();
+        updateData.started_at = new Date().toISOString();
     }
     if (updates.status === "completed" && !progress.completedAt) {
-        updateData.completedAt = new Date();
-        updateData.progressPercentage = 100;
+        updateData.completed_at = new Date().toISOString();
+        updateData.progress_percentage = 100;
     }
 
-    await db
-        .update(userActivityProgress)
-        .set(updateData)
-        .where(eq(userActivityProgress.id, progress.id));
+    await supabase
+        .from('user_activity_progress')
+        .update(updateData)
+        .eq('id', progress.id);
 }
 
 /**
  * Mark activity as completed
  */
 export async function completeActivity(
-    db: DrizzleD1Database<any>,
+    supabase: SupabaseClient,
     userId: string,
     activityId: string,
     score?: number,
     metadata?: ActivityMetadata
 ): Promise<void> {
-    await updateProgress(db, userId, activityId, {
+    await updateProgress(supabase, userId, activityId, {
         status: "completed",
         progressPercentage: 100,
         score,
@@ -129,26 +130,26 @@ export async function completeActivity(
  * Register a visit to an activity (auto-updates lastVisitedAt)
  */
 export async function registerVisit(
-    db: DrizzleD1Database<any>,
+    supabase: SupabaseClient,
     userId: string,
     activityId: string
 ): Promise<void> {
-    const progress = await getOrCreateProgress(db, userId, activityId);
+    const progress = await getOrCreateProgress(supabase, userId, activityId);
 
     // If not started, mark as in_progress
     if (progress.status === "not_started") {
-        await updateProgress(db, userId, activityId, {
+        await updateProgress(supabase, userId, activityId, {
             status: "in_progress",
         });
     } else {
         // Just update lastVisitedAt
-        await db
-            .update(userActivityProgress)
-            .set({
-                lastVisitedAt: new Date(),
-                updatedAt: new Date(),
+        await supabase
+            .from('user_activity_progress')
+            .update({
+                last_visited_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
             })
-            .where(eq(userActivityProgress.id, progress.id));
+            .eq('id', progress.id);
     }
 }
 
@@ -160,55 +161,56 @@ export async function registerVisit(
  * Get user's progress for a specific activity
  */
 export async function getUserActivityProgress(
-    db: DrizzleD1Database<any>,
+    supabase: SupabaseClient,
     userId: string,
     activityId: string
 ): Promise<UserActivityProgressRecord | null> {
-    const progress = await db
-        .select()
-        .from(userActivityProgress)
-        .where(
-            and(
-                eq(userActivityProgress.userId, userId),
-                eq(userActivityProgress.activityId, activityId)
-            )
-        )
-        .get();
+    const { data: progress } = await supabase
+        .from('user_activity_progress')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('activity_id', activityId)
+        .single();
 
-    return progress as UserActivityProgressRecord | null;
+    return progress ? mapToCamelCase(progress) as UserActivityProgressRecord : null;
 }
 
 /**
  * Get all user's progress
  */
 export async function getAllUserProgress(
-    db: DrizzleD1Database<any>,
+    supabase: SupabaseClient,
     userId: string
 ): Promise<UserActivityProgressRecord[]> {
-    const progress = await db
-        .select()
-        .from(userActivityProgress)
-        .where(eq(userActivityProgress.userId, userId))
-        .all();
+    const { data: progress } = await supabase
+        .from('user_activity_progress')
+        .select('*')
+        .eq('user_id', userId);
 
-    return progress as UserActivityProgressRecord[];
+    return (progress || []).map(mapToCamelCase) as UserActivityProgressRecord[];
 }
 
 /**
  * Get user's progress summary
  */
 export async function getUserProgressSummary(
-    db: DrizzleD1Database<any>,
+    supabase: SupabaseClient,
     userId: string
 ): Promise<UserProgressSummary> {
-    // Get all activities
-    const allActivities = await db.select().from(activities).all();
+    // Fetch all required data in parallel
+    const [
+        { data: allActivitiesData },
+        { data: allProgressData },
+        { data: allTypesData }
+    ] = await Promise.all([
+        supabase.from('activities').select('*'),
+        supabase.from('user_activity_progress').select('*').eq('user_id', userId),
+        supabase.from('activity_types').select('*')
+    ]);
 
-    // Get all user progress
-    const allProgress = await getAllUserProgress(db, userId);
-
-    // Get all activity types
-    const allTypes = await db.select().from(activityTypes).all();
+    const allActivities = (allActivitiesData || []).map(mapToCamelCase) as ActivityRecord[];
+    const allProgress = (allProgressData || []).map(mapToCamelCase) as UserActivityProgressRecord[];
+    const allTypes = (allTypesData || []).map(mapToCamelCase) as ActivityTypeRecord[];
 
     // Create progress map
     const progressMap = new Map(
@@ -260,7 +262,7 @@ export async function getUserProgressSummary(
     const activitiesWithProgress: ActivityWithProgress[] = allActivities.map(activity => {
         const activityType = typeMap.get(activity.typeId)!;
         return {
-            activity: activity as ActivityRecord,
+            activity: activity,
             progress: progressMap.get(activity.id),
             type: {
                 ...activityType,
@@ -272,10 +274,10 @@ export async function getUserProgressSummary(
 
     // Get recent activity (last 5 visited)
     const recentActivity = activitiesWithProgress
-        .filter(a => a.progress)
+        .filter(a => a.progress && a.progress.lastVisitedAt)
         .sort((a, b) => {
-            const aTime = a.progress!.lastVisitedAt.getTime();
-            const bTime = b.progress!.lastVisitedAt.getTime();
+            const aTime = new Date(a.progress!.lastVisitedAt).getTime();
+            const bTime = new Date(b.progress!.lastVisitedAt).getTime();
             return bTime - aTime;
         })
         .slice(0, 5);
@@ -298,15 +300,15 @@ export async function getUserProgressSummary(
  * Check if prerequisites are met for an activity
  */
 export async function checkPrerequisites(
-    db: DrizzleD1Database<any>,
+    supabase: SupabaseClient,
     userId: string,
     activityId: string
 ): Promise<{ met: boolean; missing: string[] }> {
-    const activity = await db
-        .select()
-        .from(activities)
-        .where(eq(activities.id, activityId))
-        .get();
+    const { data: activity } = await supabase
+        .from('activities')
+        .select('*')
+        .eq('id', activityId)
+        .single();
 
     if (!activity || !activity.prerequisites) {
         return { met: true, missing: [] };
@@ -316,7 +318,7 @@ export async function checkPrerequisites(
     const missing: string[] = [];
 
     for (const prereqId of prerequisiteIds) {
-        const progress = await getUserActivityProgress(db, userId, prereqId);
+        const progress = await getUserActivityProgress(supabase, userId, prereqId);
         if (!progress || progress.status !== "completed") {
             missing.push(prereqId);
         }
@@ -326,4 +328,15 @@ export async function checkPrerequisites(
         met: missing.length === 0,
         missing,
     };
+}
+
+// Helper to convert snake_case DB columns to camelCase for TS types
+function mapToCamelCase(obj: any): any {
+    if (!obj) return null;
+    const newObj: any = {};
+    for (const key in obj) {
+        const camelKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
+        newObj[camelKey] = obj[key];
+    }
+    return newObj;
 }

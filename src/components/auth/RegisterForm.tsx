@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signUp } from "../../lib/auth-client";
+import { getBrowserClient } from "../../lib/supabase";
 
 export default function RegisterForm() {
     const [name, setName] = useState("");
@@ -9,6 +9,8 @@ export default function RegisterForm() {
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
 
+    const supabase = getBrowserClient();
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -17,19 +19,19 @@ export default function RegisterForm() {
         console.log("Submitting registration for:", email);
 
         try {
-            const response = await signUp.email({
+            const { data, error: signUpError } = await supabase.auth.signUp({
                 email,
                 password,
-                name,
-                // callbackURL removed to handle redirect manually in onSuccess
+                options: {
+                    data: {
+                        name: name,
+                    }
+                }
             });
 
-            console.log("Auth response:", response);
-
-            if (response.error) {
-                console.error("Registration error:", response.error);
-                // Fallback robusto para mostrar el error
-                setError(response.error.message || response.error.statusText || "Unknown error during registration");
+            if (signUpError) {
+                console.error("Registration error:", signUpError);
+                setError(signUpError.message || "Unknown error during registration");
                 setLoading(false);
             } else {
                 console.log("Registration success!");

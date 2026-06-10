@@ -1,22 +1,12 @@
 import type { APIRoute } from "astro";
-import { auth } from "@/lib/auth";
-import { completeActivity } from "@/lib/progress";
+import { completeActivity } from "@/lib/progress/utils";
 import type { CompleteActivityRequest } from "@/lib/progress/types";
-import { drizzle } from "drizzle-orm/d1";
-import * as schema from "@/db/schema";
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request, locals }) => {
     try {
-        // Initialize DB with D1 binding from locals
-        // Casting to any to avoid "Property 'env' does not exist" type error
-        const runtime = locals.runtime as any;
-        const db = drizzle(runtime.env.DB, { schema });
-
-        // Check authentication
-        const betterAuth = auth(runtime.env.DB, import.meta.env.BETTER_AUTH_SECRET);
-        const session = await betterAuth.api.getSession({ headers: request.headers });
+        const { supabase, session } = locals;
 
         if (!session?.user) {
             return new Response(
@@ -36,8 +26,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
             );
         }
 
-        // Complete the activity
-        await completeActivity(db, session.user.id, activityId, score, metadata);
+        // Update progress
+        await completeActivity(supabase, session.user.id, activityId, score, metadata);
 
         return new Response(
             JSON.stringify({

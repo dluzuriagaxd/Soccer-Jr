@@ -1,20 +1,11 @@
 import type { APIRoute } from "astro";
-import { auth } from "@/lib/auth";
-import { getUserProgressSummary } from "@/lib/progress";
-import { drizzle } from "drizzle-orm/d1";
-import * as schema from "@/db/schema";
+import { getUserProgressSummary } from "@/lib/progress/utils";
 
 export const prerender = false;
 
-export const GET: APIRoute = async ({ request, locals }) => {
+export const GET: APIRoute = async ({ locals }) => {
     try {
-        // Initialize DB with D1 binding from locals
-        const runtime = locals.runtime as any;
-        const db = drizzle(runtime.env.DB, { schema });
-
-        // Check authentication
-        const betterAuth = auth(runtime.env.DB, import.meta.env.BETTER_AUTH_SECRET);
-        const session = await betterAuth.api.getSession({ headers: request.headers });
+        const { supabase, session } = locals;
 
         if (!session?.user) {
             return new Response(
@@ -24,7 +15,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         }
 
         // Get user's progress summary
-        const summary = await getUserProgressSummary(db, session.user.id);
+        const summary = await getUserProgressSummary(supabase, session.user.id);
 
         return new Response(
             JSON.stringify(summary),

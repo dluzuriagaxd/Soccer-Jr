@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signIn } from "../../lib/auth-client";
+import { getBrowserClient } from "../../lib/supabase";
 
 interface LoginFormProps {
     hideRegisterLink?: boolean;
@@ -11,34 +11,26 @@ export default function LoginForm({ hideRegisterLink = false }: LoginFormProps) 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    const supabase = getBrowserClient();
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
 
-        await signIn.email({
+        const { error: signInError } = await supabase.auth.signInWithPassword({
             email,
             password,
-            callbackURL: "/", // Redirigir al inicio (index.astro maneja la lógica)
-        }, {
-            onError: (ctx) => {
-                const err = ctx.error;
-                console.error("Login error details:", err);
-                // Extract detailed error message
-                let detailedMsg = err.message || err.statusText;
-                // @ts-ignore
-                if (err.body?.message) detailedMsg = err.body.message;
-                // @ts-ignore
-                if (err.error) detailedMsg = err.error;
-
-                setError(detailedMsg || "Invalid credentials or server error");
-                setLoading(false);
-            },
-            onSuccess: () => {
-                // La redirección la maneja better-auth, pero podemos limpiar estado si es necesario
-                setLoading(false);
-            }
         });
+
+        if (signInError) {
+            console.error("Login error details:", signInError);
+            setError(signInError.message || "Invalid credentials or server error");
+            setLoading(false);
+        } else {
+            // Successfully logged in, redirect to home page
+            window.location.href = "/";
+        }
     };
 
     return (

@@ -3,44 +3,26 @@ export const prerender = false;
 
 import MainLayout from "../layouts/MainLayout.astro";
 import LandingPage from "../components/LandingPage.astro";
-import { drizzle } from "drizzle-orm/d1";
-import { eq } from "drizzle-orm";
-import * as schema from "../db/schema";
 
-// 1. Redirección para usuarios logueados (PRIORIDAD ALTA)
-const sessionCookie = Astro.cookies.get("better-auth.session_token");
+// 1. Session and Supabase client are injected by middleware
+const { supabase, session } = Astro.locals;
 
 // 2. Modo Mantenimiento
 const maintenance = import.meta.env.PUBLIC_MAINTENANCE_MODE === 'true';
 
 let showLandingPage = false;
-let isAdmin = false;
+let isAdmin = Astro.locals.isAdmin || false; // Usually we'd want this computed in middleware
 
 // Si hay sesión, verificar el rol
-if (sessionCookie?.value) {
+if (session && !isAdmin) {
     try {
-        const locals = Astro.locals as any;
-        const env = locals.runtime?.env || locals.env;
+        const { data: profile } = await supabase
+            .from('user_profile')
+            .select('role')
+            .eq('user_id', session.user.id)
+            .single();
         
-        if (env?.DB) {
-            const db = drizzle(env.DB, { schema });
-            
-            const session = await db
-                .select()
-                .from(schema.session)
-                .where(eq(schema.session.token, sessionCookie.value))
-                .get();
-            
-            if (session) {
-                const user = await db
-                    .select()
-                    .from(schema.user)
-                    .where(eq(schema.user.id, session.userId))
-                    .get();
-                
-                isAdmin = user?.role === 'admin';
-            }
-        }
+        isAdmin = profile?.role === 'admin';
     } catch (error) {
         console.error("[Index] Error checking user role:", error);
     }

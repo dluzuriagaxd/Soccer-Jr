@@ -1,9 +1,27 @@
-import { useState } from "react";
-import { signOut, useSession } from "../../lib/auth-client";
+import { useState, useEffect } from "react";
+import { getBrowserClient } from "../../lib/supabase";
 
 export default function LogoutButton() {
     const [loading, setLoading] = useState(false);
-    const { data: session, isPending } = useSession();
+    const [session, setSession] = useState<any>(null);
+    const [isPending, setIsPending] = useState(true);
+
+    const supabase = getBrowserClient();
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+            setIsPending(false);
+        });
+
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session);
+        });
+
+        return () => subscription.unsubscribe();
+    }, [supabase.auth]);
 
     // If loading session state, show a small loader or placeholder
     if (isPending) {
@@ -26,13 +44,8 @@ export default function LogoutButton() {
         setLoading(true);
 
         try {
-            await signOut({
-                fetchOptions: {
-                    onSuccess: () => {
-                        window.location.href = "/";
-                    },
-                },
-            });
+            await supabase.auth.signOut();
+            window.location.href = "/";
         } catch (error) {
             console.error("[Logout] Error:", error);
             // Fallback: redirigir manualmente
@@ -52,7 +65,7 @@ export default function LogoutButton() {
                 {loading ? "..." : "Salir"}
             </button>
             {/* Debug Info for User */}
-            {/* <span className="text-[9px] text-white/20 font-mono">User: {session.user.name}</span> */}
+            {/* <span className="text-[9px] text-white/20 font-mono">User: {session.user.email}</span> */}
         </div>
     );
 }

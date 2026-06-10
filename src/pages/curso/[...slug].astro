@@ -23,51 +23,24 @@ if (!entry) {
 const { Content, headings } = await entry.render();
 
 // --- AUTH CHECK ---
-import { drizzle } from "drizzle-orm/d1";
-import { eq } from "drizzle-orm";
-import * as schema from "../../db/schema";
+const { supabase, session } = Astro.locals;
+let isAdmin = Astro.locals.isAdmin || false;
 
-const sessionCookie = Astro.cookies.get("better-auth.session_token");
-let isAdmin = false;
-
-if (sessionCookie?.value) {
+if (session && !isAdmin) {
   try {
-    const locals = Astro.locals as any;
-    const env = locals.runtime?.env || locals.env;
+    const { data: profile } = await supabase
+        .from('user_profile')
+        .select('role')
+        .eq('user_id', session.user.id)
+        .single();
 
-    if (env?.DB) {
-      const db = drizzle(env.DB, { schema });
-      // Better-auth tokens in cookies might have a .signature part
-      const tokenId = sessionCookie.value.split(".")[0];
-      console.log("[Lesson Page] Searching for token ID:", tokenId);
-      const session = await db
-        .select()
-        .from(schema.session)
-        .where(eq(schema.session.token, tokenId))
-        .get();
-
-      if (session) {
-        const user = await db
-          .select()
-          .from(schema.user)
-          .where(eq(schema.user.id, session.userId))
-          .get();
-
-        isAdmin = user?.role === "admin";
-        console.log(
-          "[Lesson Page] User found:",
-          user?.email,
-          "| Role:",
-          user?.role,
-          "| isAdmin:",
-          isAdmin,
-        );
-      } else {
-        console.log("[Lesson Page] No session found for token");
-      }
-    } else {
-      console.log("[Lesson Page] No DB available");
-    }
+    isAdmin = profile?.role === "admin";
+    console.log(
+      "[Lesson Page] User Role:",
+      profile?.role,
+      "| isAdmin:",
+      isAdmin,
+    );
   } catch (error) {
     console.error("[Lesson] Error checking user role:", error);
   }
@@ -78,8 +51,8 @@ Astro.locals.isAdmin = isAdmin;
 console.log(
   "[Lesson Page] Setting Astro.locals.isAdmin =",
   isAdmin,
-  "for email:",
-  sessionCookie ? "has session" : "no session",
+  "for user:",
+  session ? "has session" : "no session",
 );
 // ------------------
 

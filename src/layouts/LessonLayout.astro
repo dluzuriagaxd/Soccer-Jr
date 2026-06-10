@@ -2,9 +2,7 @@
 import '../styles/global.css';
 import Sidebar from '../components/Sidebar.astro';
 import LessonCheckbox from '../components/progress/LessonCheckbox';
-import { drizzle } from "drizzle-orm/d1";
-import { auth } from "@/lib/auth";
-import { registerVisit, getUserActivityProgress } from "@/lib/progress";
+import { registerVisit, getUserActivityProgress } from "@/lib/progress/utils";
 
 interface Props {
 	title: string;
@@ -23,21 +21,17 @@ const tocHeadings = headings.filter(h => h.depth >= 2 && h.depth <= 3);
 let activityId = `lesson-${slug.replace(/\//g, "-")}`;
 let initialCompleted = false;
 
-// Only run on server if we have access to D1
-if (Astro.locals.runtime?.env?.DB) {
-    try {
-        const db = drizzle(Astro.locals.runtime.env.DB);
-        const betterAuth = auth(Astro.locals.runtime.env.DB, import.meta.env.BETTER_AUTH_SECRET);
-        const session = await betterAuth.api.getSession({ headers: Astro.request.headers });
+const { supabase, session } = Astro.locals;
 
-        if (session?.user) {
-            // Register visit
-            await registerVisit(db, session.user.id, activityId);
-            
-            // Get status
-            const progress = await getUserActivityProgress(db, session.user.id, activityId);
-            initialCompleted = progress?.status === 'completed';
-        }
+// Only run on server if we have access to Supabase session
+if (session?.user) {
+    try {
+        // Register visit
+        await registerVisit(supabase, session.user.id, activityId);
+        
+        // Get status
+        const progress = await getUserActivityProgress(supabase, session.user.id, activityId);
+        initialCompleted = progress?.status === 'completed';
     } catch (e) {
         console.error("Error in lesson progress logic:", e);
     }

@@ -20,7 +20,7 @@ const { isAdmin = false } = Astro.props;
 			isAdmin && (
 				<div class="fixed top-20 right-4 z-[100] bg-black/80 border border-white/20 p-2 rounded text-xs font-mono text-white">
 					Status:{" "}
-					{Astro.cookies.has("better-auth.session_token") ? (
+					{Astro.locals.session ? (
 						<span class="text-green-400">LOGGED IN</span>
 					) : (
 						<span class="text-red-400">GUEST</span>

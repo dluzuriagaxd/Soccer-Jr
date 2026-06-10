@@ -1,25 +1,32 @@
 import { defineMiddleware } from "astro:middleware";
-import { drizzle } from "drizzle-orm/d1";
-import { eq } from "drizzle-orm";
-import * as schema from "./db/schema";
+import { getServerClient } from "./lib/supabase";
 
 export const onRequest = defineMiddleware(async (context, next) => {
     const maintenance = import.meta.env.PUBLIC_MAINTENANCE_MODE === 'true';
 
     // 1. Definimos qué rutas queremos proteger
     const isProtectedRoute = context.url.pathname.startsWith("/curso") ||
-        context.url.pathname.startsWith("/telemetria");
+        context.url.pathname.startsWith("/telemetria") ||
+        context.url.pathname.startsWith("/simulador");
 
-    // 2. Si es una ruta protegida, revisamos la "Session Cookie"
+    const supabase = getServerClient(context);
+
+    // Obtener la sesión actual de Supabase
+    const {
+        data: { session },
+    } = await supabase.auth.getSession();
+
+    // Inyectar supabase y session en locals para que otras páginas los usen fácilmente
+    context.locals.supabase = supabase;
+    context.locals.session = session;
+
+    // 2. Si es una ruta protegida, verificamos la sesión
     if (isProtectedRoute) {
-        // Buscamos la cookie que crea Better Auth
-        const sessionCookie = context.cookies.get("better-auth.session_token");
-
         console.log(`[Middleware] Checking access to ${context.url.pathname}`);
-        console.log(`[Middleware] Session Cookie present: ${!!sessionCookie?.value}`);
+        console.log(`[Middleware] Session present: ${!!session}`);
 
-        // Si no existe la cookie, lo mandamos al login
-        if (!sessionCookie) {
+        // Si no existe la sesión, lo mandamos al login
+        if (!session) {
             console.log(`[Middleware] Access denied - redirecting to /login`);
             return context.redirect("/login");
         }
@@ -27,34 +34,24 @@ export const onRequest = defineMiddleware(async (context, next) => {
         // Si estamos en modo mantenimiento, verificar rol de admin
         if (maintenance) {
             try {
-                const locals = context.locals as any;
-                const env = locals.runtime?.env || locals.env;
+                // Fetch the user's role from user_profile table
+                const { data: profile, error } = await supabase
+                    .from('user_profile')
+                    .select('role')
+                    .eq('user_id', session.user.id)
+                    .single();
 
-                if (env?.DB) {
-                    const db = drizzle(env.DB, { schema });
+                if (error) {
+                    console.error("[Middleware] Error fetching profile:", error);
+                    return context.redirect("/login");
+                }
 
-                    // Buscar la sesión y el usuario
-                    const session = await db
-                        .select()
-                        .from(schema.session)
-                        .where(eq(schema.session.token, sessionCookie.value))
-                        .get();
+                console.log(`[Middleware] User role: ${profile?.role}`);
 
-                    if (session) {
-                        const user = await db
-                            .select()
-                            .from(schema.user)
-                            .where(eq(schema.user.id, session.userId))
-                            .get();
-
-                        console.log(`[Middleware] User role: ${user?.role}`);
-
-                        // Si no es admin, denegar acceso
-                        if (user?.role !== 'admin') {
-                            console.log(`[Middleware] Maintenance mode: Access denied for non-admin`);
-                            return context.redirect("/");
-                        }
-                    }
+                // Si no es admin, denegar acceso
+                if (profile?.role !== 'admin') {
+                    console.log(`[Middleware] Maintenance mode: Access denied for non-admin`);
+                    return context.redirect("/");
                 }
             } catch (error) {
                 console.error("[Middleware] Error checking user role:", error);
@@ -63,6 +60,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
         }
     }
 
-    // Si todo está bien o la ruta es pública (como el Index), dejamos pasar
+    // Si todo está bien o la ruta es pública, dejamos pasar
     return next();
 });
