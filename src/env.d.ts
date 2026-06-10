@@ -13,5 +13,4 @@ declare namespace App {
 }
 
 interface Env {
-    DB: D1Database;
 }
