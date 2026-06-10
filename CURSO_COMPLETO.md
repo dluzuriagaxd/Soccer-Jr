@@ -1,10 +1,10 @@
-# Curso Completo: Seguidor de Línea Jr. - Telemetría Pro
+# Curso Completo: Robot Soccer Jr.
 ---
 
 
 ## Módulo: Introduccion
 
-### Lección 1.1: Objetivos del Curso
+### Objetivos del Curso: Robot Soccer Jr.
 **Order**: 1  
 **Slug**: `01-introduccion/01-objetivos`
 
@@ -13,56 +13,80 @@
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Bienvenida al Curso**
-> - Duración sugerida: 5-7 minutos
-> - Contenido:
->   - Presentación del instructor
->   - Visión General del robot final funcionando
->   - Qué hace especial a este curso (enfoque en ingeniería, no solo hobby)
->   - Motivación: mostrar robots en competencias reales
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Bienvenida y Robot en Acción**
+> - Duración: 5-7 min
+> - Mostrar el robot terminado en una cancha real, empujando el balón y metiendo gol.
+> - Presentación del instructor y roadmap del curso.
 >
-> **Video 2: Roadmap del Curso**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Explicación visual de los 5 módulos
->   - Mostrar físicamente cada componente que se usará
->   - Timeline esperado (cuánto tiempo toma cada fase)
->   - Qué herramientas necesitarán (soldador, multimetro, etc.)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: ¿Qué vamos a aprender?**
+> - Duración: 6-8 min
+> - Explicar visualmente los 5 módulos con recursos físicos en mano.
 </AdminOnly>
 
 ---
 
-# Introducción al Curso
+# 🤖 Bienvenido al Curso: Robot Soccer Junior
 
-Bienvenido al curso **Seguidor de Línea Jr.**, un programa diseñado para llevarte desde los conceptos básicos de robótica hasta la implementación de sistemas de control de nivel ingeniería.
+Vas a construir un **robot de fútbol teledirigido** usando componentes electrónicos reales, impresión 3D y programación en dos etapas: primero con bloques visuales y luego con código profesional en C++.
 
-## ¿Qué aprenderás?
+## ¿Qué vas a construir?
 
-En este curso, no solo construirás un robot; entenderás la ciencia detrás de su movimiento. Los objetivos principales son:
+Un robot compacto (máximo **20×20 cm**) capaz de:
+- 🏎️ Moverse en **4 direcciones** controladas desde tu celular por **Bluetooth**
+- ⚽ **Empujar una pelota** hacia la portería del oponente
+- 🔋 Operar **10-15 minutos continúos** con una batería de litio 18650 2S
 
-1.  **Diseño y Mecánica**: Comprender la importancia del centro de masa y la tracción.
-2.  **Electrónica**: Aprender a gestionar potencia y señales de sensores de alta precisión.
-3.  **Algoritmos de Control**: Implementar un controlador **PID (Proporcional, Integral, Derivativo)**.
-4.  **Telemetría**: Utilizar herramientas profesionales para analizar datos en tiempo real y optimizar el rendimiento.
+## Stack Tecnológico del Robot
 
-## Metodología
+| Componente | Función |
+|---|---|
+| **Arduino Uno R3** | "El cerebro" — procesa comandos y controla motores |
+| **Shield L293D / Módulo L298N** | Puente H — amplifica señales para mover motores |
+| **2 Motores Amarillos TT** | Las ruedas — propulsan el robot |
+| **Módulo Bluetooth HC-05** | Radio — recibe comandos desde tu celular |
+| **Batería 18650 2S (7.4V)** | La energía — alimenta todo el sistema |
+| **Interruptor Basculante** | El "on/off" de seguridad |
+| **Chasis Impresión 3D** | La estructura — diseñada por ti |
 
-El curso está dividido en módulos que siguen el proceso real de desarrollo de un producto tecnológico:
-*   **Investigación**: Selección de materiales.
-*   **Diseño**: Planos y estructura.
-*   **Prototipado**: Montaje paso a paso.
-*   **Software**: Programación y lógica.
-*   **Optimización**: Mejora basada en datos (Telemetría).
+## ¿Qué habilidades vas a desarrollar?
 
-¡Prepárate para llevar tu robot al siguiente nivel!
+```
+DISEÑO          →   ELECTRÓNICA     →   PROGRAMACIÓN    →   COMPETENCIA
+──────────────      ─────────────────   ─────────────────   ───────────
+• Diseño 3D         • Motores DC        • SteamakersBlocks   • Estrategia
+• Centro de masa    • Puentes H         • C++ (Arduino)      • Calibración
+• Pala delantera    • Bluetooth         • Control RC         • Análisis
+• Tolerancias       • Protección LiPo   • Diagramas de flujo • Iteración
+```
+
+## Metodología: De Bloques a Código
+
+Este curso sigue un proceso de **dos fases de programación**:
+
+1. **SteamakersBlocks** (Bloques visuales): Aprende la lógica del control sin preocuparte por la sintaxis.
+2. **C++ en Arduino IDE**: Traduce tu programa a código profesional y entiende cada línea.
+
+> [!TIP]
+> Muchos campeones de robotics comenzaron con bloques visuales. No es un paso "para niños" — es ingeniería incremental. ¡Los mejores equipos documentan su lógica primero antes de escribir una sola línea de código!
+
+## El Simulador: Practica sin Riesgos
+
+Antes de armar el robot real, usaremos el **Simulador de Soccer Jr.** para entender:
+- Cómo funciona la **tracción diferencial** (dos ruedas independientes)
+- La diferencia de rendimiento entre el **L293D y el L298N**
+- La física del **balón** (inercia, rebotes)
+- El comportamiento de la **batería 18650** bajo carga
+
+**[→ Abrir Simulador Soccer Jr.](/simulador)**
 
 ---
 
+> [!IMPORTANT]
+> Antes de la próxima lección, descarga e instala: **Arduino IDE 2.x** desde [arduino.cc](https://www.arduino.cc) y **SteamakersBlocks** según las instrucciones de tu instructor.
+
 ---
 
-### Lección 1.2: Lista de Materiales
+### Lista de Materiales: Robot Soccer Jr.
 **Order**: 2  
 **Slug**: `01-introduccion/02-materiales`
 
@@ -72,249 +96,384 @@ El curso está dividido en módulos que siguen el proceso real de desarrollo de 
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
 > **Video 1: Tour de Componentes**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Mostrar físicamente cada componente en mano
->   - Explicar la función de cada uno en el robot
->   - Dónde comprarlos (tiendas recomendadas)
->   - Qué buscar al comprar (calidad, compatibilidad)
->   - Alternativas y sustituciones permitidas
->   - Comparación: componente original vs genérico
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> - Duración: 10-12 min
+> - Mostrar físicamente cada componente, su función, dónde comprarlo y alternativas.
+> - Demostración side-by-side: Shield L293D vs Módulo L298N — diferencias físicas y eléctricas.
 </AdminOnly>
 
 ---
 
-# Lista de Materiales
+# 🛒 Lista de Materiales
 
-Para este curso, utilizaremos una selección de componentes de nivel ingeniería que aseguran un rendimiento competitivo.
+Estos son todos los componentes que necesitas para tu Robot Soccer Jr. El kit está diseñado para ser **asequible, educativo y compatible con competencias Jr. oficiales**.
 
-## Electrónica y Control
+## 🧠 Electrónica y Control
 
-- **Arduino Nano V3** (MaterialLink: arduino-nano)
-- **Sensor QTR-8RC** (MaterialLink: sensor-qtr-8rc)
-- **Módulo Bluetooth HC-05/HC-06** (MaterialLink: modulo-bluetooth)
-- **Módulo Pulsador** (MaterialLink: modulo-pulsador)
+| Componente | Especificación | Notas |
+|---|---|---|
+| **Arduino Uno R3** | ATmega328P, 5V, 14 pines digitales | El "cerebro" del robot |
+| **Shield L293D** ó **Módulo L298N** | Ver comparación abajo | Solo uno de los dos |
+| **Módulo Bluetooth HC-05** | SPP (Serial Port Profile), 2.4GHz | Solo para control RC |
+| **Interruptor Basculante** | 250V AC / 3A — contacto simple | On/Off de seguridad |
 
-## Driver y Tracción
+> [!WARNING]
+> El **HC-05** (clásico) y el **HC-06** son diferentes: el HC-05 puede ser maestro o esclavo, el HC-06 solo es esclavo. Para este curso, **cualquiera funciona** — ambos se configuran igual como receptor.
 
-- **Driver TB6612FNG** (MaterialLink: driver-tb6612fng)
-- **Motores TT (Relación 1:48)** (MaterialLink: motores-tt)
+## ⚡ Driver de Motores: ¿Shield L293D o Módulo L298N?
 
-## Energía y Chasis
+Esta es la decisión más importante antes de comprar. Aquí la comparación honesta:
 
-- **Fuente de Energía (Batería 9V + Broche)** (MaterialLink: fuente-energia)
-- **Chasis** (MaterialLink: chasis)
-
-## Otros Componentes (Imprescindibles)
-*   **Capacitores Cerámicos 104 (100nF) (x6)**: Para el filtrado de ruido en los motores.
-*   **Cables Jumper**: Macho-Hembra de varias medidas (10, 15 y 20cm).
-*   **Tornillos M2 x 10mm**: Delgados con tuerca para la fijación del sensor QTR.
-*   **Cinta Aislante**: Para asegurar conectores y evitar cortocircuitos por vibración.
-
----
+```
+┌─────────────────────┬─────────────────────┬─────────────────────┐
+│ Característica      │ Shield L293D        │ Módulo L298N        │
+├─────────────────────┼─────────────────────┼─────────────────────┤
+│ Montaje             │ Directo sobre UNO   │ Cableado externo    │
+│ Chip Driver         │ SN754410 / L293D    │ L298N               │
+│ Tecnología          │ CMOS                │ Bipolar (Darlington)│
+│ Eficiencia          │ ~80%                │ ~70%                │
+│ Caída de voltaje    │ ~1.4V               │ ~2.0V               │
+│ Corriente max/ch.   │ 600mA               │ 2A                  │
+│ Precio aprox.       │ $5-8 USD            │ $2-4 USD            │
+│ Recomendado para    │ Montaje limpio      │ Proyectos con cable │
+└─────────────────────┴─────────────────────┴─────────────────────┘
+```
 
 > [!IMPORTANT]
-> No sustituyas el driver **TB6612FNG** por un L298N. El TB6612FNG es mucho más eficiente y compacto, vital para nuestra arquitectura.
+> Con **batería 18650 2S (7.4V)** y el **L298N**: Los motores solo reciben ~5.4V efectivos (7.4V - 2.0V de caída interna). Con el **L293D**: reciben ~6.0V. Ambos funcionan con motores amarillos TT, pero el L293D dará más velocidad.
+
+## 🔧 Propulsión
+
+| Componente | Especificación | Notas |
+|---|---|---|
+| **Motores Amarillos TT** (×2) | DC 3-6V, reducción 1:48 | **Obligatorios en categoría Jr.** |
+| **Ruedas para TT Motor** (×2) | Diámetro 65mm | Compatibles con eje del motor |
+
+## 🔋 Energía
+
+| Componente | Especificación | Notas |
+|---|---|---|
+| **Batería 18650 2S** | 7.4V nominal, 8.4V cargada, 3000mAh | El paquete de dos celdas en serie |
+| **Cargador 18650 2S** | Salida 8.4V CC, balanceo de celdas | Indispensable — no uses cualquier cargador |
+| **Conector XT30 o XT60** | Macho en batería, hembra en robot | Para conexión segura y desconexión rápida |
+
+> [!CAUTION]
+> **Seguridad con baterías de litio 18650:**
+> - Nunca las cargues sin supervisión
+> - Nunca las descargues por debajo de **3.0V por celda** (6.0V total)
+> - Nunca las cortocircuites — pueden incendiarse
+> - Siempre usa el cargador específico para 2S con balanceo
+
+## 🖨️ Estructura
+
+| Componente | Especificación | Notas |
+|---|---|---|
+| **Chasis Impreso 3D** | PLA o PETG, diseño propio | Lo diseñarás en el Módulo 2 |
+| **Tornillos M3 × 10mm** (×8) | Con tuercas M3 | Para fijar motores y placa |
+| **Tornillos M2 × 6mm** (×4) | Para fijar el Arduino al chasis | |
+
+## 🔌 Accesorios Esenciales
+
+- **Cables Jumper** Macho-Hembra y Macho-Macho (pack variado, 10-20cm)
+- **Capacitores Cerámicos 104 (100nF) × 6** — Filtrado de ruido en motores
+- **Resistencias: 1kΩ × 1 y 2kΩ × 1** — Divisor de tensión para pin RX del HC-05
+- **Resistencias: 10kΩ × 2** — Divisor de tensión para lectura de batería en A0
+- **Cinta Aislante** — Para asegurar conexiones contra vibraciones
+- **Multímetro Digital** — Indispensable para verificar voltajes y continuidad
+
+## Herramientas de Trabajo
+
+| Herramienta | Para qué |
+|---|---|
+| Soldador + estaño | Capacitores en motores, interruptor |
+| Alicate de corte | Recortar cables |
+| Destornilladores | M2 y M3 |
+| Regla / calibrador | Medir para el diseño 3D |
 
 ---
 
+> [!TIP]
+> Antes de comprar, revisa si tu **escuela o club de robótica** ya tiene algunos de estos componentes disponibles para préstamo. Los Arduinos Uno y módulos Bluetooth suelen estar en los kits escolares.
+
 ---
 
-### Lección 1.3: Reglas de Competencia Jr.
+### Reglas de Competencia Soccer Jr.
 **Order**: 3  
 **Slug**: `01-introduccion/03-reglas-competencia`
-
----
-
-**Description**: "Reglas oficiales de la categoría Junior y estrategias de adaptación a diferentes competencias."
 
 ---
 
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Introducción a Competencias**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Footage de competencias reales (diferentes países/eventos)
->   - Explicación de reglas con ejemplos visuales
->   - Mostrar robots que cumplen vs no cumplen reglas
->   - Proceso típico de una competencia (registro, inspección, carreras)
->   - Ambiente y presión de competir
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
->
-> **Video 2: Estrategias de Competencia**
-> - Duración sugerida: 6-8 minutos
-> - Contenido:
->   - Casos de estudio de equipos exitosos
->   - Errores comunes de novatos y cómo evitarlos
->   - Tips de veteranos (calibración en pista, manejo de nervios)
->   - Qué llevar el día de la competencia (checklist)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Competencia en Acción**
+> - Duración: 8-10 min
+> - Footage de partidos reales, explicación de reglas con ejemplos visuales.
+> - Cómo es el proceso de inspección técnica y las penalizaciones comunes.
 </AdminOnly>
 
 ---
 
-# Competencias de Seguidor de Línea Jr.
+# ⚽ Reglas de Competencia: Soccer Junior
 
-Este robot no es solo un proyecto educativo: es tu boleto al mundo competitivo de la robótica. Las competencias de seguidor de línea son eventos donde la velocidad, precisión y confiabilidad de tu diseño se ponen a prueba contra otros equipos.
+El **Soccer Junior** es una categoría de robótica competitiva donde dos robots teledirigidos se enfrentan en una cancha miniatura para empujar un balón a la portería del oponente.
 
-## Categoría Junior: Especificaciones Oficiales
+## 🏟️ El Campo de Juego
 
-La categoría **Junior** tiene reglas específicas diseñadas para nivelar el campo de juego y fomentar la creatividad dentro de límites técnicos:
+```
+┌─────────────────────────────────────────────────────────┐
+│  ┌──┐                                              ┌──┐  │
+│  │  │          ┌─────────────┐                     │  │  │
+│  │  │          │   CENTRO    │                     │  │  │
+│  │  │     ╔════╪═════════════╪════╗                │  │  │
+│  │G │     ║    │    ⬤ ○     │    ║                │G │  │
+│  │O │     ╚════╪═════════════╪════╝                │O │  │
+│  │A │          │             │                     │A │  │
+│  │L │          └─────────────┘                     │L │  │
+│  └──┘                                              └──┘  │
+│  ← PORTERÍA ROJA →                    ← PORTERÍA AZUL →  │
+└─────────────────────────────────────────────────────────┘
+         122 cm × 183 cm (medidas estándar)
+```
 
-### 1. Restricción de Motores
-**Motores Amarillos (TT Motors)** son obligatorios en la mayoría de competencias Jr. Estos motores de plástico amarillo son:
-*   **Accesibles**: Bajo costo y fáciles de conseguir.
-*   **Justos**: Todos los equipos tienen la misma potencia base.
-*   **Desafiantes**: Al tener menos torque que motores metálicos, obligan a optimizar el código y el diseño mecánico.
+| Elemento | Dimensión estándar |
+|---|---|
+| Campo (largo × ancho) | 183 cm × 122 cm |
+| Portería (ancho × alto) | 30 cm × 20 cm |
+| Balón | Pelota de ping-pong naranja (40mm) |
+| Paredes | Madera o acrílico, h=10cm mínimo |
+
+## 📏 Especificaciones del Robot
+
+### 1. Dimensiones Máximas
+El robot debe **caber en un cuadrado de 20×20 cm** (medido en proyección horizontal).
 
 > [!WARNING]
-> Usar motores diferentes (como motores metálicos N20 o micro metal gearmotors) te descalificará automáticamente en categoría Jr. Verifica siempre el reglamento específico de tu competencia.
+> La medición se hace con el robot en posición de inicio, con todos los accesorios extendidos. Un robot de 20.1 cm es **descalificado automáticamente**.
 
-### 2. Dimensiones Máximas
-El robot debe caber dentro de un cuadrado de **20cm x 20cm** (medido en su proyección superior). La altura generalmente no tiene restricción, pero el diseño compacto es clave para:
-*   **Estabilidad**: Un centro de gravedad bajo mejora el agarre en curvas cerradas.
-*   **Velocidad en Curvas**: Menos masa alejada del centro = menos inercia = giros más rápidos.
+### 2. Restricción de Motores — CRÍTICO
+**Solo se permiten motores amarillos TT (plástico)** en categoría Junior. Esto garantiza equidad.
 
-### 3. Sensores Permitidos
-La mayoría de competencias Jr. permiten:
-*   Sensores infrarrojos reflectivos (como el QTR-8RC que usamos).
-*   Algunos eventos permiten hasta 8 sensores, otros limitan a 6. **Revisa el reglamento**.
+| ✅ Permitido | ❌ Prohibido |
+|---|---|
+| Motores TT amarillos plástico | Motores metálicos N20 |
+| Motores TT con engranajes estándar | Micro Metal Gearmotors |
+| Motor doble eje TT | Servomotores continuos de metal |
 
-### 4. Autonomía Total
-Una vez que presionas el botón de inicio:
-*   **No puedes tocar el robot** hasta que cruce la meta o salga de la pista.
-*   **No hay control remoto**: Todo el comportamiento debe estar programado.
+### 3. Sistema de Control Permitido
+- **Bluetooth (HC-05 / HC-06)**: Permitido ✅
+- **WiFi RC**: Consulta el reglamento específico
+- **IR Remote**: Permitido en algunas competencias ✅
+- **Control autónomo con sensores**: No aplica para Soccer Jr. RC
 
-## Adaptación a Diferentes Competencias
+### 4. Prohibiciones de Diseño Mecánico
 
-Cada evento tiene sus particularidades. Aquí te enseñamos a adaptarte:
+> [!CAUTION]
+> Estas características **descalifican** tu robot en inspección técnica:
+> - Mecanismos de **agarre activo** del balón (loops, imanes, ganchos)
+> - Dispositivos que **retengan** la pelota más de 0.3 segundos
+> - Superficies pegajosas o con Velcro dirigidas al balón
+> - Partes cortantes o con puntas que puedan dañar el campo
 
-### Tipos de Pista Comunes
+### 5. Diseño de Pala Delantera (Dribbler Pasivo)
+La **pala delantera** es tu ventaja competitiva legal. Debe:
+- Ser parte fija del chasis (no móvil activamente)
+- Permitir que el balón ruede libremente (no retenerlo)
+- Ayudar a guiar el balón en la dirección de avance
 
-#### Pista Clásica (Línea Negra sobre Blanco)
-*   **Ancho de línea**: 18-25mm (varía por competencia).
-*   **Curvas**: Radios de 10cm a 30cm.
-*   **Estrategia**: Ajusta tu `baseSpeed` según la complejidad. Pistas con curvas cerradas requieren velocidad moderada pero PID agresivo.
+## ⏱️ Formato del Partido
 
-#### Pista Invertida (Línea Blanca sobre Negro)
-*   Algunos eventos usan este formato.
-*   **Solución**: Cambia `qtr.readLineBlack()` por `qtr.readLineWhite()` en tu código. ¡Lleva ambas versiones del firmware!
+| Aspecto | Regla estándar |
+|---|---|
+| Duración del partido | 2 × 3 minutos |
+| Descanso entre tiempos | 1 minuto |
+| Sistema de puntuación | 1 punto por gol |
+| Empate | Tiempo extra + penales (depende del evento) |
+| Jugadores por equipo | 1 robot en campo (algunos eventos: 2v2) |
 
-#### Obstáculos y Gaps
-*   **Gaps**: Espacios sin línea que el robot debe "recordar" y cruzar en línea recta.
-*   **Estrategia**: Implementa lógica de "último error conocido" para mantener la trayectoria.
+## 🎯 Proceso en el Día de Competencia
 
-### Variaciones en el Reglamento
+```
+LLEGADA → INSCRIPCIÓN → INSPECCIÓN → PRÁCTICA → PARTIDO → PREMIACIÓN
 
-| Aspecto | Variación Común | Tu Estrategia |
-|---------|----------------|---------------|
-| **Tiempo de Calibración** | 5-10 segundos | Optimiza tu rutina de calibración del QTR para ser rápida pero efectiva |
-| **Número de Vueltas** | 1-3 vueltas | Ajusta la agresividad del PID: más vueltas = prioriza estabilidad sobre velocidad pura |
-| **Penalizaciones por Salida** | Descalificación vs. Penalización de Tiempo | Si hay penalización (no descalificación), puedes arriesgar más en las curvas |
-| **Zona de Inicio** | Línea recta vs. Curva | Si inicia en curva, considera un `baseSpeed` inicial bajo que aumente gradualmente |
+1. Inscripción:   Registrar robot con nombre del equipo y número
+2. Inspección:    Verificar dimensiones, motores, y que no haya agarre
+3. Práctica:      15-30 min en la cancha oficial para calibrar
+4. Partido:       Enfrentamientos según bracket del evento
+5. Premiación:    Top 3 de la categoría
+```
 
-## Mentalidad Competitiva
+## 🏆 Estrategias Ganadoras
 
-### Antes de la Competencia
-1.  **Lee el Reglamento Completo**: No asumas que todas las competencias son iguales.
-2.  **Practica en Condiciones Similares**: Si la competencia es al aire libre, prueba tu robot bajo luz solar (los sensores IR pueden comportarse diferente).
-3.  **Lleva Repuestos**: Batería extra, cables, y un Arduino Nano de respaldo.
+### Estrategia 1: La Pala Ancha
+Una pala frontal más ancha que el balón tiene mejor cobertura de control.
 
-### Durante la Competencia
-*   **Calibra en la Pista Oficial**: Cada superficie refleja diferente. Usa los minutos de práctica para recalibrar.
-*   **Observa a la Competencia**: Mira qué estrategias usan otros equipos (velocidad vs. estabilidad).
-*   **Mantén la Calma**: Si fallas en la primera ronda, tienes tiempo para ajustar parámetros.
+### Estrategia 2: La Diagonal Rápida
+Los robots que atacan en diagonal confunden al oponente y tienen mejor ángulo de tiro.
 
-### Después de la Competencia
-*   **Analiza tus Datos de Telemetría**: Revisa los logs CSV para ver dónde perdiste tiempo.
-*   **Documenta tus Aprendizajes**: Qué funcionó, qué no, y qué cambiarías para la próxima.
+### Estrategia 3: Giro Brusco
+Un giro en el lugar (ambos motores en sentidos opuestos) permite cambiar de dirección sin retroceder, ganando tiempo crucial.
 
-## El Espíritu de la Categoría Jr.
-
-La categoría Junior no se trata solo de ganar, sino de:
-*   **Aprender el método científico**: Hipótesis (ajustar Kp) → Experimento (correr el robot) → Análisis (telemetría) → Iteración.
-*   **Desarrollar resiliencia**: Los mejores equipos no son los que nunca fallan, sino los que se recuperan rápido.
-*   **Compartir conocimiento**: La comunidad de robótica crece cuando todos enseñamos lo que aprendemos.
+### Estrategia 4: Defensa en Línea
+Posicionarse frente a tu portería y rebotar el balón lateralmente hacia los costados del campo.
 
 > [!TIP]
-> Muchos campeones nacionales e internacionales comenzaron en categoría Jr. con motores amarillos y un Arduino Nano. La limitación de recursos no es una desventaja; es una oportunidad para demostrar ingenio.
+> **La clave no es la velocidad — es el control.** Un robot más lento con mejor maniobrabilidad gana más partidos que uno rápido pero que choca con las paredes. Practica en el simulador para desarrollar "musculatura" de control antes del partido real.
 
----
+## Lista de Verificación Pre-Competencia
 
-
-## Módulo 2: Diseño
+- [ ] Robot entra en cuadrado de 20×20 cm
+- [ ] Solo motores amarillos TT instalados
+- [ ] Batería completamente cargada (8.4V)
+- [ ] HC-05 emparejado con el celular del operador
+- [ ] App de control probada y funcionando
+- [ ] Pala delantera fija y sin mecanismos de agarre
+- [ ] Tornillos apretados (las vibraciones los aflojan)
+- [ ] Repuesto: cable USB de carga + batería de respaldo
 
 ---
 
 
 ## Módulo: Diseno
 
-### Lección 2.1: Diseño del Chasis
+### 3D Chassis Design: Soccer Jr.
 **Order**: 4  
 **Slug**: `02-diseno/01-chasis`
 
 ---
 
 <AdminOnly>
-> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+> **🎥 VIDEO SECTION (Visible to admins only)**
 >
-> **Video 1: Principios de Diseño Mecánico**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Centro de masa explicado con ejemplos físicos
->   - Distribución de peso: demostración con balanza
->   - Comparación lado a lado: diseño bueno vs malo
->   - Efecto del centro de masa en curvas (video slow-motion)
->   - Materiales: acrílico vs impresión 3D vs corte láser
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Design Principles for Soccer Robots**
+> - Duration: 10–12 min
+> - Low center of mass: live demonstration with physical model
+> - Front guide designs and angle variations
+> - Common beginner design mistakes
 >
-> **Video 2: Tutorial de Tinkercad**
-> - Duración sugerida: 15-18 minutos
-> - Contenido:
->   - Paso a paso del diseño en Tinkercad (screen recording)
->   - Medidas específicas para cada componente
->   - Uso de la regla para posicionar agujeros
->   - Exportar archivo STL para impresión 3D
->   - Exportar archivo SVG para corte láser
->   - Mostrar el diseño final impreso/cortado
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Tinkercad Tutorial — Soccer Jr.**
+> - Duration: 18–20 min (full screen recording)
+> - Step by step: base plate, motor holes, battery holder, Arduino mount
 </AdminOnly>
 
 ---
 
-# Diseño y Mecánica
+# 🖨️ 3D Chassis Design
 
-En el nivel "Junior Engineering", dejamos atrás los chasis de acrílico genéricos. Nuestro objetivo es que **tú diseñes tu propia estructura**.
+The chassis is not just "the base" — it's the component that defines **how your robot moves on the field**. A good design can compensate for motor limitations; a poor design can ruin even the best code.
 
-## El Poder del Dibujo Técnico
+## Core Design Principles
 
-Antes de fabricar, debemos medir. Utilizaremos **Tinkercad** como nuestra herramienta de diseño principal para aprender:
-1.  **Precisión**: Uso de la regla para posicionar agujeros de motores y sensores.
-2.  **Distribución de Peso**: Planificar dónde irá la batería de 9V para mantener un centro de masa equilibrado.
-3.  **Fabricación Digital**: Preparar archivos para **Impresión 3D** o **Corte Láser**.
+### 1. Low and Centered Center of Mass
 
-## Reto de Diseño
-Crea una base que cumpla con:
-*   Espacio dedicado para el Shield de expansión.
-*   Soporte frontal ajustable para el sensor QTR-8RC.
-*   Huecos pasantes para trenzar los cables de los motores.
+The **center of mass (CoM)** is the point where the robot's entire weight effectively acts. For Soccer Jr., the ideal CoM position is:
+
+```
+Side View — Ideal Center of Mass:
+
+        ┌────────────────────────────┐
+        │  Arduino    HC-05  Switch  │  ← Top layer (electronics)
+        ├────────────────────────────┤
+        │  [18650 2S Battery Pack]   │  ← As low as possible
+        ├────────────────────────────┤
+        │      Motor  ⬤  Motor       │
+    ────┴────────────────────────────┴────  ← Field surface
+                    ↑
+            Center of Mass (CoM)
+            should be as close
+            to the ground as possible
+```
+
+**Why?** A low CoM improves stability during sharp turns. A high CoM will cause the robot to tip (and skid) in tight maneuvers.
+
+### 2. The Front Guide (Passive Ball Controller)
+
+The **front guide** is a concave geometry at the front of the robot. Its job is to **keep the ball centered** as the robot moves forward — the ball naturally settles into the curve and doesn't roll sideways.
+
+```
+Top View — Front Guide Geometry:
+
+Type A: Concave (Recommended)          Type B: Flat
+┌─────────────────────────┐           ┌─────────────────────────┐
+│     Robot Body          │           │     Robot Body          │
+│   ┌─────────────────┐   │           │   ┌─────────────────┐   │
+│   │                 │   │           │   │                 │   │
+│   │    ⬤ Ball       │   │           │   │    ⬤ Ball       │   │
+│   └─────────────────┘   │           │   └─────────────────┘   │
+│     ╰──── Guide ────╯   │           │     └──── Guide ────┘   │
+└─────────────────────────┘           └─────────────────────────┘
+  Ball stays centered while moving      Ball can escape sideways
+```
+
+**Recommended dimensions:**
+- Width: **5 to 8 cm** (slightly wider than a ping-pong ball at 4 cm)
+- Concave depth: **5 to 8 mm**
+- Thickness: minimum **3 mm in PLA** for impact resistance
+
+> [!NOTE]
+> **More advanced robots** in higher competition categories (e.g., Middle Size League) feature an **active kicker** — a solenoid mechanism that fires the ball at high speed. The Soccer Jr. front guide is the simpler, passive equivalent: it guides the ball instead of launching it.
+
+### 3. Component Layout
+
+```
+Top View of Chassis (20×20 cm):
+
+┌────────────────────────────────────────┐
+│  ←─── 20 cm ──────────────────────→   │
+│  ┌────────────────────────────────┐   ↑
+│  │  [TT Motor L]    [TT Motor R]  │   │ 20cm
+│  │  [    Arduino Uno R3         ] │   │
+│  │  [  18650 2S Battery Pack    ] │   │
+│  │  [Driver]  [HC-05]  [Switch]  │   ↓
+│  └────────────────────────────────┘
+│       ╔══ FRONT GUIDE ══╗             │
+└────────────────────────────────────────┘
+         ↑ FRONT OF ROBOT
+```
+
+**Golden Rule for Layout:**
+- **Battery low and rear** → low CoM + counterbalances the front guide weight
+- **Arduino above battery** → easy USB access for programming
+- **Driver to one side** → short cable runs to both motors
+
+## Steps in Tinkercad
+
+### Step 1: Create the Base Plate
+1. Go to [tinkercad.com](https://www.tinkercad.com) (free, no install)
+2. Insert a **Box** of **200mm × 150mm × 5mm** (chassis base)
+3. Set color to "Plastic – Light Gray"
+
+### Step 2: Motor Mounting Holes
+TT motors have a specific bolt pattern. Add cylinders as "holes":
+- Shaft diameter: **6 mm**
+- Mounting bolt spacing: **10 mm × 28 mm**
+
+### Step 3: Battery Holder
+- Create a "corral" box of **72 mm × 35 mm × 25 mm** for the 18650 2S pack
+- Leave side openings for ventilation and connector access
+
+### Step 4: The Front Guide
+- Add a box of **70 mm × 8 mm × 15 mm** at the front
+- For the concave curve, use the "Paraboloid" shape or round the edges with "Fillet"
+
+### Step 5: Export for Printing
+- **File → Export → STL**
+- Recommended print settings:
+  - Material: **PLA** (easy to print and repair)
+  - Infill: **30%** (sufficient strength without extra weight)
+  - Layer height: **0.2 mm** (good speed/quality balance)
 
 > [!TIP]
-> Un chasis diseñado por ti es más ligero, más resistente y permite que el mantenimiento sea mucho más sencillo. ¡Mide dos veces, corta (o imprime) una!
+> Print a **small test piece first** (just one corner with a motor hole) to verify tolerances before committing to a full chassis print. A 6 mm hole in the design might come out at 5.8 mm on your printer — and that matters.
 
----
-
-## Módulo 3: Montaje
+> [!WARNING]
+> If your chassis measures exactly 20×20 cm in the design, **add 0.5 mm of margin** on all sides — PLA deforms slightly as it cools. Design at **19×19 cm** and you'll have the correct margin for technical inspection.
 
 ---
 
 
 ## Módulo: Montaje
 
-### Lección 3.1: Fase 1 - Potencia
+### Fase 1: Potencia — Batería y Encendido
 **Order**: 5  
 **Slug**: `03-montaje/01-fase1-potencia`
 
@@ -323,82 +482,179 @@ Crea una base que cumpla con:
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Soldadura del Interruptor**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Seguridad con el soldador (temperatura, ventilación)
->   - Técnica de soldadura paso a paso (close-up)
->   - Soldadura del interruptor al cable rojo
->   - Verificación con multímetro (continuidad y voltaje)
->   - Troubleshooting: cortocircuitos comunes y cómo detectarlos
->   - Aislamiento con termoretráctil
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Seguridad con Baterías 18650**
+> - Duración: 8-10 min
+> - Demo de cortocircuito controlado y consecuencias
+> - Cómo verificar voltaje antes de conectar (multímetro)
+> - Instalación correcta del interruptor basculante
 >
-> **Video 2: Carga del Código Blink**
-> - Duración sugerida: 5-6 minutos
-> - Contenido:
->   - Instalación del Arduino IDE (si no lo tienen)
->   - Selección de placa (Arduino Nano) y puerto COM
->   - Explicación del código blink() línea por línea
->   - Proceso de carga (compilación y upload)
->   - Verificación del parpadeo del LED
->   - Qué hacer si no funciona (driver CH340, puerto incorrecto)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Primera Carga del Código**
+> - Duración: 5-6 min
+> - Instalación de Arduino IDE 2.x
+> - Selección de placa (Arduino Uno) y puerto COM
+> - Compilar y cargar el código Blink
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Ninguno (primera lección práctica)
+> **📋 Prerrequisitos:** Tener el Arduino Uno, la batería 18650 2S, el interruptor basculante y el cable USB.
 
 ---
 
-# Gestión de Energía
+# Fase 1: Sistema de Potencia 🔋
 
-En esta fase, prepararemos el sistema eléctrico base. 
+Esta es la fase más crítica de seguridad. Una conexión incorrecta con baterías de litio puede dañar los componentes o, en casos extremos, causar un incendio. **Sigue los pasos en orden.**
 
-## Pasos Técnicos
-1.  **Montaje del Cerebro**: Inserta el **Arduino Nano V3** en el **Shield de expansión I/O**. Asegúrate de que los pines encajen perfectamente.
-2.  **Preparación de la Batería**: Suelda el **interruptor basculante** al cable rojo (positivo) del broche de batería de 9V. 
-3.  **Conexión**: El cable rojo del interruptor va a la entrada **VIN** del Shield, y el negro a **GND**.
+## Diagrama de Conexión: Sistema de Potencia
 
-## Prueba de Verificación: Función Blink
+```
+ BATERÍA 18650 2S                                    ARDUINO UNO
+ ┌──────────────┐                                   ┌───────────┐
+ │  + (8.4V)    │──── CABLE ROJO ────[ SWITCH ]────►│  Vin      │
+ │              │                                   │           │
+ │  - (GND)     │──── CABLE NEGRO ──────────────────►│  GND      │
+ └──────────────┘                                   └───────────┘
+     │
+     └── El interruptor CORTA el positivo
+         (NUNCA cortar el negativo)
+         
+VOLTAJES ESPERADOS:
+  Batería cargada: 8.4V  ← Mide aquí con multímetro antes de conectar
+  Batería vacía:   7.4V  ← Nominal (50% de carga aprox.)
+  Mínimo seguro:   6.4V  ← Por debajo de esto: RECARGAR YA
+  Pin Vin Arduino: 7-12V ← El Vin acepta este rango, genera 5V internamente
+  Pin 5V Arduino:  5.0V  ← Aquí alimentaremos sensores y módulos
+```
 
-Esta función no es solo un "Hola Mundo". La usaremos a lo largo del código final para confirmar visualmente diferentes etapas (inicio, fin de calibración, etc.). Por eso la creamos como una función reutilizable desde el principio.
+## Paso a Paso
 
-Carga el siguiente código para asegurar que la placa recibe corriente estable:
+### 1. Preparación de la Batería
+
+Antes de conectar nada, **mide el voltaje** de tu batería:
+
+1. Enciende el multímetro en modo DC Voltaje (V⎓)
+2. Toca el cable **rojo** del multímetro al **+ de la batería**
+3. Toca el cable **negro** al **– de la batería**
+4. ✅ Lectura esperada: entre **7.4V y 8.4V**
+
+> [!CAUTION]
+> Si el multímetro lee **menos de 6.0V**, la batería está demasiado descargada para usar. Cárgala primero. Si lee **más de 8.6V**, algo está mal — no la conectes.
+
+### 2. Soldadura del Interruptor Basculante
+
+El interruptor va en **serie con el cable POSITIVO** (rojo):
+
+```
+CABLE ROJO DE BATERÍA:
+  [+Batería] ──→ CORTAR A LA MITAD ──→ SOLDAR CADA MITAD A UN TERMINAL DEL SWITCH
+                                          
+  Resultado:
+  [+Batería] ──→ [TERMINAL 1 SWITCH] ── [TERMINAL 2 SWITCH] ──→ [Vin Arduino]
+                                    ↑↑
+                            El switch abre/cierra aquí
+```
+
+**Técnica de soldadura:**
+1. Calienta el soldador a 350-380°C
+2. Estañar primero cada terminal del switch (precalentar)
+3. Pelar 5mm del cable rojo en cada extremo
+4. Torcer las fibras y estañar las puntas
+5. Unir cable a terminal, calentar ambos 2-3 segundos y retirar
+6. Esperar enfriar sin mover (10 segundos)
+7. Cubrir con termoretráctil o cinta aislante
+
+> [!WARNING]
+> **¿El estaño no fluye?** El soldador está frío o no estañaste primero las superficies. **¿El plástico del cable se derrite?** El soldador está muy caliente o lo tienes mucho tiempo — baja temperatura o sé más rápido.
+
+### 3. Conexión al Arduino Uno
+
+Con el interruptor en posición **OFF**:
+
+| Cable | Desde | Hacia | Color |
+|---|---|---|---|
+| Positivo | Terminal 2 del Switch | Pin **Vin** del Arduino | Rojo |
+| Negativo | – de la Batería | Pin **GND** del Arduino | Negro |
+
+> [!WARNING]
+> **¡El pin Vin del Arduino NO es el 5V!** El pin `5V` es una **salida** del regulador interno. Conectar la batería ahí quemaría el Arduino. Siempre usa el pin `Vin` para alimentación externa.
+
+### 4. Verificación con Código Blink
+
+Una vez conectado, carga este código por USB **antes de encender con la batería**:
 
 ```cpp
-// Función Blink (Confirmación Visual)
-void blink() {
-  for(int i=0; i<5; i++){
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(200);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(200);
+// ============================================
+// FASE 1: Código Blink — Verificación de Potencia
+// Propósito: Confirmar que el Arduino recibe corriente estable
+// Si el LED parpadea 5 veces rápido y luego empieza el ciclo,
+// la alimentación es correcta.
+// ============================================
+
+void blink(int veces = 5, int ms = 100) {
+  for (int i = 0; i < veces; i++) {
+    digitalWrite(LED_BUILTIN, HIGH);  // LED encendido
+    delay(ms);
+    digitalWrite(LED_BUILTIN, LOW);   // LED apagado
+    delay(ms);
   }
 }
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
-  blink(); // Llamar la función al iniciar
+  blink(5, 100);   // 5 parpadeos rápidos = ARRANQUE OK
 }
 
 void loop() {
-  // Vacío por ahora
+  blink(3, 200);   // 3 parpadeos cada 2 segundos = FUNCIONANDO
+  delay(2000);
 }
 ```
 
+### 5. Primera Prueba con Batería
+
+1. Asegúrate de que el código Blink esté cargado
+2. Desconecta el cable USB de la laptop
+3. Enciende el interruptor basculante
+4. **¿El LED del Arduino parpadea?** ✅ La potencia es correcta
+5. **¿No pasa nada?** → Revisa conexiones con multímetro
+
+## Diagrama de Flujo: Arranque del Robot
+
+```
+          INICIO
+             │
+             ▼
+    ¿Interruptor ON?
+      │          │
+     NO          SÍ
+      │           │
+      │           ▼
+      │    Corriente llega a Vin
+      │           │
+      │           ▼
+      │    Arduino arranca setup()
+      │           │
+      │           ▼
+      │    Configura pines: LED_BUILTIN como OUTPUT
+      │           │
+      │           ▼
+      │    blink(5, 100) → 5 parpadeos rápidos = OK
+      │           │
+      │           ▼
+      │        loop()
+      │      Parpadeos continuos
+      │
+      └──── (No hay energía, no pasa nada)
+      
+      FIN DE FASE 1 → SIGUIENTE: Driver y Motores
+```
+
 > [!TIP]
-> **¿Por qué una función?** En el código final, llamaremos `blink()` después de la calibración de sensores para confirmar que el robot está listo. Crear funciones reutilizables desde el inicio es una buena práctica de programación.
-
-> [!WARNING]
-> **¿No parpadea?** Verifica con un multímetro que lleguen 9V a los pines del Shield. Si el Arduino calienta mucho, desconecta de inmediato: podría haber un cortocircuito en las soldaduras del interruptor.
+> Esta función `blink()` la conservaremos en todas las fases del código. En el firmware final, los **5 parpadeos rápidos al inicio** serán tu señal de que el robot está listo. ¡Es como el sonido de "ding" cuando abre una puerta de avión!
 
 ---
 
----
-
-### Lección 3.2: Fase 2 - Sensores
+### Fase 2: Driver de Motores y Propulsión
 **Order**: 6  
 **Slug**: `03-montaje/02-fase2-sensores`
 
@@ -407,191 +663,228 @@ void loop() {
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Montaje Mecánico del QTR**
-> - Duración sugerida: 7-9 minutos
-> - Contenido:
->   - Fijación con tornillos de 2mm (close-up)
->   - Ajuste de altura (3-5mm) con galga o regla
->   - Verificación de nivelación del sensor
->   - Asegurar cables con cinta aislante (técnica correcta)
->   - Prueba de vibración (sacudir el robot)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Soldadura de Capacitores en Motores**
+> - Duración: 10-12 min
+> - Técnica para soldar capacitores 104 (muy pequeños) en las terminales del motor
+> - Demostración: ruido en el osciloscópio antes vs después de capacitores
 >
-> **Video 2: Instalación de Librería y Calibración**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Instalación de librería QTRSensors en Arduino IDE
->   - Conexión de pines (A0-A5, 2, 3) con diagrama
->   - Carga del código completo
->   - Proceso de calibración en vivo (mover robot sobre línea)
->   - Interpretación de valores en Serial Monitor
->   - Qué significan los números (0-7000)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
->
-> **Video 3: Troubleshooting Sensores**
-> - Duración sugerida: 5-7 minutos
-> - Contenido:
->   - Valores erráticos: causas y soluciones
->   - Problemas de iluminación (luz solar directa)
->   - Verificación de conexiones con multímetro
->   - Sensor no responde: diagnóstico paso a paso
->   - Ajuste fino de altura para mejor lectura
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Conexión del Driver — L293D y L298N**
+> - Duración: 12-15 min (grabar los dos casos por separado)
+> - Diagrama de conexión y prueba de dirección de cada motor
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Haber completado Lección 3.1 (Potencia) - necesitas el código blink() funcionando
+> **📋 Prerrequisitos:** Haber completado Fase 1 — Arduino arrancando y LED parpadeando con la batería.
 
 ---
 
-# Sensores de Alta Precisión
+# Fase 2: Driver de Motores ⚙️
 
-El sensor QTR es el ojo de tu robot. Un montaje descuidado aquí arruinará cualquier código PID por bueno que sea.
+Los motores DC no pueden conectarse directamente al Arduino — el microcontrolador solo puede entregar **40mA por pin**, mientras que cada motor TT puede consumir hasta **600mA**. El **Puente H** (L293D o L298N) actúa como amplificador de corriente.
 
-## Montaje Mecánico
-*   Usa los **tornillos de 2mm** para fijar el sensor al chasis. No lo pegues; necesitas poder ajustarlo.
-*   **La Regla de Oro**: La distancia óptima al suelo es de **3mm a 5mm**. Si está muy alto, no detectará la línea; si está muy bajo, chocará con las imperfecciones de la pista.
+## ¿Por qué los Capacitores Cerámicos? (CRÍTICO)
 
-## Seguridad en Conexiones
-Las vibraciones en carrera son fuertes. **Tip Pro**: Una vez conectados los cables jumper hembra al sensor, asegúralos con una vuelta de **cinta aislante**. Esto evita que se suelten en plena competencia.
+Los motores DC generan **chispas microscópicas** en sus escobillas. Estas chispas crean interferencias electromagnéticas (EMI) que literalmente confunden al Arduino, causando **reinicios aleatorios en plena competencia**.
 
-## Software y Calibración
+```
+SIN CAPACITORES:                    CON CAPACITORES 104:
+     Motor → ~~ruido~~               Motor → ~~sin ruido~~
+     Arduino se reinicia            Arduino estable ✅
+```
 
-Ahora vamos a integrar el sensor QTR a nuestro código. Primero, instala la librería oficial:
+**Dónde soldar los 3 capacitores por motor:**
 
-1. Abre el Arduino IDE
-2. Ve a **Sketch → Include Library → Manage Libraries**
-3. Busca **"QTRSensors"** por Pololu
-4. Instala la última versión
+```
+     Motor DC (vista de terminales)
+     
+     Terminal + ──┬──────── Terminal –
+                  │              │
+               [104]          [104]   ← Un capacitor entre terminales
+                  │              │
+               [104]             │   ← Un capacitor de cada terminal a la carcasa
+                  │              │
+              ┌───────────────────┐
+              │  CARCASA METÁLICA  │
+              └───────────────────┘
+              
+     Total: 3 capacitores × 2 motores = 6 capacitores en total
+     Capacitor: Cerámico 104 = 100nF = 0.1µF (sin polaridad, da igual el sentido)
+```
 
-### Código Completo hasta Ahora
+## Diagrama de Conexión: Shield L293D
 
-Este código ya incluye la función `blink()` que creamos en la Fase 1 (Potencia), y ahora agregamos toda la lógica del sensor QTR:
+El Shield L293D se monta directamente sobre el Arduino Uno (pin a pin):
+
+```
+SHIELD L293D montado sobre ARDUINO UNO
+──────────────────────────────────────
+
+ Alimentación del Shield:
+   Batería+ (post-switch) → Terminal VM del shield  (voltaje motores: 7.4V)
+   Arduino 5V             → Terminal VCC del shield (lógica: 5V)
+   GND compartido         → GND del shield
+
+ Motor IZQUIERDO → Terminales M1 del shield
+   Cable rojo motor IZQ → M1A
+   Cable negro motor IZQ→ M1B
+   (Si gira al revés, simplemente intercambia M1A y M1B)
+
+ Motor DERECHO → Terminales M2 del shield
+   Cable rojo motor DER → M2A
+   Cable negro motor DER→ M2B
+
+ Control de velocidad por PWM — Pines del Arduino:
+   Motor IZQ velocidad → Pin 6  (PWMA en firmware)
+   Motor IZQ dir A     → Pin 7  (AIN1)
+   Motor IZQ dir B     → Pin 8  (AIN2)
+   Motor DER velocidad → Pin 5  (PWMB)
+   Motor DER dir A     → Pin 9  (BIN1)
+   Motor DER dir B     → Pin 10 (BIN2)
+```
+
+## Diagrama de Conexión: Módulo L298N
+
+El L298N se conecta con cables jumper individuales:
+
+```
+MÓDULO L298N ←────────────────────────────────────── ARDUINO UNO
+─────────────────────────────────────────────────────────────────
+
+Módulo L298N          Cable          Arduino Uno
+──────────────        ──────         ──────────────
+ENA            ←──── JUMPER ────────  Pin 6  (PWM)
+IN1            ←──── JUMPER ────────  Pin 7
+IN2            ←──── JUMPER ────────  Pin 8
+IN3            ←──── JUMPER ────────  Pin 9
+IN4            ←──── JUMPER ────────  Pin 10
+ENB            ←──── JUMPER ────────  Pin 5  (PWM)
+GND            ←──── NEGRO  ────────  GND
+5V (del L298N) ──────────────────── (NO conectar al 5V del Arduino — conflicto!)
+
+Módulo L298N          Cable          BATERÍA / POTENCIA
+──────────────        ──────         ──────────────────
+12V (o VIN)    ←──── ROJO   ────────  + Batería (post-switch)
+GND            ←──── NEGRO  ────────  – Batería
+
+Módulo L298N          Motor Izquierdo
+──────────────        ──────────────────
+OUT1           ─────── Cable rojo
+OUT2           ─────── Cable negro
+(Si gira al revés: intercambia OUT1 y OUT2)
+
+Módulo L298N          Motor Derecho
+──────────────        ──────────────────
+OUT3           ─────── Cable rojo
+OUT4           ─────── Cable negro
+```
+
+> [!WARNING]
+> El módulo L298N tiene un regulador de 5V integrado. Cuando usas más de 12V, **quita el jumper** que conecta ese regulador o se puede quemar. Con 7.4V-8.4V puedes **dejar el jumper** y usar su 5V para alimentar el Arduino (puentea al pin 5V del Uno).
+
+## Código de Prueba: Fase 2 — Motores
+
+Este código acumula la función `blink()` de la Fase 1 y agrega el control básico de motores:
 
 ```cpp
-#include <QTRSensors.h>
+// ============================================
+// FASE 2: Motores — Prueba de Propulsión
+// Verifica dirección y velocidad de ambos motores
+// ============================================
 
-QTRSensors qtr;
+// --- Pines del driver (mismos para L293D y L298N) ---
+#define MOTOR_IZQ_EN  6    // PWM: velocidad motor izquierdo
+#define MOTOR_IZQ_A   7    // Dirección 1
+#define MOTOR_IZQ_B   8    // Dirección 2
+#define MOTOR_DER_EN  5    // PWM: velocidad motor derecho
+#define MOTOR_DER_A   9    // Dirección 1
+#define MOTOR_DER_B   10   // Dirección 2
 
-const uint8_t SensorCount = 8;
-uint16_t sensorValues[SensorCount];
-
-// --- Función Blink (Confirmación Visual) ---
-void blink() {
-  for(int i=0; i<5; i++){
+// --- Función Blink (de Fase 1) ---
+void blink(int veces = 3, int ms = 150) {
+  for (int i = 0; i < veces; i++) {
     digitalWrite(LED_BUILTIN, HIGH);
-    delay(200);
+    delay(ms);
     digitalWrite(LED_BUILTIN, LOW);
-    delay(200);
+    delay(ms);
   }
 }
 
-void setup()
-{
-  // configure the sensors
-  qtr.setTypeRC();
-  // Pines específicos para LFR-Pro (match con LFR-Telemetry.ino)
-  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
+// --- Control de motores ---
+void moverMotorIzq(int velocidad) {
+  // velocidad: -255 a 255 (negativo = reversa)
+  int v = constrain(abs(velocidad), 0, 255);
+  if (velocidad > 0) {
+    digitalWrite(MOTOR_IZQ_A, HIGH);
+    digitalWrite(MOTOR_IZQ_B, LOW);
+  } else if (velocidad < 0) {
+    digitalWrite(MOTOR_IZQ_A, LOW);
+    digitalWrite(MOTOR_IZQ_B, HIGH);
+  } else {
+    digitalWrite(MOTOR_IZQ_A, LOW);
+    digitalWrite(MOTOR_IZQ_B, LOW);
+  }
+  analogWrite(MOTOR_IZQ_EN, v);
+}
 
-  delay(500);
+void moverMotorDer(int velocidad) {
+  int v = constrain(abs(velocidad), 0, 255);
+  if (velocidad > 0) {
+    digitalWrite(MOTOR_DER_A, HIGH);
+    digitalWrite(MOTOR_DER_B, LOW);
+  } else if (velocidad < 0) {
+    digitalWrite(MOTOR_DER_A, LOW);
+    digitalWrite(MOTOR_DER_B, HIGH);
+  } else {
+    digitalWrite(MOTOR_DER_A, LOW);
+    digitalWrite(MOTOR_DER_B, LOW);
+  }
+  analogWrite(MOTOR_DER_EN, v);
+}
+
+void setup() {
+  // Configurar pines
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(MOTOR_IZQ_EN, OUTPUT); pinMode(MOTOR_IZQ_A, OUTPUT); pinMode(MOTOR_IZQ_B, OUTPUT);
+  pinMode(MOTOR_DER_EN, OUTPUT); pinMode(MOTOR_DER_A, OUTPUT); pinMode(MOTOR_DER_B, OUTPUT);
   
-  // 1. Señal de inicio de calibración
-  blink();
-  digitalWrite(LED_BUILTIN, HIGH); // encender LED durante calibración
-
-  // 2.5 ms RC read timeout (default) * 10 reads per calibrate() call
-  // = ~25 ms per calibrate() call.
-  // Call calibrate() 400 times to make calibration take about 10 seconds.
-  for (uint16_t i = 0; i < 400; i++)
-  {
-    qtr.calibrate();
-  }
-  digitalWrite(LED_BUILTIN, LOW); // apagar LED al finalizar
-  
-  // 2. Señal de fin de calibración
-  blink();
-
-  // print the calibration minimum values measured when emitters were on
-  Serial.begin(9600);
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(qtr.calibrationOn.minimum[i]);
-    Serial.print(' ');
-  }
-  Serial.println();
-
-  // print the calibration maximum values measured when emitters were on
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(qtr.calibrationOn.maximum[i]);
-    Serial.print(' ');
-  }
-  Serial.println();
-  Serial.println();
+  // Señal de inicio
+  blink(5, 100);
   delay(1000);
 }
 
-void loop()
-{
-  // read calibrated sensor values and obtain a measure of the line position
-  // from 0 to 5000 (for a white line, use readLineWhite() instead)
-  uint16_t position = qtr.readLineBlack(sensorValues);
-
-  // print the sensor values as numbers from 0 to 1000, where 0 means maximum
-  // reflectance and 1000 means minimum reflectance, followed by the line
-  // position
-  for (uint8_t i = 0; i < SensorCount; i++)
-  {
-    Serial.print(sensorValues[i]);
-    Serial.print('\t');
-  }
-  Serial.println(position);
-
-  delay(250);
+void loop() {
+  // Secuencia de prueba:
+  
+  // 1. Avanzar 2 segundos
+  moverMotorIzq(180);  moverMotorDer(180);
+  delay(2000);
+  
+  // 2. Detener
+  moverMotorIzq(0);    moverMotorDer(0);
+  delay(500);
+  
+  // 3. Retroceder 2 segundos
+  moverMotorIzq(-180); moverMotorDer(-180);
+  delay(2000);
+  
+  // 4. Detener
+  moverMotorIzq(0);    moverMotorDer(0);
+  delay(2000);
 }
 ```
 
-### Explicación del Código
-
-**Instanciación y Configuración:**
-- `QTRSensors qtr;` - Crea el objeto del sensor
-- `qtr.setTypeRC();` - Configura para sensores tipo RC (resistencia-capacitancia)
-- `qtr.setSensorPins(...)` - Asigna los 8 pines analógicos y digitales
-
-**Proceso de Calibración:**
-- Durante la calibración, **mueve el robot de lado a lado** sobre la línea negra
-- El sensor aprende los valores mínimos (blanco) y máximos (negro)
-- 400 iteraciones aseguran una calibración robusta
-
-**Lectura de Posición:**
-- `qtr.readLineBlack(sensorValues)` devuelve un valor de **0 a 7000**
-- **3500** = línea centrada (ideal)
-- **0** = línea completamente a la izquierda
-- **7000** = línea completamente a la derecha
-
-### Prueba Práctica
-
-1. Carga el código
-2. Abre el **Serial Monitor** (115200 baud)
-3. Durante los primeros segundos (LED encendido), mueve el robot sobre la línea
-4. Después del `blink()` final, observa cómo cambia la posición al mover el robot
+### ¿Qué verificar?
+- ✅ Ambos motores giran hacia adelante al avanzar
+- ✅ Ambos motores giran hacia atrás al retroceder
+- ❌ **¿Un motor gira al revés?** → Intercambia los dos cables de ESE motor en el driver (sin tocar el código)
 
 > [!TIP]
-> Si los valores no cambian mucho, verifica:
-> - Distancia al suelo (3-5mm es óptimo)
-> - Contraste de la línea (cinta negra mate sobre blanco funciona mejor que brillante)
-> - Iluminación ambiente (evita sombras directas sobre los sensores)
-
-> [!WARNING]
-> **¿Valores erráticos?** Revisa si la luz del ambiente le afecta directamente. En competencias bajo sol extremo, es posible que necesites una "visera" o escudo de sombras sobre los sensores.
+> **Trenza los cables de los motores** (enróllalos entre sí antes de conectar al driver). Esto crea un campo magnético de cancelación mutua que reduce aún más el ruido electromagnético. ¡Los ingenieros de F1 hacen lo mismo en sus sistemas de telemetría!
 
 ---
 
----
-
-### Lección 3.3: Fase 3 - Motores
+### Fase 3: Bluetooth HC-05 y Divisor de Tensión
 **Order**: 7  
 **Slug**: `03-montaje/03-fase3-motores`
 
@@ -600,200 +893,199 @@ void loop()
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Soldadura de Capacitores**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Técnica para soldar capacitores 104 (muy pequeños)
->   - Los 3 capacitores por motor (diagrama y ejecución)
->   - Trenzado de cables del motor (por qué y cómo)
->   - Verificación de continuidad con multímetro
->   - Prueba de ruido: antes vs después de capacitores
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: ¿Por qué el Divisor de Tensión?**
+> - Duración: 8-10 min
+> - Explicar niveles de voltaje 5V vs 3.3V visualmente
+> - Calcular el divisor con la fórmula
+> - Demo: conectar HC-05 SIN divisor y mostrar el riesgo (si hay osciloscópio)
 >
-> **Video 2: Conexión del TB6612FNG**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Diagrama de pines del TB6612FNG explicado
->   - Conexión paso a paso (STBY, PWM, AIN, BIN)
->   - Conexión de motores a las salidas A y B
->   - Carga del código de prueba
->   - Verificación de dirección de giro
->   - Prueba de velocidad variable (PWM)
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
->
-> **Video 3: Troubleshooting Motores**
-> - Duración sugerida: 5-6 minutos
-> - Contenido:
->   - Motor gira al revés: solución rápida
->   - Motor no gira: diagnóstico sistemático
->   - Ruido electromagnético persistente (más capacitores)
->   - Driver se calienta mucho: posibles causas
->   - Verificación de voltaje con multímetro
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Configuración y Prueba de HC-05**
+> - Duración: 10-12 min
+> - Configurar nombre y PIN del HC-05 en modo AT (opcional)
+> - Emparejar desde Android y desde iOS
+> - Enviar 'F' y verificar en el monitor serie
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Haber completado Lecciones 3.1 (Potencia) y 3.2 (Sensores)
+> **📋 Prerrequisitos:** Fase 1 y Fase 2 completadas. El robot avanza y retrocede correctamente con la batería.
 
 ---
 
-# Propulsión y Filtrado
+# Fase 3: Módulo Bluetooth HC-05 📡
 
-Los motores eléctricos generan chispas diminutas (ruido electromagnético) que vuelven loco al Arduino. Vamos a silenciar ese ruido.
+El HC-05 es el "oído" de tu robot — recibe los comandos de tu celular y los pasa al Arduino como texto (caracteres ASCII).
 
-## Filtrado de Ruido (CRÍTICO)
-Debes soldar **3 capacitores cerámicos (104)** por cada motor de la siguiente manera:
-1.  Un capacitor entre los dos terminales del motor.
-2.  Un capacitor desde un terminal a la carcasa metálica del motor.
-3.  Otro capacitor desde el otro terminal a la carcasa metálica.
+## ¿Por qué el Divisor de Tensión? — INGENIERÍA REAL
 
-## Cableado de Ingeniería
-**Trenza los cables** del motor (enróllalos entre sí) antes de conectarlos al Shield. Esto crea un efecto de cancelación de interferencias.
+```
+EL PROBLEMA: Incompatibilidad de voltajes lógicos
 
-## El Driver TB6612FNG
-Conecta las salidas A y B del driver a tus motores. A diferencia del L298N, este driver no desperdicia energía en calor, enviando toda la potencia de la batería de 9V directamente a las ruedas.
+  ARDUINO UNO                    HC-05
+  ┌─────────┐   TX (5V) ──────►  RX (3.3V)
+  │  5V TTL │                  │  3.3V TTL│
+  └─────────┘                  └──────────┘
+                   ↑
+           ¡El HC-05 solo tolera 3.3V en su pin RX!
+           Conectar 5V directamente lo degrada o quema con el tiempo.
+           
+  Señal 5V en el pin TX del Arduino:
+  ▁▁▁████▁▁█████▁▁▁  ← Voltaje: 0V y 5V
+  
+  Lo que el HC-05 puede recibir:
+  ▁▁▁████▁▁█████▁▁▁  ← Voltaje: 0V y MÁXIMO 3.3V
+  
+  SOLUCIÓN: Divisor Resistivo
+```
 
-## Código Completo hasta Ahora
+## El Divisor de Tensión: Cálculo y Conexión
 
-Ahora agregamos el control de motores a nuestro código. Este ya incluye `blink()` y el sistema QTR de las fases anteriores:
+```
+  CÁLCULO DEL DIVISOR:
+  
+  Vin = 5V (TX del Arduino)
+  Vout = 3.3V (RX del HC-05)
+  
+  Fórmula: Vout = Vin × R2 / (R1 + R2)
+  
+  Con R1 = 1kΩ y R2 = 2kΩ:
+  Vout = 5 × 2000 / (1000 + 2000) = 5 × 0.667 = 3.33V ✅
+  
+  DIAGRAMA DEL DIVISOR:
+  
+  Arduino PIN D3 (TX) ──────────┬────────── R1 (1kΩ) ──── HC-05 RX
+                                │
+                               R2 (2kΩ)
+                                │
+                               GND
+                               
+  Vout se mide entre el nodo (┬) y GND = 3.33V ✅
+```
+
+## Diagrama Completo de Conexión HC-05
+
+```
+HC-05 MÓDULO              ARDUINO UNO / BREADBOARD
+─────────────             ────────────────────────
+VCC  (3.3V-6V) ──────────  Pin 5V del Arduino
+GND            ──────────  GND del Arduino
+TXD            ──────────  Pin D2 del Arduino  (SoftwareSerial RX)
+RXD            ──── R1 (1kΩ) ─── Nodo ─── Pin D3 del Arduino (SoftwareSerial TX)
+                                    │
+                                   R2 (2kΩ)
+                                    │
+                                   GND
+
+Nota: El LED del HC-05 parpadeará RÁPIDO cuando no hay pareja,
+      y LENTO (cada 2s) cuando está emparejado con tu celular.
+```
+
+## Configuración de la App de Control
+
+Descarga **"Bluetooth RC Controller"** en tu celular Android o cualquier app similar de joystick Bluetooth.
+
+Los comandos que envía la app y cómo los interpreta el robot:
+
+| Botón en la App | Carácter enviado | Acción del Robot |
+|---|---|---|
+| ⬆️ Adelante | `F` | Avanza — ambos motores al frente |
+| ⬇️ Atrás | `B` | Retrocede — ambos motores atrás |
+| ◀️ Izquierda | `L` | Giro suave — motor derecho avanza |
+| ▶️ Derecha | `R` | Giro suave — motor izquierdo avanza |
+| ⏹️ Stop | `S` | Para — ambos motores detenidos |
+
+## Código de Prueba: Fase 3 — Bluetooth
+
+Este código incluye todo lo de Fases 1 y 2, más el Bluetooth. El robot ya responde a los comandos del celular:
 
 ```cpp
-#include <QTRSensors.h>
+// ============================================
+// FASE 3: Bluetooth HC-05 — Prueba Completa
+// Controla el robot desde tu celular.
+// Abrir el Monitor Serie para ver los comandos.
+// ============================================
+#include <SoftwareSerial.h>
 
-// --- Pines Puente H (TB6612FNG) ---
-// Definiciones exactas de LFR-Telemetry.ino
-#define STBY 7
-// Motor izquierdo
-#define PWMA 5
-#define AIN1 6
-#define AIN2 4
-// Motor derecho
-#define PWMB 10
-#define BIN1 8
-#define BIN2 9
+// --- Pines Bluetooth HC-05 ---
+SoftwareSerial btSerial(2, 3);  // RX=D2, TX=D3 (con divisor en D3)
 
-// --- Función Blink (Confirmación Visual) ---
-void blink() {
-  for(int i=0; i<5; i++){
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(200);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(200);
+// --- Pines del driver (igual que Fase 2) ---
+#define MOTOR_IZQ_EN  6
+#define MOTOR_IZQ_A   7
+#define MOTOR_IZQ_B   8
+#define MOTOR_DER_EN  5
+#define MOTOR_DER_A   9
+#define MOTOR_DER_B   10
+
+#define VEL 180   // Velocidad de prueba (0-255)
+
+// --- Función Blink (de Fase 1) ---
+void blink(int veces = 3, int ms = 150) {
+  for (int i = 0; i < veces; i++) {
+    digitalWrite(LED_BUILTIN, HIGH); delay(ms);
+    digitalWrite(LED_BUILTIN, LOW);  delay(ms);
   }
 }
 
-// --- Sensores QTR ---
-QTRSensors qtr;
-const uint8_t SensorCount = 8;
-uint16_t sensorValues[SensorCount];
-
-// --- Funciones de Control de Motores ---
-void MotorIzquierdo(int velocidad) {
-  analogWrite(PWMA, constrain(velocidad, 0, 255));
+// --- Funciones de motor (de Fase 2) ---
+void moverMotorIzq(int v) {
+  int spd = constrain(abs(v), 0, 255);
+  digitalWrite(MOTOR_IZQ_A, v > 0); digitalWrite(MOTOR_IZQ_B, v < 0);
+  analogWrite(MOTOR_IZQ_EN, spd);
 }
-
-void MotorDerecho(int velocidad) {
-  analogWrite(PWMB, constrain(velocidad, 0, 255));
-}
-
-void Motores(int velDer, int velIzq) {
-  MotorDerecho(velDer);
-  MotorIzquierdo(velIzq);
+void moverMotorDer(int v) {
+  int spd = constrain(abs(v), 0, 255);
+  digitalWrite(MOTOR_DER_A, v > 0); digitalWrite(MOTOR_DER_B, v < 0);
+  analogWrite(MOTOR_DER_EN, spd);
 }
 
 void setup() {
-  // Configuración de pines
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(STBY, OUTPUT);
-  pinMode(PWMA, OUTPUT);
-  pinMode(AIN1, OUTPUT);
-  pinMode(AIN2, OUTPUT);
-  pinMode(PWMB, OUTPUT);
-  pinMode(BIN1, OUTPUT);
-  pinMode(BIN2, OUTPUT);
+  pinMode(MOTOR_IZQ_EN, OUTPUT); pinMode(MOTOR_IZQ_A, OUTPUT); pinMode(MOTOR_IZQ_B, OUTPUT);
+  pinMode(MOTOR_DER_EN, OUTPUT); pinMode(MOTOR_DER_A, OUTPUT); pinMode(MOTOR_DER_B, OUTPUT);
   
-  // Inicializar comunicación serial
-  Serial.begin(115200);
+  Serial.begin(115200);     // Para debug en PC
+  btSerial.begin(9600);     // HC-05 por defecto a 9600 baud
   
-  // 1. Secuencia inicial
-  blink();
-  
-  // 2. Configuración de sensores QTR
-  qtr.setTypeRC();
-  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
-  
-  // 3. Calibración
-  digitalWrite(LED_BUILTIN, HIGH);
-  for (uint16_t i = 0; i < 400; i++) {
-    qtr.calibrate();
-  }
-  digitalWrite(LED_BUILTIN, LOW);
-  
-  // 4. Finalización calibración
-  blink();
-  
-  // 5. Activar Motores (configurar dirección)
-  // LFR-Telemetry.ino Setup for Motors:
-  digitalWrite(STBY, HIGH);
-  digitalWrite(AIN1, LOW);   // Motor A: adelante
-  digitalWrite(AIN2, HIGH);
-  digitalWrite(BIN1, LOW);   // Motor B: adelante
-  digitalWrite(BIN2, HIGH);
+  blink(5, 100);
+  Serial.println("Soccer Jr. Fase 3 - Esperando comandos BT...");
 }
 
 void loop() {
-  // Leer posición de la línea
-  uint16_t position = qtr.readLineBlack(sensorValues);
-  
-  // Prueba de motores: avanzar a velocidad media si detecta línea
-  // Simple logic for testing:
-  if(position > 0 && position < 7000) {
-      Motores(100, 100); // Avanzar despacio
-  } else {
-      Motores(0, 0); // Parar si no ve línea
+  if (btSerial.available()) {
+    char cmd = (char)btSerial.read();
+    Serial.print("CMD recibido: ");
+    Serial.println(cmd);
+    
+    switch(cmd) {
+      case 'F': moverMotorIzq(VEL);  moverMotorDer(VEL);  break; // Adelante
+      case 'B': moverMotorIzq(-VEL); moverMotorDer(-VEL); break; // Atrás
+      case 'L': moverMotorIzq(0);    moverMotorDer(VEL);  break; // Giro izq
+      case 'R': moverMotorIzq(VEL);  moverMotorDer(0);    break; // Giro der
+      default:  moverMotorIzq(0);    moverMotorDer(0);    break; // Stop
+    }
   }
-  
-  delay(100);
 }
 ```
 
-### Explicación del Código de Motores
+### Prueba Paso a Paso
 
-**Definición de Pines:**
-- `STBY`: Pin de standby (debe estar en HIGH para que el driver funcione)
-- `PWMA` y `PWMB`: Control de velocidad (PWM) para cada motor
-- `AIN1/AIN2` y `BIN1/BIN2`: Control de dirección de cada motor
-
-**Funciones de Control:**
-- `MotorDerecho(velocidad)`: Controla solo el motor derecho (0-255)
-- `MotorIzquierdo(velocidad)`: Controla solo el motor izquierdo (0-255)
-- `Motores(velDer, velIzq)`: Controla ambos motores simultáneamente
-- `constrain()`: Asegura que los valores estén entre 0 y 255
-
-**Configuración de Dirección:**
-- `AIN1=LOW, AIN2=HIGH`: Motor A gira hacia adelante
-- `BIN1=LOW, BIN2=HIGH`: Motor B gira hacia adelante
-- Para retroceder, invierte estos valores
-
-### Prueba de Fuego
-
-1. Carga el código
-2. Coloca el robot en el suelo (o eleva las ruedas)
-3. Después de la calibración, los motores deberían girar a velocidad 100
-4. Verifica que ambas ruedas giren en la misma dirección (adelante)
+1. **Carga el código** por USB al Arduino
+2. **Empareja el HC-05** desde Bluetooth de tu celular (PIN por defecto: `1234` o `0000`)
+3. **Abre la app** de RC Controller
+4. **Conecta** a "HC-05" desde la app
+5. **Presiona botones** y observa que el robot responde
+6. **Abre el Monitor Serie** en el Arduino IDE para ver qué comandos llegan
 
 > [!TIP]
-> **¿Por qué funciones separadas?** En el código PID final, necesitaremos ajustar cada motor independientemente para corregir la trayectoria. Crear estas funciones ahora nos facilita la integración posterior.
+> Si el HC-05 no aparece en la lista de dispositivos Bluetooth de tu celular, mantén el **botón de configuración del HC-05 presionado** por 3 segundos hasta que el LED parpadee muy rápido (modo pairing). Luego busca desde el celular.
 
 > [!WARNING]
-> **¿Gira al revés?** No desoldes nada. Simplemente invierte los cables en las terminales del driver o cambia la polaridad en tu función de código (intercambia AIN1 con AIN2 o BIN1 con BIN2).
+> **¿Los motores no responden pero el LED del HC-05 sí parpadea lento (emparejado)?** Revisa que el **Monitor Serie esté cerrado** antes de que el Bluetooth funcione — ambos comparten la comunicación serial del Arduino y pueden interferir. Desconecta USB del Arduino, enciende con la batería y controla solo por BT.
 
 ---
 
----
-
-### Lección 3.4: Fase 4 - Interfaz
+### Fase 4: Ensamble Final en Chasis 3D
 **Order**: 8  
 **Slug**: `03-montaje/04-fase4-interfaz`
 
@@ -802,64 +1094,153 @@ void loop() {
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Implementación del Botón**
-> - Duración sugerida: 6-8 minutos
-> - Contenido:
->   - Conexión del pulsador al Pin 11
->   - Explicación de pull-up interno (INPUT_PULLUP)
->   - Código de la función Iniciar() línea por línea
->   - Lógica de antirrebote explicada
->   - Prueba del botón (presionar y soltar)
->   - Integración con el código existente
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Ensamble Completo Paso a Paso**
+> - Duración: 15-18 min
+> - Montaje de motores en chasis con tornillos M3
+> - Instalación de batería y conector XT
+> - Organización profesional del cableado (bridas, cinta, rutas)
+> - Prueba final de movimiento y inspección técnica
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Haber completado Lecciones 3.1, 3.2 y 3.3 (todo el montaje básico)
+> **📋 Prerrequisitos:** Chasis impreso en 3D, Fases 1, 2 y 3 funcionando correctamente.
 
 ---
 
-# El Botón de Inicio
+# Fase 4: Ensamble Final 🔧
 
-Un robot que arranca solo es peligroso y difícil de calibrar. Usaremos un **módulo pulsador** conectado al **Pin 11**.
+Este es el momento en que tu robot pasa de ser un "circuito en la mesa" a una **máquina competitiva**. La organización del cableado no es estética — es ingeniería: cables sueltos pueden atascarse en las ruedas y perder una competencia.
 
-## Lógica de Control "Esperar y Arrancar"
-Implementaremos una función llamada `EsperarBoton()` que gestione el flujo de seguridad. El robot debe esperar a que el usuario interactúe antes de encender los motores.
+## Orden de Ensamble
 
-### El Algoritmo Correcto
-1.  **Esperar**: Ciclo infinito hasta detectar el botón presionado.
-2.  **Antirrebote**: Un pequeño delay para confirmar que es una pulsación real.
-3.  **Soltar**: Esperar a que el usuario retire el dedo. **¡Esto es clave!** Si arranca mientras presionas, moverás el robot de su posición ideal.
-4.  **Confirmación**: Emitir un sonido (si tienes buzzer) o parpadear el LED y arrancar.
+```
+SECUENCIA DE MONTAJE:
 
-```cpp
-void EsperarBoton() {
-  while(digitalRead(11) == HIGH); // Espera presión (LOW)
-  delay(50);                      // Antirrebote
-  while(digitalRead(11) == LOW);  // Espera a que sueltes (HIGH)
-  delay(50);                      // Antirrebote
-}
-
-void setup() {
-    pinMode(11, INPUT_PULLUP); // Activar resistencia pull-up interna
-    Serial.begin(115200);      // Velocidad estándar para telemetría
-}
+  1. Motores ──────────────────► Fijar en chasis (tornillos M3 desde abajo)
+         ↓
+  2. Ruedas ───────────────────► Presionar en eje del motor (ajuste a presión)
+         ↓
+  3. Batería 18650 2S ─────────► Asegurar en compartimento (brida o velcro)
+         ↓
+  4. Driver (L293D o L298N) ──► Montar sobre Arduino (shield) o fijar con M3 (módulo)
+         ↓
+  5. Arduino Uno ──────────────► Fijar en chasis con tornillos M2 x 6mm
+         ↓
+  6. HC-05 + Divisor ──────────► Conectar cables jumper al Arduino
+         ↓
+  7. Interruptor basculante ──► Instalar en orificio del chasis
+         ↓
+  8. Organizar cableado ───────► Bridas, cinta aislante en conectores
+         ↓
+  9. PRUEBA FINAL ─────────────► Inspección técnica pre-competencia
 ```
 
+## Gestión Profesional del Cableado
+
+```
+VISTA SUPERIOR DEL ROBOT (cableado organizado):
+
+ ┌────────────────────────────────────────────┐
+ │    [Motor Izq]                [Motor Der]  │
+ │        │  └─── cable trenzado ───┘  │      │
+ │        └──────────────────────────►Driver  │
+ │                                    │       │
+ │    ┌──[HC-05]                      │       │
+ │    │       jumpers cortos          │       │
+ │    └──►[ARDUINO UNO]◄─────────────┘       │
+ │              │                            │
+ │              └──►[SWITCH]──►[BATERÍA]     │
+ │                                           │
+ │    ══════════ PALA DELANTERA ═══════════  │
+ └────────────────────────────────────────────┘
+
+REGLAS DE CABLEADO:
+  ✅ Cables de motor: TRENZADOS (cancelan interferencias EMI)
+  ✅ Cables de señal (jumpers): AGRUPADOS con brida
+  ✅ Conectores: ASEGURADOS con cinta aislante (las vibraciones los sueltan)
+  ✅ Longitud: lo más CORTOS posible (menos inducción)
+  ❌ NUNCA cables cruzando las ruedas
+  ❌ NUNCA extremos sueltos que puedan tocar partes metálicas
+```
+
+## Inspección Técnica Pre-Competencia
+
+Verifica cada punto **antes de ir a competir**:
+
+### Dimensiones
+```
+  Herramienta: una caja de 20×20cm de cartón
+  
+  ┌────────────────────┐  ← 20 cm
+  │                    │
+  │   [Tu Robot]       │  20 cm
+  │                    │
+  └────────────────────┘
+  
+  El robot debe caber dentro con todos sus partes extendidas.
+```
+
+| Verificación | Estado |
+|---|---|
+| ☐ Robot cabe en 20×20 cm | Pendiente |
+| ☐ Solo motores amarillos TT | Pendiente |
+| ☐ Pala delantera fija (no se mueve) | Pendiente |
+| ☐ Ningún mecanismo de agarre del balón | Pendiente |
+| ☐ Sin partes cortantes o puntas | Pendiente |
+
+### Eléctrica
+| Verificación | Estado |
+|---|---|
+| ☐ Batería cargada: 8.4V (medir con multímetro) | Pendiente |
+| ☐ Switch funciona (enciende y apaga sin problemas) | Pendiente |
+| ☐ LED del Arduino parpadea al encender | Pendiente |
+| ☐ HC-05 se empareja con el celular | Pendiente |
+| ☐ Los 4 comandos (F/B/L/R) funcionan | Pendiente |
+| ☐ Stop funciona correctamente | Pendiente |
+
+### Mecánica
+| Verificación | Estado |
+|---|---|
+| ☐ Todos los tornillos apretados | Pendiente |
+| ☐ Ruedas bien ajustadas (no se salen con las manos) | Pendiente |
+| ☐ Ningún cable puede tocar las ruedas en movimiento | Pendiente |
+| ☐ Batería asegurada (no se mueve al sacudir el robot) | Pendiente |
+
+## Prueba de Campo Final
+
+Antes de ir a competir, realiza esta secuencia en tu propia "cancha" (puede ser el piso):
+
+```
+PRUEBA DE CAMPO:
+  
+  1. [F por 3 seg] ──→ Robot avanza en línea recta ──→ ¿Desvía? ajusta un motor
+  2. [B por 3 seg] ──→ Robot retrocede en línea recta
+  3. [L por 1 seg] ──→ Giro hacia la izquierda limpio
+  4. [R por 1 seg] ──→ Giro hacia la derecha limpio
+  5. [F + pelota]  ──→ Empujar la pelota 1 metro con la pala delantera
+  6. [Giro brusco] ──→ Cambio de dirección sin perder el balón
+```
+
+> [!TIP]
+> ¿El robot desvía al ir en línea recta? Es normal si un motor es ligeramente más rápido que el otro. Ajusta el valor PWM de ese motor en el firmware: si desvía a la izquierda, **reduce en 5-10** el PWM del motor derecho. Itera hasta que vaya recto.
+
 > [!WARNING]
-> **¿Arranca solo?** Revisa si tu pulsador es normalmente abierto o cerrado. Si el robot sale disparado sin tocar nada, invierte la lógica de `HIGH` y `LOW` en el código.
+> En competencia, las condiciones del piso pueden ser diferentes a las de tu casa. **Siempre lleva una batería completamente cargada de repaldo** y prueba en la cancha oficial durante el tiempo de práctica para re-calibrar si es necesario.
 
----
+## ¡Felicitaciones — El Robot Está Listo!
 
-## Módulo 4: Programación
+Con la Fase 4 completada, tienes un **robot Soccer Jr. funcional y competitivo**. Los siguientes módulos te enseñarán a:
+- **Programar en SteamakersBlocks** (para entender la lógica visualmente)
+- **Traducir a C++** (el código profesional del firmware completo)
+- **Analizar tu rendimiento** con datos reales del post-match log
 
 ---
 
 
 ## Módulo: Programacion
 
-### Lección 4.1: Teoría de Control (El Cerebro Matemático)
+### Programación en SteamakersBlocks
 **Order**: 9  
 **Slug**: `04-programacion/01-teoria-control`
 
@@ -868,266 +1249,205 @@ void setup() {
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Anatomía de un Sistema de Control**
-> - Duración sugerida: 12-15 minutos
-> - Contenido:
->   - El concepto de "Lazo Cerrado" explicado con un videojuego.
->   - Analogías visuales: La liga elástica (P) y el amortiguador de puerta (D).
->   - Por qué "seguir la línea" es en realidad "minimizar el error".
->   - Demostración física: Mover un robot con la mano simulando las fuerzas.
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Intro a SteamakersBlocks**
+> - Duración: 8-10 min
+> - Interfaz, cómo conectar el Arduino, cómo subir el programa
+> - Filosofía: "piensa la lógica primero, escribe el código después"
 >
-> **Video 2: Matemáticas del PID Simplificadas**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Pizarra digital: Desglose de la fórmula Error = Setpoint - Input.
->   - Cómo se convierte un número (Error) en voltaje para motores (PWM).
->   - El problema de la oscilación y cómo la "D" lo soluciona.
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Construyendo el Programa de Control**
+> - Duración: 15-18 min (screen recording completo)
+> - Construir el programa completo paso a paso con bloques
+> - Probar en el robot físico mientras se construye
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Haber completado el Módulo 3 (Montaje). Tu robot debe estar listo para recibir órdenes.
+> **📋 Prerrequisitos:** Robot físico completamente armado y funcionando con el código de Fase 3.
 
 ---
 
-# Teoría de Control: El Algoritmo PID
+# 🧱 Programación con SteamakersBlocks
 
-Hasta ahora, tu robot es un poco "ciego". Si ve negro, gira; si ve blanco, gira al otro lado. Eso funciona para juguetes, pero para ganar carreras necesitamos algo mejor. Necesitamos que el robot sea inteligente.
+SteamakersBlocks es una plataforma de programación visual donde construyes programas **arrastrando bloques** en lugar de escribir código. Es idéntico en lógica al Arduino C++, pero sin preocuparte por la sintaxis.
 
-Vamos a enseñarle el algoritmo que usan los cohetes de la NASA y los coches autónomos para no chocar: el PID. No te asustes por el nombre, es solo una forma matemática de responder a la pregunta: "¿Qué tan mal voy y cómo lo arreglo?"
+## ¿Por qué Empezar con Bloques?
 
-## 1. El Concepto de "Error"
-En ingeniería, el robot siempre tiene una meta llamada Setpoint.
+```
+La Curva de Aprendizaje del Programador de Robots:
 
-*   **Nuestra Meta (Setpoint)**: 3500 (El centro exacto de la línea).
-*   **Nuestra Realidad (Input)**: Lo que leen los sensores (0 a 7000).
+  Dificultad
+  ──────────                                          ●  C++ Avanzado (PID, optimización)
+      │                                       ●  C++ con librerías
+      │                               ●  C++ básico Arduino
+      │                   ●  SteamakersBlocks (hoy estamos aquí)
+      │           ●  Pseudocódigo
+      │   ●  Flowchart (diagramas de flujo)
+      └─────────────────────────────────────────────────►  Tiempo
+      
+  Los bloques NO son "para niños" — son la misma lógica
+  que usa un ingeniero al diseñar el algoritmo antes de codificar.
+```
 
-El Error es la resta entre lo que quieres y lo que tienes:
+## Diagrama de Flujo: Lógica del Control RC
 
-$$
-Error = Setpoint - PosicionActual
-$$
+Antes de construir los bloques, entiende la lógica con un diagrama de flujo:
 
-*   Si el error es 0, ¡felicidades! Vas perfecto.
-*   Si el error es grande, tienes que girar rápido.
-*   Si el error es pequeño, tienes que girar suave.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    INICIO DEL PROGRAMA                      │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│  CONFIGURACIÓN (setup):                                     │
+│  • Definir pines de motores como SALIDA                     │
+│  • Iniciar comunicación Bluetooth a 9600 baudios            │
+│  • Parpadear LED 5 veces → Robot LISTO                      │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+                           ▼
+                   ┌───────────────┐
+                   │   REPETIR     │◄──────────────────┐
+                   │   SIEMPRE     │                   │
+                   └───────┬───────┘                   │
+                           │                           │
+                           ▼                           │
+                ┌──────────────────────┐               │
+                │ ¿Hay dato Bluetooth  │               │
+                │ disponible?          │               │
+                └─────┬──────────┬─────┘               │
+                      │ SÍ       │ NO                  │
+                      │          └────────────────────►│
+                      ▼                                │
+           ┌─────────────────────┐                     │
+           │ Leer el comando     │                     │
+           │ (un carácter ASCII) │                     │
+           └──────────┬──────────┘                     │
+                      │                                │
+                      ▼                                │
+           ┌─────────────────────────────────────────┐ │
+           │      ¿Cuál es el comando?               │ │
+           └──┬─────┬─────┬─────┬─────┬─────────────┘ │
+              │     │     │     │     │               │
+             'F'   'B'   'L'   'R'  Otro             │
+              │     │     │     │     │               │
+              ▼     ▼     ▼     ▼     ▼               │
+           [Adel][Retr][GiroL][GiroR][Stop]            │
+              │     │     │     │     │               │
+              └─────┴─────┴─────┴─────┴──────────────►┘
+```
 
-{/* SIMULATION (Visible to all logged-in users) */}
-<div style="width: 100%; height: 500px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
-  <iframe src="/simulations/ojo-matematico.html" style="width: 100%; height: 100%; border: none;"></iframe>
-</div>
-<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
-  <a href="/simulations/ojo-matematico.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
-    ↗ Abrir simulador en pantalla completa
-  </a>
-</div>
+## Construir el Programa en SteamakersBlocks
 
-## 2. Los Tres Entrenadores (P, I, D)
-Para mantener el error en cero, tu robot tiene tres "entrenadores" matemáticos en su cerebro que le gritan órdenes a los motores al mismo tiempo.
+### Bloque 1: Configuración Inicial
 
-### P - El Proporcional (La Liga Elástica)
+En SteamakersBlocks, el programa tiene dos secciones principales:
+- **Al iniciar** (equivale a `setup()`)
+- **Para siempre** (equivale a `loop()`)
 
-Su lema: *"¡Cuanto más te alejes, más fuerte te jalo!"*
+```
+┌─────────────────────────────────────────────────────────┐
+│  🟦 AL INICIAR                                          │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │ 🔌 configurar pin [6] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [7] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [8] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [5] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [9] como [SALIDA]             │   │
+│  │ 🔌 configurar pin [10] como [SALIDA]            │   │
+│  │ 📡 iniciar Bluetooth en pin [2] y [3] a [9600]  │   │
+│  │ 💡 parpadear LED [5] veces a [100ms]            │   │
+│  └─────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────┘
+```
 
-Imagina que tu robot está atado a la línea con una liga o goma elástica.
-*   Si te alejas poquito, la liga te jala suave.
-*   Si te alejas mucho, la liga te jala con mucha fuerza.
+### Bloque 2: Leer y Responder
 
-A esto lo llamamos **Kp** (Constante Proporcional). Es la "fuerza" o rigidez de esa liga.
+```
+┌─────────────────────────────────────────────────────────┐
+│  🔄 PARA SIEMPRE                                        │
+│  ┌─────────────────────────────────────────────────┐   │
+│  │  🔍 SI [Bluetooth tiene datos]                  │   │
+│  │     ENTONCES                                    │   │
+│  │     📥 guardar en [comando] ← [leer Bluetooth]  │   │
+│  │                                                 │   │
+│  │     🔀 SI [comando] = ['F']                     │   │
+│  │        ENTONCES: 🚀 mover ambos motores adelante│   │
+│  │                                                 │   │
+│  │     🔀 SI SINO [comando] = ['B']                │   │
+│  │        ENTONCES: 🔙 mover ambos motores atrás   │   │
+│  │                                                 │   │
+│  │     🔀 SI SINO [comando] = ['L']                │   │
+│  │        ENTONCES: ↰ solo motor derecho avanza    │   │
+│  │                                                 │   │
+│  │     🔀 SI SINO [comando] = ['R']                │   │
+│  │        ENTONCES: ↱ solo motor izquierdo avanza  │   │
+│  │                                                 │   │
+│  │     🔀 SI NO (cualquier otro)                   │   │
+│  │        ENTONCES: ⏹️ parar todos los motores     │   │
+│  └─────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────┘
+```
 
-$$
-SalidaP = Error \times Kp
-$$
+### Bloques para "Mover Motor Adelante/Atrás"
 
-**El Problema**: Si la liga es muy fuerte (Kp alto), cuando el robot regrese a la línea vendrá tan rápido que... ¡se pasará de largo hacia el otro lado! Y empezará a rebotar de izquierda a derecha sin parar. A esto le llamamos **Oscilación**.
+Cada acción de motor usa 3 bloques internamente:
 
-{/* SIMULATION (Visible to all logged-in users) */}
-<div style="width: 100%; height: 600px; border: 1px solid #333; border-radius: 12px; overflow: hidden; margin: 20px 0;">
-  <iframe src="/simulations/pendulo-p.html" style="width: 100%; height: 100%; border: none;"></iframe>
-</div>
-<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
-  <a href="/simulations/pendulo-p.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
-    ↗ Abrir "El Péndulo" en pantalla completa
-  </a>
-</div>
+```
+"Mover Motor Izquierdo Adelante" =
+  ┌──────────────────────────────────────┐
+  │ 📤 escribir en pin [7]  valor [ALTO] │  ← AIN1 = HIGH
+  │ 📤 escribir en pin [8]  valor [BAJO] │  ← AIN2 = LOW
+  │ 📊 PWM en pin [6] valor [180]        │  ← Velocidad 180/255
+  └──────────────────────────────────────┘
 
-### D - El Derivativo (El Freno Inteligente)
+"Parar Motor Izquierdo" =
+  ┌──────────────────────────────────────┐
+  │ 📤 escribir en pin [7]  valor [BAJO] │
+  │ 📤 escribir en pin [8]  valor [BAJO] │
+  │ 📊 PWM en pin [6] valor [0]          │
+  └──────────────────────────────────────┘
+```
 
-Su lema: *"¡Cuidado, vas muy rápido! ¡Frena!"*
+## Tabla de Equivalencia: Bloques ↔ C++
 
-Este es el entrenador precavido. Él no mira dónde estás, sino a qué velocidad te acercas o te alejas.
+Una vez que tu programa de bloques funciona, esta tabla te muestra la equivalencia directa con el código C++:
 
-Cuando la liga elástica (P) te jala con fuerza hacia la línea, el entrenador (D) dice: *"¡Oye, vas demasiado rápido, vamos a chocar! ¡Pon los frenos!"*.
+| Bloque Visual | Código C++ equivalente |
+|---|---|
+| 🔌 `configurar pin [N] como SALIDA` | `pinMode(N, OUTPUT);` |
+| 📤 `escribir en pin [N] ALTO` | `digitalWrite(N, HIGH);` |
+| 📊 `PWM en pin [N] valor [V]` | `analogWrite(N, V);` |
+| 📡 `iniciar Bluetooth [RX] [TX] a [baud]` | `SoftwareSerial bt(RX,TX); bt.begin(baud);` |
+| 🔍 `Bluetooth tiene datos` | `bt.available()` |
+| 📥 `leer Bluetooth` | `(char)bt.read()` |
+| 🔀 `SI [condición] ENTONCES` | `if (condicion) { ... }` |
+| 🔄 `PARA SIEMPRE` | `void loop() { ... }` |
+| 💡 `parpadear LED N veces` | `blink(N, 150);` |
 
-Su trabajo es evitar que te pases de largo. Actúa como un amortiguador; absorbe los golpes y evita los rebotes.
-
-A esto lo llamamos **Kd** (Constante Derivativa). Matemáticamente, mira la diferencia entre el error de ahora y el error de hace un instante.
-
-$$
-SalidaD = (ErrorActual - ErrorAnterior) \times Kd
-$$
-
-<div class="simulator-container" style="background:#0f172a; border-radius:12px; overflow:hidden; border:1px solid #334155; margin: 30px 0;">
-  <div style="background:#1e293b; padding:10px 20px; font-size:12px; font-weight:bold; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; border-bottom:1px solid #334155;">
-    SIMULADOR INTERACTIVO
-  </div>
-  <iframe src="/simulations/pendulo-pd.html" style="width:100%; height:500px; border:none;" title="Simulador PD"></iframe>
-</div>
-<div style="text-align: center; margin-top: -10px; margin-bottom: 30px;">
-  <a href="/simulations/pendulo-pd.html" target="_blank" style="color: #94a3b8; font-size: 12px; text-decoration: none;">
-    ↗ Abrir "El Amortiguador" en pantalla completa
-  </a>
-</div>
-
-### I - El Integral (La Memoria)
-
-Su lema: *"¡Llevas mucho tiempo equivocado!"*
-
-Este entrenador tiene memoria. Acumula los errores del pasado.
-
-> [!NOTE]
-> **Nota de Ingeniero**: En robots de carreras muy rápidos (como el tuyo), este entrenador a veces es demasiado lento y "rencoroso" (se queda con el error acumulado y causa choques en las rectas). Por eso, en este curso, dejaremos al entrenador Integral descansando (**Ki = 0**). Nos concentraremos en un control PD perfecto.
-
-## 3. De Números a Movimiento: La Mezcla Diferencial
-
-Hasta ahora hemos calculado un número llamado "Corrección" o "Ajuste". Pero, ¿cómo hace ese número para que el robot gire? La respuesta está en un concepto llamado **tracción diferencial**.
-
-### El Concepto: Diferentes Velocidades = Giro
-
-Tu robot tiene dos ruedas independientes. Si ambas giran a la misma velocidad, el robot avanza recto. Pero si una rueda gira más rápido que la otra, el robot **gira** hacia el lado de la rueda más lenta.
-
-**Piénsalo como un kayak:**
-- Si remas igual de fuerte con ambos remos → vas recto
-- Si remas más fuerte con el remo derecho → giras a la izquierda
-- Si remas más fuerte con el remo izquierdo → giras a la derecha
-
-Lo mismo pasa con tu robot. La diferencia de velocidad entre las ruedas crea el giro.
-
-<AdminOnly>
-> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
->
-> **Video 3: La Mezcla Diferencial Explicada**
-> - Duración sugerida: 5-7 minutos
-> - Contenido:
->   - Demostración física con el robot (sin programar)
->   - Girar manualmente cada rueda a diferentes velocidades
->   - Mostrar con cámara cenital cómo el robot gira
->   - Analogía visual con kayak o excavadora
->   - Diagrama animado de vista superior del robot
->   - Transición a cómo el código implementa esto
-> - Elementos visuales recomendados:
->   - Flechas superpuestas mostrando velocidad de cada rueda
->   - Trayectoria curva del robot marcada
->   - Comparación lado a lado: velocidades iguales vs diferentes
-> - Preview: `https://www.youtube.com/embed/VIDEO_ID` (reemplazar)
-</AdminOnly>
-
-### Ejemplo Numérico
-
-Imagina que tu **Velocidad Base** es 200 (ambos motores a 200 PWM).
-
-**Escenario 1: Robot va recto (Error = 0)**
-- Corrección = 0
-- Motor Izquierdo = 200 - 0 = **200**
-- Motor Derecho = 200 + 0 = **200**
-- Resultado: ✅ Avanza recto
-
-**Escenario 2: Línea a la izquierda (Error > 0, por ejemplo +500)**
-- Corrección = +100 (después de aplicar Kp y Kd)
-- Motor Izquierdo = 200 - 100 = **100** ⬇️ (más lento)
-- Motor Derecho = 200 + 100 = **300** ⬆️ (más rápido)
-- Resultado: 🔄 Gira a la IZQUIERDA (donde está la línea)
-
-**Escenario 3: Línea a la derecha (Error < 0, por ejemplo -500)**
-- Corrección = -100
-- Motor Izquierdo = 200 - (-100) = **300** ⬆️ (más rápido)
-- Motor Derecho = 200 + (-100) = **100** ⬇️ (más lento)
-- Resultado: 🔄 Gira a la DERECHA (donde está la línea)
-
-<AdminOnly>
 > [!TIP]
-> **Título**: Simulador - Vista Superior del Robot (Solo visible para administradores)
-> 
-> En una futura actualización, aquí se insertará un simulador interactivo.
-> 
-> **Descripción funcional del simulador:**
-> - **Vista:** Perspectiva cenital (desde arriba) del robot
-> - **Elementos visuales:**
->   - Rectángulo representando el chasis del robot
->   - Dos círculos o rectángulos para las ruedas (izquierda y derecha)
->   - Línea negra simulada en el fondo
->   - Indicadores de velocidad en cada rueda (barras o números)
-> - **Controles interactivos:**
->   - Slider "Velocidad Base" (0-255)
->   - Slider "Corrección" (-255 a +255)
->   - Botón "Reset" para volver al centro
->   - Checkbox "Mostrar trayectoria" (deja rastro del movimiento)
-> - **Cálculo automático:**
->   - Motor Izq = Base - Corrección
->   - Motor Der = Base + Corrección
->   - Mostrar estos valores en tiempo real
-> - **Comportamiento:**
->   - El robot se mueve en la simulación según las velocidades
->   - Se ve claramente el radio de giro cuando hay diferencia
->   - Animación suave para que sea educativo
-> - **Panel de información:**
->   - "Corrección = 0 → Va recto"
->   - "Corrección > 0 → Gira izquierda"
->   - "Corrección < 0 → Gira derecha"
-> 
-> **Objetivo pedagógico:** Que el estudiante experimente visualmente cómo diferentes correcciones afectan el movimiento del robot ANTES de verlo en el código.
-</AdminOnly>
+> Cuando tu programa de SteamakersBlocks está funcionando perfectamente, muchas plataformas tienen un botón "Ver Código" que muestra el C++ generado automáticamente. Úsalo para **comparar** tu programa de bloques con el código — así es como se aprende a programar profesionalmente.
 
-### La Fórmula Maestra
+## Ejercicio: Agregar un Nuevo Comportamiento en Bloques
 
-Ahora que entiendes el concepto, aquí está cómo se traduce a código:
+Después de que el control básico funcione, intenta agregar en SteamakersBlocks:
 
-```cpp
-// Paso 1: Calcular la corrección (ya lo vimos con P y D)
-Correccion = (Error * Kp) + ((Error - ErrorAnterior) * Kd);
+**"Modo Turbo"**: Si el celular envía la letra `T`, los motores van a velocidad 230 en lugar de 180.
 
-// Paso 2: Aplicar la corrección a cada motor de forma OPUESTA
-Velocidad_Izquierda = Velocidad_Base - Correccion;
-Velocidad_Derecha   = Velocidad_Base + Correccion;
+```
+Pista: Agrega un bloque SI SINO adicional:
+
+  🔀 SI SINO [comando] = ['T']
+     ENTONCES:
+     📊 PWM en pin [6] valor [230]   ← Turbo motor izquierdo
+     📊 PWM en pin [5] valor [230]   ← Turbo motor derecho
 ```
 
-**¿Por qué se suma en uno y se resta en el otro?**
-
-Porque queremos que cuando la línea esté a un lado, ESE lado frene y el OTRO acelere:
-- ✅ **Línea a la izquierda** (corrección positiva) → Izquierdo FRENA (-), Derecho ACELERA (+) → Gira izquierda
-- ✅ **Línea a la derecha** (corrección negativa) → Izquierdo ACELERA (-), Derecho FRENA (+) → Gira derecha
-
-Es como si el robot "persiguiera" la línea siempre girando hacia donde está.
-
-## 4. Resumen del Algoritmo
-
-El cerebro de tu Arduino hace este cálculo miles de veces por segundo:
-
-```cpp
-// Fórmula completa
-Correccion = (Error * Kp) + ((Error - ErrorAnterior) * Kd);
-Velocidad_Izquierda = Velocidad_Base - Correccion;
-Velocidad_Derecha   = Velocidad_Base + Correccion;
-```
-
-## 5. Tipos de Respuesta (Sintonización)
-Tu trabajo como ingeniero será encontrar los números perfectos para **Kp** y **Kd**. Verás tres comportamientos en tu robot:
-
-1.  **El "Borracho" (Sub-amortiguado)**: El robot va haciendo "S" sobre la línea.
-    *   *Diagnóstico*: Mucha fuerza (Kp alto) y poco freno (Kd bajo).
-2.  **El "Perezoso" (Sobre-amortiguado)**: El robot ve la curva pero tarda mucho en girar y se sale.
-    *   *Diagnóstico*: Demasiado freno (Kd muy alto) o poca fuerza (Kp bajo).
-3.  **El "Campeón" (Críticamente amortiguado)**: Se pega a la línea como un imán, reacciona rápido pero sin temblar.
-
-¡Prepárate! En la próxima lección escribiremos este código y verás la magia ocurrir.
+En la próxima lección, vamos a escribir exactamente este mismo programa **en código C++** y verás que es prácticamente la misma lógica, solo con diferente sintaxis.
 
 ---
 
----
-
-### Lección 4.2: Código Base PID
+### Código C++: Firmware Completo Soccer Jr.
 **Order**: 10  
 **Slug**: `04-programacion/02-codigo-base`
 
@@ -1136,703 +1456,960 @@ Tu trabajo como ingeniero será encontrar los números perfectos para **Kp** y *
 <AdminOnly>
 > **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
 >
-> **Video 1: Implementación del Código**
-> - Duración sugerida: 15-18 minutos
-> - Contenido:
->   - Explicación línea por línea del código completo
->   - Cómo se integra todo (blink, QTR, motores, PID)
->   - Carga al Arduino
->   - Primera prueba en pista (expectativas realistas)
->   - Observación del comportamiento inicial
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: De Bloques a Código**
+> - Duración: 12-15 min
+> - Abrir SteamakersBlocks y el firmware lado a lado
+> - Señalar línea por línea la equivalencia
+> - Explicar por qué C++ tiene ventajas (más control, más opciones)
 >
-> **Video 2: Ajuste de Parámetros**
-> - Duración sugerida: 12-15 minutos
-> - Contenido:
->   - Proceso de tuning paso a paso
->   - Empezar con Kp solo (Kd=0)
->   - Agregar Kd para suavizar oscilaciones
->   - Ejemplos de valores buenos vs malos
->   - Uso del Serial Monitor para debugging
->   - Comparación: antes y después del ajuste
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Carga y Prueba del Firmware Final**
+> - Duración: 8-10 min
+> - Compilar, cargar, probar en cancha con el balón real
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Haber completado Lección 4.1 (Teoría de Control) - entender qué hace cada término
+> **📋 Prerrequisitos:** Haber completado el programa de SteamakersBlocks y entender la lógica del control RC.
 
 ---
 
-# Implementación del Código PID
+# 🖥️ Firmware Completo en C++
 
-En esta lección, ensamblaremos todas las piezas de software para que el robot pueda seguir la línea de forma independiente usando control PID.
+Ahora traduces lo que hiciste en SteamakersBlocks al **código real que corre en tu Arduino**. Verás que cada bloque que pusiste tiene exactamente una línea de código C++ equivalente.
 
-## Código Completo hasta Ahora
+## Estructura del Firmware
 
-Este código integra todo lo que hemos construido (blink, QTR, motores) y ahora agregamos el **algoritmo PID**:
+```
+ESTRUCTURA DEL PROGRAMA ARDUINO:
+
+├── Sección 1: Includes y Definiciones
+│   ├── #include <SoftwareSerial.h>    ← Librería para Bluetooth
+│   ├── #define PINES_MOTOR...         ← Nombres descriptivos para los pines
+│   └── SoftwareSerial bt(2, 3);       ← Objeto del Bluetooth
+│
+├── Sección 2: Variables Globales
+│   ├── char comandoActual             ← El último comando recibido
+│   └── int pwmIzq, pwmDer            ← Velocidad actual de cada motor
+│
+├── Sección 3: Funciones de Apoyo
+│   ├── blink()                        ← LED de confirmación
+│   ├── moverMotorIzq(int v)           ← Controla motor izquierdo
+│   ├── moverMotorDer(int v)           ← Controla motor derecho
+│   └── ejecutarComando(char cmd)      ← Traduce 'F','B','L','R','S' a motores
+│
+├── Sección 4: setup()
+│   ├── Configurar pines como OUTPUT
+│   ├── Iniciar Serial y Bluetooth
+│   └── Señal de inicio: blink(5, 100)
+│
+└── Sección 5: loop()
+    ├── Leer Bluetooth si hay datos
+    ├── Ejecutar el comando recibido
+    └── Leer batería cada 500ms y guardar log
+```
+
+## El Firmware Completo
+
+Descarga el archivo oficial: **[Soccer-Jr.ino ↓](/downloads/Soccer-Jr.ino)**
+
+O cópialo directamente aquí:
 
 ```cpp
-#include <QTRSensors.h>
+// ============================================================
+//  SOCCER JR. - Firmware v1.0 Completo
+//  Robot Soccer Junior — Control Bluetooth RC
+// ============================================================
+//  PROTOCOLO: App "Bluetooth RC Controller"
+//    F=Avanzar  B=Retroceder  L=Giro Izq  R=Giro Der  S=Stop
+// ============================================================
 
-// --- Pines Puente H (TB6612FNG) ---
-#define STBY 7
-#define PWMA 5
-#define AIN1 6
-#define AIN2 4
-#define PWMB 10
-#define BIN1 8
-#define BIN2 9
+// --- Seleccionar tu driver (descomenta solo UNO) ---
+// #define DRIVER_L293D_SHIELD
+#define DRIVER_L298N_MODULE
 
-// --- Constantes PID ---
-float Kp = 0.2; 
-float Kd = 0.05;
-int setPoint = 3500;  // Centro del sensor (0-7000)
-int VelMax = 200;     // Velocidad base
-int lastError = 0;    // Para calcular el término derivativo
+#include <SoftwareSerial.h>
+SoftwareSerial bt(2, 3);  // HC-05: RX=pin2, TX=pin3 (con divisor en pin3)
 
-// --- Función Blink (Confirmación Visual) ---
-void blink() {
-  for(int i=0; i<5; i++){
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(100);
+// --- Pines del Driver ---
+#define MOTOR_IZQ_EN  6   // PWM velocidad motor izquierdo
+#define MOTOR_IZQ_A   7   // Dirección 1
+#define MOTOR_IZQ_B   8   // Dirección 2
+#define MOTOR_DER_EN  5   // PWM velocidad motor derecho
+#define MOTOR_DER_A   9   // Dirección 1
+#define MOTOR_DER_B   10  // Dirección 2
+
+// --- Batería: divisor de tensión en A0 ---
+// R1=10kΩ (Vbat a A0), R2=10kΩ (A0 a GND) → factor 2.0
+#define BAT_PIN       A0
+#define BAT_CRIT_MV   6400   // < 6.4V = apagar motores
+
+// --- Velocidades ---
+#define VEL_NORMAL  200  // 0-255 PWM
+#define VEL_GIRO    180  // Para giros (algo menos que avance)
+
+// --- Variables ---
+char comandoActual = 'S';
+bool bateriaApagada = false;
+
+// ── FUNCIÓN: blink ──────────────────────────────────────────
+void blink(int veces = 3, int ms = 150) {
+  for (int i = 0; i < veces; i++) {
+    digitalWrite(LED_BUILTIN, HIGH); delay(ms);
+    digitalWrite(LED_BUILTIN, LOW);  delay(ms);
   }
 }
 
-// --- Sensores QTR ---
-QTRSensors qtr;
-const uint8_t SensorCount = 8;
-uint16_t sensorValues[SensorCount];
-
-// --- Funciones de Control de Motores ---
-void MotorIzquierdo(int velocidad) {
-  analogWrite(PWMA, constrain(velocidad, 0, 255));
+// ── FUNCIÓN: moverMotorIzq ──────────────────────────────────
+// velocidad: positivo = adelante, negativo = atrás, 0 = parar
+void moverMotorIzq(int velocidad) {
+  int v = constrain(abs(velocidad), 0, 255);
+  if (velocidad > 0) {
+    digitalWrite(MOTOR_IZQ_A, HIGH);
+    digitalWrite(MOTOR_IZQ_B, LOW);
+  } else if (velocidad < 0) {
+    digitalWrite(MOTOR_IZQ_A, LOW);
+    digitalWrite(MOTOR_IZQ_B, HIGH);
+  } else {
+    digitalWrite(MOTOR_IZQ_A, LOW);
+    digitalWrite(MOTOR_IZQ_B, LOW);
+  }
+  analogWrite(MOTOR_IZQ_EN, v);
 }
 
-void MotorDerecho(int velocidad) {
-  analogWrite(PWMB, constrain(velocidad, 0, 255));
+// ── FUNCIÓN: moverMotorDer ──────────────────────────────────
+void moverMotorDer(int velocidad) {
+  int v = constrain(abs(velocidad), 0, 255);
+  if (velocidad > 0) {
+    digitalWrite(MOTOR_DER_A, HIGH);
+    digitalWrite(MOTOR_DER_B, LOW);
+  } else if (velocidad < 0) {
+    digitalWrite(MOTOR_DER_A, LOW);
+    digitalWrite(MOTOR_DER_B, HIGH);
+  } else {
+    digitalWrite(MOTOR_DER_A, LOW);
+    digitalWrite(MOTOR_DER_B, LOW);
+  }
+  analogWrite(MOTOR_DER_EN, v);
 }
 
-void Motores(int velDer, int velIzq) {
-  MotorDerecho(velDer);
-  MotorIzquierdo(velIzq);
+// ── FUNCIÓN: ejecutarComando ────────────────────────────────
+void ejecutarComando(char cmd) {
+  if (bateriaApagada) {
+    moverMotorIzq(0); moverMotorDer(0);
+    return;  // Protección: batería baja → no mover
+  }
+  
+  switch (cmd) {
+    case 'F':  // AVANZAR
+      moverMotorIzq(VEL_NORMAL);
+      moverMotorDer(VEL_NORMAL);
+      break;
+    case 'B':  // RETROCEDER
+      moverMotorIzq(-VEL_NORMAL);
+      moverMotorDer(-VEL_NORMAL);
+      break;
+    case 'L':  // GIRO IZQUIERDA (suave)
+      moverMotorIzq(0);
+      moverMotorDer(VEL_GIRO);
+      break;
+    case 'R':  // GIRO DERECHA (suave)
+      moverMotorIzq(VEL_GIRO);
+      moverMotorDer(0);
+      break;
+    case 'I':  // GIRO BRUSCO IZQUIERDA (en el lugar)
+      moverMotorIzq(-VEL_GIRO);
+      moverMotorDer(VEL_GIRO);
+      break;
+    case 'J':  // GIRO BRUSCO DERECHA (en el lugar)
+      moverMotorIzq(VEL_GIRO);
+      moverMotorDer(-VEL_GIRO);
+      break;
+    default:   // STOP (cualquier otro carácter)
+      moverMotorIzq(0);
+      moverMotorDer(0);
+      break;
+  }
 }
 
+// ── SETUP ────────────────────────────────────────────────────
 void setup() {
-  // Configuración de pines
+  // Configurar pines de motor como salida
+  pinMode(MOTOR_IZQ_EN, OUTPUT); pinMode(MOTOR_IZQ_A, OUTPUT); pinMode(MOTOR_IZQ_B, OUTPUT);
+  pinMode(MOTOR_DER_EN, OUTPUT); pinMode(MOTOR_DER_A, OUTPUT); pinMode(MOTOR_DER_B, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(STBY, OUTPUT);
-  pinMode(PWMA, OUTPUT);
-  pinMode(AIN1, OUTPUT);
-  pinMode(AIN2, OUTPUT);
-  pinMode(PWMB, OUTPUT);
-  pinMode(BIN1, OUTPUT);
-  pinMode(BIN2, OUTPUT);
   
-  // Inicializar comunicación serial
-  Serial.begin(115200);
+  // Motores apagados por seguridad
+  moverMotorIzq(0); moverMotorDer(0);
   
-  // 1. Secuencia inicial
-  blink();
+  // Comunicaciones
+  Serial.begin(115200);  // USB Monitor Serie
+  bt.begin(9600);        // HC-05
   
-  // 2. Configuración de sensores QTR
-  qtr.setTypeRC();
-  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
-  
-  // 3. Calibración
-  digitalWrite(LED_BUILTIN, HIGH);
-  for (uint16_t i = 0; i < 400; i++) {
-    qtr.calibrate();
-  }
-  digitalWrite(LED_BUILTIN, LOW);
-  
-  // 4. Finalización calibración
-  blink();
-  
-  // 5. Activar Motores
-  digitalWrite(STBY, HIGH);
-  digitalWrite(AIN1, LOW);
-  digitalWrite(AIN2, HIGH);
-  digitalWrite(BIN1, LOW);
-  digitalWrite(BIN2, HIGH);
+  // Señal de inicio exitoso → 5 parpadeos rápidos
+  blink(5, 100);
+  Serial.println("=== SOCCER JR. v1.0 - LISTO ===");
 }
 
+// ── LOOP ─────────────────────────────────────────────────────
 void loop() {
-  // 1. Leer posición de la línea (0-7000)
-  uint16_t position = qtr.readLineBlack(sensorValues);
+  // 1. LEER BLUETOOTH
+  if (bt.available()) {
+    char cmd = (char)bt.read();
+    if (cmd == 'F' || cmd == 'B' || cmd == 'L' || cmd == 'R' ||
+        cmd == 'S' || cmd == 'I' || cmd == 'J') {
+      comandoActual = cmd;
+      ejecutarComando(comandoActual);
+    }
+  }
   
-  // 2. Calcular error (diferencia entre posición actual y setpoint)
-  int error = setPoint - (int)position;
-  
-  // 3. Término Proporcional (P)
-  float p_term = error * Kp;
-  
-  // 4. Término Derivativo (D)
-  float d_term = (error - lastError) * Kd;
-  lastError = error;
-  
-  // 5. Término Integral (I) - Omitido intencionalmente
-  // En robots de seguimiento rápido, el término integral puede causar "windup" 
-  // (acumulación de error) y oscilaciones lentas. Por ahora lo dejamos en 0.
-  float i_term = 0;
-  
-  // 6. Calcular ajuste total
-  int ajuste = (int)(p_term + i_term + d_term);
-  
-  // 7. Aplicar ajuste a los motores
-  int velDer = constrain(VelMax + ajuste, 0, 255);
-  int velIzq = constrain(VelMax - ajuste, 0, 255);
-  
-  Motores(velDer, velIzq);
-  
-  // Debug (opcional): imprimir valores
-  Serial.print("Pos:");
-  Serial.print(position);
-  Serial.print(" | Error:");
-  Serial.print(error);
-  Serial.print(" | P:");
-  Serial.print(p_term);
-  Serial.print(" | D:");
-  Serial.println(d_term);
+  // 2. MONITOR DE BATERÍA (cada 500ms)
+  static unsigned long ultimaLectura = 0;
+  if (millis() - ultimaLectura > 500) {
+    ultimaLectura = millis();
+    
+    int raw = analogRead(BAT_PIN);
+    float vout_mv = raw * (5000.0 / 1023.0);  // mV del pin A0
+    uint16_t bat_mv = (uint16_t)(vout_mv * 2.0);  // Factor divisor 10k/10k
+    
+    if (bat_mv < BAT_CRIT_MV && bat_mv > 1000) {
+      // Batería críticamente baja — apagar motores
+      bateriaApagada = true;
+      moverMotorIzq(0); moverMotorDer(0);
+      blink(10, 50);  // Parpadeo de alarma
+    }
+  }
 }
 ```
 
-### Explicación del Algoritmo PID
+## Diagrama de Flujo del Firmware Completo
 
-**Cálculo del Error:**
-- `error = setPoint - position`
-- Si `position = 3500` (centro), entonces `error = 0` (perfecto)
-- Si `position = 0` (línea a la izquierda), entonces `error = 3500` (positivo)
-- Si `position = 7000` (línea a la derecha), entonces `error = -3500` (negativo)
-
-**Término Proporcional (P):**
-- `p_term = error * Kp`
-- Corrección proporcional al error
-- `Kp` más alto = reacción más agresiva
-
-**Término Derivativo (D):**
-- `d_term = (error - lastError) * Kd`
-- Predice la tendencia del error
-- Amortigua las oscilaciones
-- `Kd` más alto = más suavidad en las correcciones
-
-**Aplicación a Motores:**
-- Si `ajuste > 0`: la línea está a la izquierda → motor derecho más rápido
-- Si `ajuste < 0`: la línea está a la derecha → motor izquierdo más rápido
-
-## Ajuste de Parámetros
-
-El éxito del robot depende de encontrar los valores óptimos de `Kp` y `Kd`:
-
-**Valores iniciales recomendados:**
-- `Kp = 0.2` (puedes probar entre 0.1 y 0.5)
-- `Kd = 0.05` (puedes probar entre 0.01 y 0.1)
-- `VelMax = 200` (empieza conservador, luego aumenta)
-
-**Proceso de ajuste:**
-1. Empieza con `Kp = 0.2, Kd = 0`
-2. Si oscila mucho, reduce `Kp`
-3. Si es muy lento para reaccionar, aumenta `Kp`
-4. Una vez que siga la línea (aunque oscile), agrega `Kd` para suavizar
-
-> [!TIP]
-> **¿Quieres experimentar sin riesgo?** Usa el simulador para probar diferentes valores de Kp y Kd antes de cargar el código al robot. Esto te ahorra tiempo y baterías.
-
-**Nota**: Esta lección incluye un enlace al simulador para experimentar con diferentes configuraciones PID antes de cargar el código al robot.
-
----
-
-## Módulo 5: Telemetría
-
----
-
-
-## Módulo: Telemetria
-
-### Lección 5.1: Hardware Bluetooth
-**Order**: 11  
-**Slug**: `05-telemetria/01-hardware-bluetooth`
-
----
-
-<AdminOnly>
-> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
->
-> **Video 1: Fabricación del Mini-Shield**
-> - Duración sugerida: 15-18 minutos
-> - Contenido:
->   - Corte de baquelita perforada al tamaño correcto
->   - Soldadura de zócalo para Bluetooth (pines hembra)
->   - Soldadura del divisor de voltaje (resistencias 1K y 2K)
->   - Integración del botón de arranque en la misma placa
->   - Prueba de continuidad con multímetro
->   - Montaje final sobre el Shield de expansión
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
->
-> **Video 2: Configuración del Bluetooth**
-> - Duración sugerida: 8-10 minutos
-> - Contenido:
->   - Conexión HC-05/HC-06 al Mini-Shield
->   - Configuración de baudrate (115200)
->   - Emparejamiento con computadora (Windows/Mac/Linux)
->   - Verificación de comunicación (enviar/recibir datos)
->   - Troubleshooting: no se empareja, no envía datos
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-</AdminOnly>
-
----
-
-> **📋 Prerequisitos**: Tener el robot funcionando con PID (Lección 4.2 completada)
-
----
-
-# Preparación del Módulo de Datos
-
-En robótica de competencia, los cables sueltos son el enemigo #1. Para el Bluetooth, no usaremos jumpers directos. Vamos a fabricar una solución pro.
-
-## El Problema de los 5V
-Los módulos HC-05 y HC-06 operan a 3.3V en su pin **RX**. El Arduino Nano entrega 5V. Si los conectas directamente, acortarás la vida de tu Bluetooth o lo quemarás al instante.
-
-## Solución: El "Mini-Shield" Modular
-Te enseñaremos a fabricar una placa pequeña usando un pedazo de **baquelita perforada** (perfboard).
-
-### Componentes de la Placa
-1.  **Zócalo para BT**: No sueldes el Bluetooth directamente; usa pines hembra para poder quitarlo y ponerlo.
-2.  **Divisor de Voltaje**: Suelda dos resistencias (ej. 1K y 2K) para bajar la señal TX del Arduino a los 3.3V que necesita el RX del Bluetooth.
-3.  **Botón de Arranque**: Aprovecha para integrar el pulsador en la misma placa.
-
-## Ventajas de este Enfoque
-*   **Limpieza**: Menos "espagueti" de cables en tu robot.
-*   **Modularidad**: Puedes pasar el sistema de telemetría de un robot a otro en segundos.
-*   **Fiabilidad**: Las soldaduras en baquelita son mil veces más resistentes que los conectores de los jumpers.
-
-> [!TIP]
-> Si diseñas bien tu Mini-Shield, este puede conectarse directamente sobre los pines del Shield de expansión I/O, creando una torre compacta de tecnología.
-
----
-
----
-
-### Lección 5.2: Protocolo de Datos
-**Order**: 12  
-**Slug**: `05-telemetria/02-protocolo-datos`
-
----
-
-<AdminOnly>
-> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
->
-> **Video 1: Estructuras Binarias en C**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Explicación de struct en C/C++
->   - __attribute__((packed)) y por qué es importante
->   - Cálculo de checksum XOR paso a paso
->   - Ventajas vs texto ASCII (demostración de velocidad)
->   - Visualización de bytes en hexadecimal
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
-</AdminOnly>
-
----
-
-> **📋 Prerequisitos**: Lección 5.1 (Hardware Bluetooth) - tener Bluetooth funcionando
-
----
-
-# Optimización del Envío (Binario)
-
-Enviar datos como texto (ASCII) es fácil de leer pero lento e ineficiente para el ancho de banda del Bluetooth. Para una telemetría suave, utilizaremos un **Protocolo Binario**.
-
-## Estructura (Struct)
-Definimos un paquete compacto que contiene solo la información esencial:
-
-```cpp
-struct TelemetryPacket {
-  uint16_t position;
-  int16_t p_term;
-  int16_t i_term;
-  int16_t d_term;
-  uint32_t timestamp;
-};
+```
+      SETUP: Configurar pines, Bluetooth, LED
+             blink(5) → ROBOT LISTO
+                    │
+                    ▼
+     ┌──────────────────────────────────────┐
+     │  LOOP (repite millones de veces/seg)  │◄─────┐
+     └──────────────────────────────────────┘       │
+                    │                               │
+                    ▼                               │
+     ┌──────────────────────────────────────┐       │
+     │  ¿bt.available()? (dato Bluetooth)   │       │
+     └───────┬────────────────────┬─────────┘       │
+             │ SÍ                 │ NO               │
+             ▼                   │                  │
+     ┌───────────────┐           │                  │
+     │  cmd = bt.read│           │                  │
+     └───────┬───────┘           │                  │
+             │                   │                  │
+             ▼                   │                  │
+     ┌───────────────────────────────────────┐      │
+     │  ejecutarComando(cmd):                │      │
+     │  F→ Ambos adelante  B→ Ambos atrás    │      │
+     │  L→ Solo der avanza R→ Solo izq avanza│      │
+     │  I→ Giro brusco izq J→ Giro brusco der│      │
+     │  otro→ Parar                          │      │
+     └───────────────────────────────────────┘      │
+             │                   │                  │
+             └───────────────────┘                  │
+                       │                            │
+                       ▼                            │
+     ┌──────────────────────────────────────┐       │
+     │  ¿Han pasado 500ms?                  │       │
+     └──────┬──────────────────────┬────────┘       │
+            │ SÍ                   │ NO              │
+            ▼                      │                 │
+     ┌────────────────────┐        │                 │
+     │  Leer batería A0   │        │                 │
+     │  bat_mv = raw×2×5V/│        │                 │
+     │  ¿bat_mv < 6400?   │        │                 │
+     └──────┬─────────────┘        │                 │
+            │ SÍ                   │                 │
+            ▼                      │                 │
+     ┌────────────────────┐        │                 │
+     │ PARAR MOTORES      │        │                 │
+     │ blink(10, 50)      │        │                 │
+     └──────┬─────────────┘        │                 │
+            └──────────────────────┘                 │
+                       │                             │
+                       └────────────────────────────►┘
 ```
 
-## Ventajas
-*   **Velocidad**: Reducción del tráfico de datos en más de un 60%.
-*   **Precisión**: No hay pérdida de resolución por redondeo de strings.
-*   **Robustez**: Implementaremos un Checksum para asegurar que los datos no se corrompan en el aire.
+## Comparación Final: Bloques vs C++
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│  STEAMAKERSBLOCKS              │  C++ ARDUINO                     │
+├────────────────────────────────┼─────────────────────────────────┤
+│ 🔄 PARA SIEMPRE                │ void loop() { ... }             │
+│ 🔌 configurar pin OUTPUT       │ pinMode(N, OUTPUT)              │
+│ 📤 escribir pin ALTO           │ digitalWrite(N, HIGH)           │
+│ 📊 PWM valor 180               │ analogWrite(N, 180)             │
+│ 🔍 SI bluetooth tiene datos    │ if (bt.available())             │
+│ 📥 leer bluetooth              │ (char)bt.read()                 │
+│ 🔀 SI [cmd]='F' ENTONCES       │ if (cmd == 'F') { ... }         │
+│    mover ambos adelante        │    moverMotorIzq(200);          │
+│                                │    moverMotorDer(200);          │
+│ ⏱️ millis() - ultima > 500     │ millis() - lastTime > 500       │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+> [!TIP]
+> **La regla de los programadores:** Si puedes dibujarlo en un diagrama de flujo, puedes escribirlo en código. La diferencia entre SteamakersBlocks y C++ es solo el **idioma** — la lógica es idéntica. ¡Ahora hablas Arduino C++!
 
 ---
 
----
 
-### Lección 5.3: Captura de Datos
+## Módulo: Appendix
+
+### DC Motors & Gear Reduction
 **Order**: 13  
-**Slug**: `05-telemetria/03-captura-datos`
+**Slug**: `05-appendix/01-dc-motors`
 
 ---
 
+import DcMotorSim from '../../../components/tools/DcMotorSim.jsx';
+
 <AdminOnly>
-> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+> **🎥 VIDEO SECTION (Visible to admins only)**
 >
-> **Video 1: Código Final Completo**
-> - Duración sugerida: 12-15 minutos
-> - Contenido:
->   - Integración de telemetría al código PID
->   - Explicación del loop completo (PID + envío)
->   - Carga al Arduino del firmware final
->   - Verificación de envío de datos (Serial Monitor)
->   - Comparación: código sin telemetría vs con telemetría
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Inside a DC Motor**
+> - Duration: 8–10 min
+> - Disassemble a TT motor and identify each part
+> - Demonstrate how current direction changes rotation direction
 >
-> **Video 2: Uso del Plotter Python**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Instalación de dependencias (pip install)
->   - Ejecución del script plotter.py
->   - Selección del puerto Bluetooth correcto
->   - Interpretación de gráficas en tiempo real
->   - Guardado de archivos CSV
->   - Troubleshooting: no recibe datos, gráficas erráticas
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Gear Reduction in Practice**
+> - Duration: 6–8 min
+> - Show the gear train inside the yellow gearbox
+> - Measure RPM with and without load
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Lecciones 5.1 y 5.2 completadas - entender el protocolo binario
+# ⚙️ DC Motors & Gear Reduction
 
----
+Your Soccer Jr. robot moves because of two **yellow TT DC motors**. They look simple — but there's real physics happening inside.
 
-# Herramientas de Captura
+## How a DC Motor Works
 
-En esta lección final, agregaremos el sistema de telemetría binaria a nuestro código PID. Este es el **código completo final** que corresponde exactamente al `LFR-Telemetry.ino`.
+A DC motor converts **electrical energy into rotational mechanical energy** using three key principles:
 
-## Código Completo Final (LFR-Telemetry.ino)
+```
+Inside a DC Motor (simplified cross-section):
 
-Este es el código completo que integra TODO lo que hemos construido a lo largo del curso:
+         N ──────────────── N
+         │   ┌──────────┐   │
+         │   │  Coil    │   │
+         │   │ (rotates)│   │    ← When current flows through
+         │   └──────────┘   │      the coil, it experiences
+         S ──────────────── S      a magnetic force (Lorentz)
 
-```cpp
-#include <QTRSensors.h>
-
-// --- Data Structure ---
-struct Telemetria {
-  uint16_t posicion;
-  int16_t p_term;
-  int16_t i_term;
-  int16_t d_term;
-  uint8_t pwm_izq;
-  uint8_t pwm_der;
-  uint32_t timestamp;
-  uint8_t checksum;
-} __attribute__((packed));
-
-Telemetria dataPacket;
-
-// --- Pines Puente H ---
-#define STBY 7
-#define PWMA 5
-#define AIN1 6
-#define AIN2 4
-#define PWMB 10
-#define BIN1 8
-#define BIN2 9
-
-// --- Constantes PID ---
-float Kp = 0.2; 
-float Kd = 0.05;
-int setPoint = 3500;
-int VelMax = 200; 
-int lastError = 0;
-
-// --- Función EsperarBoton (Seguridad) ---
-void EsperarBoton() {
-  while(digitalRead(11) == HIGH); // Esperar pulsación (LOW)
-  delay(50);                      // Debounce
-  while(digitalRead(11) == LOW);  // Esperar a que se suelte (HIGH)
-  delay(50);                      // Debounce
-}
-
-// --- Función Blink (Confirmación Visual) ---
-void blink() {
-  for (int i = 0; i < 5; i++) {
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(100);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(100);
-  }
-}
-
-// --- Sensores QTR ---
-QTRSensors qtr;
-const uint8_t SensorCount = 8;
-uint16_t sensorValues[SensorCount];
-
-// --- Funciones de Control de Motores ---
-void MotorIzquierdo(int velocidad) {
-  analogWrite(PWMA, constrain(velocidad, 0, 255));
-}
-
-void MotorDerecho(int velocidad) {
-  analogWrite(PWMB, constrain(velocidad, 0, 255));
-}
-
-void Motores(int velDer, int velIzq) {
-  MotorDerecho(velDer);
-  MotorIzquierdo(velIzq);
-}
-
-void setup() {
-  // Configuración de pines
-  pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(11, INPUT_PULLUP); // Botón de inicio
-  pinMode(STBY, OUTPUT);
-  pinMode(PWMA, OUTPUT);
-  pinMode(AIN1, OUTPUT);
-  pinMode(AIN2, OUTPUT);
-  pinMode(PWMB, OUTPUT);
-  pinMode(BIN1, OUTPUT);
-  pinMode(BIN2, OUTPUT);
-
-  // Inicializar comunicaciones: Hardware Serial a 115200 (Alta velocidad)
-  Serial.begin(115200);
-
-  // 1. ESPERAR PRIMER BOTÓN PARA CALIBRAR
-  EsperarBoton();
-
-  // Configuración de sensores
-  qtr.setTypeRC();
-  qtr.setSensorPins((const uint8_t[]){A0, A1, A2, A3, A4, A5, 2, 3}, SensorCount);
-
-  // 2. CALIBRACIÓN
-  digitalWrite(LED_BUILTIN, HIGH);
-  for (uint16_t i = 0; i < 400; i++) {
-    qtr.calibrate();
-  }
-  digitalWrite(LED_BUILTIN, LOW);
-
-  // 3. SECUENCIA DE FINALIZACIÓN CALIBRACIÓN
-  blink();
-
-  // 4. ESPERAR SEGUNDO BOTÓN PARA ARRANCAR
-  EsperarBoton();
-
-  // Activar Motores
-  digitalWrite(STBY, HIGH);
-  digitalWrite(AIN1, LOW);
-  digitalWrite(AIN2, HIGH);
-  digitalWrite(BIN1, LOW);
-  digitalWrite(BIN2, HIGH);
-}
-
-void loop() {
-  uint32_t currentMicros = micros();
-
-  // Leer sensores
-  uint16_t position = qtr.readLineBlack(sensorValues);
-
-  // PID Calculations
-  int error = setPoint - (int)position;
-  
-  // P Term
-  float p_term = error * Kp;
-  
-  // D Term (Simple differentiation)
-  float d_term = (error - lastError) * Kd; 
-  lastError = error;
-  
-  // I Term (Omitted for this example)
-  float i_term = 0; 
-
-  int ajuste = (int)(p_term + i_term + d_term);
-
-  // Motores
-  int velDer = constrain(VelMax + ajuste, 0, 255);
-  int velIzq = constrain(VelMax - ajuste, 0, 255);
-  
-  Motores(velDer, velIzq);
-
-  // --- Telemetría Binaria ---
-  // Populate Struct
-  dataPacket.posicion = position;
-  dataPacket.p_term = (int16_t)p_term;
-  dataPacket.i_term = (int16_t)i_term;
-  dataPacket.d_term = (int16_t)d_term;
-  dataPacket.pwm_izq = (uint8_t)velIzq;
-  dataPacket.pwm_der = (uint8_t)velDer;
-  dataPacket.timestamp = currentMicros;
-  
-  // Calculate Checksum (XOR)
-  dataPacket.checksum = 0;
-  uint8_t *ptr = (uint8_t *)&dataPacket;
-  for (int i = 0; i < sizeof(dataPacket) - 1; i++) {
-    dataPacket.checksum ^= ptr[i];
-  }
-
-  // Send Header
-  Serial.write(0xAA);
-  Serial.write(0xBB);
-  
-  // Send Struct
-  Serial.write((byte*)&dataPacket, sizeof(dataPacket));
-  
-  // No delay() calls to maximize control loop speed
-}
+         ↑           ↑
+    Permanent    Commutator + Brushes
+     Magnets     (reverse current every half-turn
+                  to keep rotation going)
 ```
 
-### ¡Felicidades! Has Completado el Código
+1. **Permanent magnets** create a fixed magnetic field inside the motor
+2. **The coil (armature)** carries current and sits inside that field → it experiences a rotational force
+3. **The commutator** reverses the current direction every half revolution so the coil always spins the same way
 
-Este código final incluye:
+**Direction of rotation** is controlled simply by reversing the voltage polarity — which is exactly what the H-bridge does for us.
 
-✅ **Fase 1 (Potencia)**: Función `blink()` para confirmación visual  
-✅ **Fase 2 (Sensores)**: Sistema QTR completo con calibración  
-✅ **Fase 3 (Motores)**: Control de motores con TB6612FNG  
-✅ **Fase 4 (Interfaz)**: Configuración de pines y setup  
-✅ **Módulo 4 (Programación)**: Algoritmo PID completo  
-✅ **Módulo 5 (Telemetría)**: Envío binario de datos  
+## The Yellow Gearbox: Why We Need Gear Reduction
 
-### Explicación de la Telemetría
+The raw DC motor inside the TT motor spins at **~12,000 RPM** with almost no torque — far too fast and weak to move a robot. The **yellow plastic gearbox** solves this with a gear reduction of approximately **1:48**.
 
-**Estructura de Datos:**
-```cpp
-struct Telemetria {
-  uint16_t posicion;    // Posición de la línea (0-7000)
-  int16_t p_term;       // Término proporcional
-  int16_t i_term;       // Término integral
-  int16_t d_term;       // Término derivativo
-  uint8_t pwm_izq;      // PWM motor izquierdo
-  uint8_t pwm_der;      // PWM motor derecho
-  uint32_t timestamp;   // Marca de tiempo en microsegundos
-  uint8_t checksum;     // Verificación de integridad
-} __attribute__((packed));
+```
+Gear Reduction Chain (1:48 example):
+
+Motor shaft: 12,000 RPM ──► Gear 1 (small) ──► Gear 2 (large)
+                                    ↓                  ↓
+                              × (1/4) speed      × 4 torque
+
+Continue through 3–4 gear stages:
+
+Final output: ~250 RPM, 48× more torque ✅
 ```
 
-**Protocolo de Envío:**
-1. **Header**: `0xAA 0xBB` - Marca el inicio de un paquete
-2. **Datos**: Estructura completa (15 bytes)
-3. **Checksum**: XOR de todos los bytes para detectar errores
+**The tradeoff is always conserved:**
+- More gear reduction → **slower speed, more torque** (power to push/turn)
+- Less gear reduction → **faster speed, less torque** (risks stalling on carpet)
 
-**Ventajas del Envío Binario:**
-- 🚀 **Velocidad**: 60% más rápido que texto ASCII
-- 🎯 **Precisión**: Sin pérdida de resolución
-- 🛡️ **Robustez**: Checksum detecta corrupción de datos
+For Soccer Jr., the 1:48 ratio is chosen to balance speed (competitive on a 2×2m field) with enough torque to push the ball and handle collisions.
 
-## Paso 2: Ejecutar el Plotter
+## Voltage, Current, and the Torque-Speed Curve
 
-Descarga el script de Python oficial e instálalo en tu Arduino Nano. Este código ya incluye las estructuras binarias y la lógica de envío.
+The relationship between a motor's speed and torque follows a straight line — the **torque-speed curve**:
 
-**Archivo de descarga**: `/downloads/LFR-Telemetry.ino`
+```
+Torque-Speed Curve (fixed voltage):
 
-El script `Plotter.py` te permitirá visualizar las gráficas en tiempo real y guardar un registro CSV de cada carrera.
+Torque ↑
+       │╲
+       │  ╲  Stall torque (motor stopped, max torque)
+       │    ╲
+       │      ╲
+       │        ╲
+       └──────────╲─── Speed →
+                   No-load speed (motor free-spinning, min torque)
 
-**Archivo de descarga**: `/downloads/Plotter.py`
+Increasing voltage → shifts the whole line UP and RIGHT
+```
 
-### Requisitos
-Asegúrate de tener instaladas las librerías necesarias ejecutando:
-`pip install pyqtgraph pyserial` (o las dependencias indicadas en el archivo).
+- At **stall** (robot pushing against a wall): maximum torque, zero speed
+- At **no load** (robot driving freely): maximum speed, minimum torque
+- **PWM** (what `analogWrite()` does) effectively lowers the average voltage, which shifts the curve down and left — less speed AND less torque
 
 ---
 
+## 🔬 Interactive Simulator: Torque-Speed Curve
+
+Adjust the voltage (PWM duty cycle) and load to see how your motor's operating point moves along the curve.
+
+<DcMotorSim client:only="react" />
+
 ---
 
-### Lección 5.4: Análisis y Optimización
+> [!TIP]
+> In your firmware, `VEL_NORMAL = 200` means roughly **78% duty cycle** (200/255). On the simulator, set duty cycle to 78% and observe the operating point. That's exactly where your robot runs during a normal forward drive.
+
+> [!NOTE]
+> **Open the [Soccer Jr. Field Simulator](/simulador)** and set `VEL_NORMAL` to 255 vs 150. Notice how at 255 the robot feels faster but harder to control on tight turns — that's the torque-speed tradeoff in action.
+
+---
+
+### The H-Bridge — Bidirectional Motor Control
 **Order**: 14  
-**Slug**: `05-telemetria/04-analisis`
+**Slug**: `05-appendix/02-h-bridge`
 
 ---
 
+import HBridgeSim from '../../../components/tools/HBridgeSim.jsx';
+
 <AdminOnly>
-> **🎥 SECCIÓN DE VIDEO (Solo visible para administradores)**
+> **🎥 VIDEO SECTION (Visible to admins only)**
 >
-> **Video 1: Interpretación de Gráficas**
-> - Duración sugerida: 12-15 minutos
-> - Contenido:
->   - Análisis de oscilaciones en las gráficas
->   - Identificación de problemas (Kp alto, Kd bajo, etc.)
->   - Correlación entre gráfica y comportamiento del robot
->   - Lectura de archivos CSV en Excel/Google Sheets
->   - Patrones comunes y qué significan
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 1: Why We Need an H-Bridge**
+> - Duration: 6–8 min
+> - Measure motor current draw with a multimeter (show 400–600mA)
+> - Show Arduino datasheet: max 40mA per GPIO pin
+> - Demonstrate: connecting motor directly → brown pin smell / GPIO failure
 >
-> **Video 2: Optimización Basada en Datos**
-> - Duración sugerida: 10-12 minutos
-> - Contenido:
->   - Caso de estudio: robot oscilando mucho
->   - Ajuste de parámetros basado en telemetría
->   - Comparación antes/después (gráficas y video)
->   - Mejores tiempos de vuelta logrados
->   - Tips finales para competencias
-> - Preview: `https://www.youtube.com/embed/dQw4w9WgXcQ` (reemplazar con video real)
+> **Video 2: Inside the L298N**
+> - Duration: 8–10 min
+> - Trace the actual PCB circuit on the driver module
+> - Show IN1/IN2/ENA pins and their effect on the motor
 </AdminOnly>
 
 ---
 
-> **📋 Prerequisitos**: Lección 5.3 (Captura de Datos) - tener datos reales capturados
+# 🔌 The H-Bridge — Bidirectional Motor Control
+
+Your Arduino is the brain. But it can't **directly** power the motors. Here's why — and how the L298N driver module solves the problem.
+
+## The Problem: GPIO Pins Are Weak
+
+```
+Arduino Uno GPIO pin limits:
+  Max output current:  40 mA  (absolute maximum, datasheet)
+  Safe operating:      20 mA
+
+TT Motor (yellow) at 5V:
+  No-load current:    ~150 mA
+  Under load:         ~400–600 mA
+  Stall current:      ~800 mA+
+
+Result: connecting a motor directly → 📛 GPIO burns out
+```
+
+We need a **power switch** that the Arduino controls with a tiny signal (20mA) but that lets battery current (600mA+) flow to the motor. That's exactly what the **H-bridge** is.
+
+## The H-Bridge Topology
+
+The name comes from the shape of the circuit — 4 transistors arranged like the letter **H**:
+
+```
+H-Bridge Circuit:
+
+     Battery (+)
+         │
+    ┌────┴────┐
+    │         │
+   [S1]      [S2]   ← High-side switches (transistors)
+    │         │
+    ├── M ────┤      M = Motor
+    │         │
+   [S3]      [S4]   ← Low-side switches (transistors)
+    │         │
+    └────┬────┘
+     Battery (-)
+
+Forward:   S1 + S4 ON  →  current flows left→right through motor
+Backward:  S2 + S3 ON  →  current flows right→left through motor
+Brake:     S1 + S3 ON  →  both motor terminals tied to (+) → short brake
+Coast:     all OFF      →  motor spins freely (no braking)
+```
+
+**Shoot-through protection** is critical: if S1 and S3 are ON simultaneously, you short-circuit the battery. The L298N has built-in dead-time to prevent this.
+
+## PWM: Controlling Speed
+
+Once you can go forward and backward, how do you control **speed**? With **PWM (Pulse Width Modulation)**.
+
+```
+PWM at different duty cycles (same 7.4V battery):
+
+100% duty:  ████████████████  → Full 7.4V average → max speed
+ 78% duty:  █████████████░░░  → 5.8V average → VEL_NORMAL=200
+ 50% duty:  ████████░░░░░░░░  → 3.7V average → half speed
+ 25% duty:  ████░░░░░░░░░░░░  → 1.85V average → slow crawl
+
+Arduino:  analogWrite(ENA_PIN, 200)  // 200/255 = 78% duty cycle
+```
+
+The motor's **inertia** averages out the pulses — it "sees" a lower voltage and runs slower. This is how `analogWrite()` controls your motor speed without wasting energy as heat (unlike a resistor).
+
+## The L298N Module Pinout
+
+```
+Your robot's wiring:
+
+Arduino          L298N Module         Motors
+─────────        ────────────         ──────
+Pin 5  ──ENA──► [ENA]                 [Motor A]
+Pin 6  ──IN1──► [IN1] ──────────────► Left Motor (+)
+Pin 7  ──IN2──► [IN2] ──────────────► Left Motor (-)
+Pin 8  ──IN3──► [IN3] ──────────────► Right Motor (+)
+Pin 9  ──IN4──► [IN4] ──────────────► Right Motor (-)
+Pin 10 ──ENB──► [ENB]                 [Motor B]
+                [12V] ◄── Battery (+)
+                [GND] ◄── Battery (-) & Arduino GND
+                [5V]  ──► Arduino VIN (optional power)
+```
 
 ---
 
-# Análisis de Ingeniería
+## 🔬 Interactive Simulator: H-Bridge Switch Board
 
-El verdadero secreto de los campeones no es un código perfecto, sino un análisis de datos superior.
+Click the four transistor switches to set motor direction. Then adjust the PWM slider to control speed. Watch the current flow through the H.
 
-## Interpretación de Gráficas
-
-Al observar las gráficas de telemetría, fíjate en:
-*   **Oscilaciones**: Si la posición cruza el Setpoint demasiadas veces, tu **Kp** es muy alto o tu **Kd** muy bajo.
-*   **Error Estacionario**: Si el robot se mantiene cerca pero no "pisa" la línea en rectas, aumenta ligeramente **Ki**.
-*   **Respuesta Lenta**: Si el robot no reacciona a tiempo en curvas, aumenta **Kp**.
-
-## El Dashboard Pro
-
-Para un análisis más profundo de los logs CSV generados por `Plotter.py`, utiliza nuestro Dashboard dedicado.
-
-**Nota**: Esta lección incluye un enlace al Dashboard de Telemetría para cargar y analizar archivos CSV.
+<HBridgeSim client:only="react" />
 
 ---
 
-## Resumen de la Estructura del Curso
+> [!WARNING]
+> Never activate S1+S3 or S2+S4 at the same time — this is a **shoot-through condition** that short-circuits the power supply. The L298N protects you automatically, but avoid it in custom driver code.
 
-### Total de Lecciones: 14
-
-1. **Módulo 1: Introducción** (3 lecciones)
-   - Objetivos del Curso
-   - Lista de Materiales
-   - Reglas de Competencia Jr.
-
-2. **Módulo 2: Diseño** (1 lección)
-   - Diseño del Chasis
-
-3. **Módulo 3: Montaje** (4 lecciones)
-   - Fase 1: Potencia
-   - Fase 2: Sensores
-   - Fase 3: Motores
-   - Fase 4: Interfaz
-
-4. **Módulo 4: Programación** (2 lecciones)
-   - Teoría de Control
-   - Código Base PID
-
-5. **Módulo 5: Telemetría** (4 lecciones)
-   - Hardware Bluetooth
-   - Protocolo de Datos
-   - Captura de Datos
-   - Análisis y Optimización
+> [!TIP]
+> If one of your motors spins in the wrong direction, you don't need to rewrite code — just swap the two motor wires going into the L298N output terminals. The firmware doesn't care which wire is (+) or (-).
 
 ---
 
-## Notas para Reestructuración
+### EMI Filters — Protecting Your Robot's Brain
+**Order**: 15  
+**Slug**: `05-appendix/03-emi-filters`
 
-- Los componentes especiales usados en las lecciones:
-  - `MaterialLink` (usado en Lección 1.2)
-  - `DownloadButton` (usado en Lección 5.3)
-  - Enlaces a `/simulador` (en Lección 4.2)
-  - Enlaces a `/telemetria` (en Lección 5.4)
+---
 
-- Cada lección tiene:
-  - `title`: Título de la lección
-  - `order`: Orden numérico (1-14)
-  - `description`: Descripción breve
-  - `slug`: Ruta en formato `modulo/leccion`
+import OscilloscopeSim from '../../../components/tools/OscilloscopeSim.jsx';
+
+<AdminOnly>
+> **🎥 VIDEO SECTION (Visible to admins only)**
+>
+> **Video 1: Demonstrating Motor Noise**
+> - Duration: 8–10 min
+> - Show oscilloscope capture of a motor power line: before and after capacitor
+> - Demonstrate: robot losing Bluetooth commands when motors are at full speed without caps
+>
+> **Video 2: Soldering the Fix**
+> - Duration: 6–8 min
+> - Solder 100nF ceramic capacitors across motor terminals
+> - Demonstrate proper twisted-pair technique for motor cables
+</AdminOnly>
+
+---
+
+# 📡 EMI Filters — Protecting Your Robot's Brain
+
+Your robot has a hidden enemy: **its own motors**. Here's what happens and how to stop it.
+
+## The Problem: Brush Arcing = Radio Noise
+
+Inside every brushed DC motor, the commutator brushes make and break electrical contact thousands of times per second. Each break is a tiny **spark** — and sparks are broadband RF emitters.
+
+```
+Motor brush arcing — what's happening electrically:
+
+Normal operation:
+  Battery ──────► Coil ──────► Battery
+          12V, 400mA (steady)
+
+At commutation (brush lifts):
+  Inductance of coil resists current drop → voltage spike!
+  
+  Voltage │    ╻      ╻      ╻      ╻
+     12V  │────╹──────╹──────╹──────╹────  normal
+     50V+ │  ↑ Spike (inductive kickback)
+          └───────────────────────────────► time
+
+  Each spike radiates as RF noise across 1MHz–500MHz spectrum
+  The Bluetooth HC-05 operates at 2.4GHz — right in the noisy zone
+```
+
+This noise travels two ways:
+1. **Conducted** — along the power wires back into the Arduino and HC-05 power rails
+2. **Radiated** — through the air, directly into the HC-05 antenna
+
+## Solution 1: Ceramic Capacitor Across Motor Terminals
+
+A **100nF (0.1µF) ceramic capacitor** placed directly across the motor terminals absorbs the voltage spikes before they travel anywhere.
+
+```
+How the capacitor works:
+
+WITHOUT capacitor:
+  Motor ──► Voltage spike ──► Power wires ──► Arduino/HC-05 ← 💥
+
+WITH capacitor:
+  Motor ──► Voltage spike → Capacitor charges instantly
+                           ↓
+                    Spike energy absorbed
+                    Power line stays clean ✅
+
+  Ceramic capacitor (not electrolytic!) because:
+  → Very low internal inductance (ESL)
+  → Fast response time (nanoseconds)
+  → Handles the high-frequency spikes from brush arcing
+```
+
+**Where to solder it:** directly across the two motor terminals, as close to the motor body as possible. Long wires between the cap and motor defeat the purpose.
+
+## Solution 2: Twisted Motor Cables
+
+The current going to the motor (+) and returning from it (-) creates a magnetic field. If the two wires run parallel and separate, their fields add up and radiate outward. If you **twist** them together, the fields cancel:
+
+```
+Parallel wires (bad):           Twisted pair (good):
+
+  →→→→→→→→→→→→→  (+)             →/→/→/→/→/→/→/  (+)
+                                  /×/×/×/×/×/×/
+  ←←←←←←←←←←←←  (-)             ←/←/←/←/←/←/←  (-)
+
+  Fields ADD → radiates          Fields CANCEL → near-zero radiation
+```
+
+**In practice:** twist the two motor wires with ~1 twist per centimeter before routing them to the L298N. It takes 30 seconds and measurably reduces Bluetooth dropout.
+
+## Solution 3: Physical Separation
+
+RF noise drops off with the **square of the distance**. Double the distance → 4× less noise power.
+
+```
+Good HC-05 placement:
+
+┌────────────────────────────────┐
+│  [Motor L]          [Motor R]  │  ← Motors: noise sources
+│                                │
+│     [L298N]    [Arduino]       │
+│                                │
+│                     [HC-05] ←──────── As far from motors as possible
+└────────────────────────────────┘
+         FRONT GUIDE →
+```
+
+Place the HC-05 at the **rear corner diagonal** from the motors. Use a short antenna extension wire if the chassis forces it near the motors.
+
+---
+
+## 🔬 Interactive Simulator: Virtual Oscilloscope
+
+Toggle the ceramic capacitor and twisted cables ON/OFF and observe the power line noise in the time domain and frequency spectrum.
+
+<OscilloscopeSim client:only="react" />
+
+---
+
+> [!CAUTION]
+> Use **ceramic** capacitors (marked 104 = 100nF), NOT electrolytic. Electrolytic caps are too slow for high-frequency EMI suppression and will not help. Wrong capacitor type = Bluetooth still dropping commands.
+
+> [!TIP]
+> If your robot loses Bluetooth connection at full throttle but works fine at 50% speed, that's the classic EMI signature. Add the 100nF caps first — it fixes 90% of cases without any code changes.
+
+---
+
+### Bluetooth & Serial Communication
+**Order**: 16  
+**Slug**: `05-appendix/04-bluetooth-serial`
+
+---
+
+import SerialSim from '../../../components/tools/SerialSim.jsx';
+
+<AdminOnly>
+> **🎥 VIDEO SECTION (Visible to admins only)**
+>
+> **Video 1: Serial Communication Fundamentals**
+> - Duration: 8–10 min
+> - Show Arduino Serial Monitor: send characters, read responses
+> - Visualize baud rate: slow vs fast, timing diagram on oscilloscope
+>
+> **Video 2: HC-05 Configuration**
+> - Duration: 10–12 min
+> - AT command mode: change baud rate, device name, pairing PIN
+> - Pair with Android phone step by step
+</AdminOnly>
+
+---
+
+# 📶 Bluetooth & Serial Communication
+
+Your phone sends a command like `'F'` (forward). Your Arduino reads it and spins the motors. Between those two events, there's a full communication stack — let's trace every step.
+
+## Layer 1: UART — The Serial Protocol
+
+**UART (Universal Asynchronous Receiver-Transmitter)** is the protocol used between the HC-05 and the Arduino. It's the simplest possible serial protocol:
+
+```
+UART Transmission of the character 'F' (ASCII 70 = 0b01000110):
+
+          Start                              Stop
+          bit                               bit
+  Line:   │▼│                               │▲│
+  HIGH ───┘ └───────────────┐   ┌───────────┘ └─────────  next byte...
+  LOW  ──────────────────────┘ └─────────────────────────
+         │  0  1  0  0  0  1  1  0  │
+         │←────── data bits ────────→│
+         │← LSB first (bit 0 = '0') →│
+
+Baud rate = 9600 means each bit lasts:  1/9600 = 104 µs
+One byte = 10 bits (1 start + 8 data + 1 stop) = 1.04 ms
+```
+
+**Key settings for HC-05 ↔ Arduino:**
+- Baud rate: **9600** (default for HC-05 in slave mode)
+- Data bits: **8**
+- Parity: **None**
+- Stop bits: **1** (commonly written as 8N1)
+
+In your firmware: `Serial.begin(9600)` sets this up on the Arduino side.
+
+## Layer 2: HC-05 — The Bluetooth Radio Modem
+
+The HC-05 is not a complex Bluetooth stack — it's a **radio modem**. It does exactly one thing:
+
+```
+HC-05 block diagram:
+
+  UART RX ──► [HC-05 chip] ──► Bluetooth RF  (Arduino sends, phone receives)
+  UART TX ◄── [HC-05 chip] ◄── Bluetooth RF  (phone sends, Arduino reads)
+
+  What the HC-05 sees:  a stream of bytes from UART
+  What it does:         wraps them in Bluetooth SPP packets and transmits
+  What the phone sees:  a virtual COM port with the same byte stream
+```
+
+**SPP (Serial Port Profile)** is the Bluetooth profile that makes this work. It emulates a physical serial cable over Bluetooth — which is why your phone app can use a simple Bluetooth serial library to send text characters.
+
+## Layer 3: The Full Command Path
+
+```
+Full path for command 'F' (Forward):
+
+1. User presses [↑] button in phone app
+   ↓
+2. App calls: bluetoothSocket.send("F")
+   ↓
+3. Phone Bluetooth radio transmits SPP packet (2.4GHz RF)
+   ─────── [air, ~1–3m range] ───────
+   ↓
+4. HC-05 receives RF, strips SPP headers
+   ↓
+5. HC-05 sends byte 0x46 ('F') via UART TX pin
+   ─────── [wire, 104µs per bit at 9600 baud] ───────
+   ↓
+6. Arduino reads byte in Serial.read()
+   ↓
+7. switch(cmd) { case 'F': moveForward(); break; }
+   ↓
+8. analogWrite() sets motor PWM → robot moves forward
+
+Total end-to-end latency: 20–80ms (Bluetooth) + <2ms (UART + code)
+```
+
+## Why 2.4GHz Motors and 2.4GHz Bluetooth Conflict
+
+Both Bluetooth and the brushed DC motor noise operate in overlapping frequency ranges:
+
+```
+Frequency spectrum (simplified):
+
+  DC motor brush noise:   ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+                          1MHz                    1GHz  2.4GHz  5GHz
+
+  Bluetooth channels:                                   ████████
+                                                        2.4–2.485GHz
+
+  Overlap zone:                                         ░░░░░████
+                                                        ↑ Motor noise
+                                                          bleeds into
+                                                          BT channels
+```
+
+The ceramic capacitors (covered in the [EMI Filters lesson](./03-emi-filters)) are your primary weapon. Physical separation is your backup.
+
+---
+
+## 🔬 Interactive Simulator: Serial Packet Visualizer
+
+Type a command character below and watch the full journey: byte encoding → UART transmission → Bluetooth RF → Arduino reception.
+
+<SerialSim client:only="react" />
+
+---
+
+> [!TIP]
+> If your robot responds but with a noticeable delay (~500ms), check your app's send loop. Some apps send the command repeatedly every 100ms while the button is held; others only send once on press. The "send once" approach requires the Arduino to handle a timeout (stop motors if no command received in X ms) — which is already implemented in `Soccer-Jr.ino`.
+
+> [!NOTE]
+> The HC-05 can be configured in **AT command mode** (hold the small button while powering on) to change its name (so it shows up as "Soccer-Jr-01" instead of "HC-05" in the Bluetooth device list) and its PIN. Not required to get it working, but useful for identifying your robot at a tournament.
+
+---
+
+### The Battery — Li-Ion Chemistry & Safe Operation
+**Order**: 17  
+**Slug**: `05-appendix/05-battery`
+
+---
+
+import BatterySim from '../../../components/tools/BatterySim.jsx';
+
+<AdminOnly>
+> **🎥 VIDEO SECTION (Visible to admins only)**
+>
+> **Video 1: Battery Chemistry Made Simple**
+> - Duration: 8–10 min
+> - Open a spent 18650 cell (safely!) to show physical structure
+> - Demonstrate voltage measurement at different charge states
+>
+> **Video 2: Safe Handling and Charging**
+> - Duration: 6–8 min
+> - Show the correct charger for 18650 2S (balance charger)
+> - Demonstrate storage voltage (3.8V/cell) for long-term storage
+</AdminOnly>
+
+---
+
+# 🔋 The Battery — Li-Ion Chemistry & Safe Operation
+
+Your robot runs on a **2S 18650 Li-Ion battery pack** — two cells in series. Understanding how it works prevents hardware damage and helps you predict how long your robot will last in a match.
+
+## The 18650 Cell
+
+The "18650" is a standardized cylindrical cell format:
+- **18mm** diameter × **65.0mm** length × round (hence "0")
+- Same basic chemistry as laptop batteries, power tool batteries, and Tesla Model S cells
+- Nominal capacity for the cells used in Soccer Jr.: **2000–3000 mAh** depending on the supplier
+
+```
+Single 18650 Li-Ion cell voltage states:
+
+  4.2V ─── Fully charged (never exceed this)
+  │
+  3.7V ─── Nominal (rated/average voltage)
+  │
+  3.0V ─── Cutoff (never discharge below this)
+             ↓
+             Permanent capacity loss if violated
+```
+
+## 2S Configuration: Two Cells in Series
+
+"2S" means two cells connected in **series** — positive terminal of cell 1 to negative terminal of cell 2:
+
+```
+2S Pack:
+
+  [Cell 1]  +──┤├──  [Cell 2]  +──► (+) output
+  (-)──────┘             └──────────► (-) output
+
+Voltages add:
+  Fully charged:  4.2V + 4.2V = 8.4V
+  Nominal:        3.7V + 3.7V = 7.4V  ← what "7.4V pack" means
+  Cutoff:         3.0V + 3.0V = 6.0V  ← stop using the robot here
+  
+Capacity stays the same as a single cell (mAh doesn't add in series)
+Current capacity stays at 2000–3000 mAh
+```
+
+Your L298N module accepts **up to 35V input** — so the 8.4V peak is perfectly safe.
+
+## The Discharge Curve
+
+The most important thing to understand about Li-Ion batteries is the **discharge curve** — how voltage changes as the battery drains:
+
+```
+Li-Ion 2S Discharge Curve (constant current):
+
+Voltage
+  8.4V │▓
+       │▓▓
+  8.0V │  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ← FLAT ZONE (~80% of capacity)
+  7.5V │                           Your robot's operating zone
+  7.0V │                        ▓▓▓
+       │                           ▓▓▓▓
+  6.4V │─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ▓▓▓  ← STEEP DROP BEGINS
+  6.0V │────────────────────────────── ▓  ← CUTOFF (stop here)
+       └──────────────────────────────────► % capacity used
+       0%        25%        50%       75%   100%
+```
+
+**Key insight:** Li-Ion voltage stays relatively flat through most of the discharge. This means **you can't reliably estimate remaining capacity from voltage alone** (unlike lead-acid batteries). The robot will feel "fine" at 30% capacity remaining, then slow down suddenly as it hits the steep drop zone.
+
+## Battery Comparison
+
+| Chemistry | Voltage (nominal) | Energy Density | Weight | Cost | Risk |
+|---|---|---|---|---|---|
+| **Li-Ion 18650** | 3.7V/cell | High | Light | Medium | Low-medium |
+| LiPo | 3.7V/cell | Very High | Lightest | Medium | Higher (swelling/fire) |
+| NiMH | 1.2V/cell | Medium | Heavy | Low | Very Low |
+| Alkaline | 1.5V/cell | Low | Heaviest | Low | Very Low |
+
+For Soccer Jr., **Li-Ion 18650** is the best balance: good energy density, reusable (500+ cycles), low risk with a basic BMS, and widely available. LiPo would be lighter but requires more careful handling and charging — overkill for this application.
+
+## Over-Discharge: Permanent Damage
+
+If a Li-Ion cell is discharged below **3.0V**, the internal chemistry changes irreversibly:
+
+```
+What happens below 3.0V/cell:
+
+  Normal: Li+ ions intercalate cleanly between graphite layers
+  
+  Below 3.0V: Copper current collector begins to dissolve
+              → Copper deposits form inside cell
+              → Short-circuit risk + permanent capacity loss
+              
+  Symptom: battery that "felt fine" now only lasts half as long
+```
+
+**In practice:** stop using the robot when the pack voltage reads **6.4V** or lower. Your charger will refuse to charge cells below 2.5V — that's a tell that you over-discharged.
+
+---
+
+## 🔬 Interactive Simulator: Battery Discharge Curve
+
+Choose a play style and watch how the battery voltage drops through a simulated match. See how aggressive driving versus conservative driving affects how long your robot lasts.
+
+<BatterySim client:only="react" />
+
+---
+
+> [!CAUTION]
+> **Never leave Li-Ion cells charging unattended for extended periods**, and always use a charger rated for Li-Ion chemistry (not NiMH chargers). A quality 18650 charger with overcharge protection costs less than $15 and will outlast many battery cycles.
+
+> [!TIP]
+> For long-term storage (weeks+), charge batteries to **~3.8V per cell** (storage voltage) instead of 4.2V. This significantly extends cycle life. A charged-to-full battery sitting on a shelf for months degrades faster than one stored at mid-charge.
 
 ---
 

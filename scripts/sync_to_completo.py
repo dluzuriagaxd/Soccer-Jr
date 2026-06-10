@@ -40,7 +40,7 @@ def main():
     lesson_files = sorted(glob.glob(f"{LESSONS_DIR}/**/*.mdx", recursive=True))
     
     output_lines = []
-    output_lines.append("# Curso Completo: Seguidor de Línea Jr. - Telemetría Pro\n")
+    output_lines.append("# Curso Completo: Robot Soccer Jr.\n")
     output_lines.append("---\n\n")
     
     current_module = None

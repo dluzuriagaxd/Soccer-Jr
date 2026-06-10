@@ -71,7 +71,7 @@ export const materials: Material[] = [
     specs: [
       { label: "Modos", value: "UART Serial" },
       { label: "Voltaje RX", value: "3.3V (Requiere Divisor)" },
-      { label: "App", value: "LFR Pro Dashboard" }
+      { label: "App", value: "Soccer Jr. Dashboard" }
     ]
   },
   {

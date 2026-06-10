@@ -1,6 +1,6 @@
-# LFR Telemetry System 🏎️💨
+# Soccer Jr. Telemetry System ⚽
 
-Este proyecto proporciona un ecosistema completo para el desarrollo, telemetría y análisis de robots Seguidores de Línea (LFR). Incluye firmware para Arduino, un graficador en tiempo real por Bluetooth, un dashboard de análisis post-carrera y un simulador físico de PID.
+Este proyecto proporciona un ecosistema completo para el desarrollo, telemetría y análisis de robots Soccer Jr. Incluye firmware para Arduino, un graficador en tiempo real por Bluetooth, un dashboard de análisis post-carrera y un simulador físico de PID.
 
 ## 🚀 Características Principales
 
@@ -11,7 +11,7 @@ Este proyecto proporciona un ecosistema completo para el desarrollo, telemetría
 
 ## 📂 Estructura del Proyecto
 
--   `LFR-Telemetry.ino`: Firmware principal para Arduino (basado en Sensores QTR y PID).
+-   `Soccer-Jr.ino`: Firmware principal para Arduino.
 -   `plotter.py`: Aplicación Python para recibir y graficar datos por BLE en tiempo real.
 -   `telemetry_dashboard.html`: Interfaz web de análisis de datos post-procesados.
 -   `simulator.html`: Simulador interactivo de PID con integración de modelos SVG.
@@ -21,7 +21,7 @@ Este proyecto proporciona un ecosistema completo para el desarrollo, telemetría
 
 ### Arduino
 1. Instala la librería `QTRSensors` desde el Gestor de Librerías de Arduino.
-2. Carga `LFR-Telemetry.ino` en tu robot.
+2. Carga `Soccer-Jr.ino` en tu robot.
 
 ### Python
 Instala las dependencias necesarias para el graficador:

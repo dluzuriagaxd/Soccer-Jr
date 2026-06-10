@@ -1,4 +1,4 @@
-# LFR Telemetry Academy 🏎️💨
+# Soccer Jr. Academy ⚽
 
 Plataforma educativa de nivel ingeniería diseñada para el desarrollo, simulación y optimización de robots seguidores de línea de alto rendimiento.
 
@@ -74,4 +74,4 @@ Para correr el proyecto localmente:
 > **Nota**: El sistema de autenticación usa Supabase. Asegúrate de tener las variables de entorno `PUBLIC_SUPABASE_URL` y `PUBLIC_SUPABASE_ANON_KEY` configuradas correctamente.
 
 ---
-© 2025 LFR Telemetry System - Proyecto Educativo Open Source
+© 2025 Soccer Jr. Telemetry System - Proyecto Educativo Open Source

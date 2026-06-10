@@ -62,7 +62,7 @@ export default function LoginForm({ hideRegisterLink = false }: LoginFormProps) 
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-brand-orange/50 focus:border-brand-orange text-white placeholder-white/20 outline-none transition-all font-mono text-sm"
-                        placeholder="operator@lfr.system"
+                        placeholder="operator@soccerjr.system"
                     />
                 </div>
 

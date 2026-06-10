@@ -1,6 +1,6 @@
-# Arquitectura de LFR Pro
+# Arquitectura de Soccer Jr.
 
-Este documento detalla la estructura lógica y técnica de la plataforma LFR Telemetry Academy.
+Este documento detalla la estructura lógica y técnica de la plataforma Soccer Jr. Academy.
 
 ## 1. Sistema de Contenidos (Content Layer)
 
