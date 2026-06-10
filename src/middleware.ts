@@ -1,8 +1,9 @@
 import { defineMiddleware } from "astro:middleware";
 import { getServerClient } from "./lib/supabase";
+import { PUBLIC_MAINTENANCE_MODE } from "astro:env/client";
 
 export const onRequest = defineMiddleware(async (context, next) => {
-    const maintenance = import.meta.env.PUBLIC_MAINTENANCE_MODE === 'true';
+    const maintenance = PUBLIC_MAINTENANCE_MODE;
 
     // 1. Definimos qué rutas queremos proteger
     const isProtectedRoute = context.url.pathname.startsWith("/curso") ||

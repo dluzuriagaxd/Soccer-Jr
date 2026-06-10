@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
@@ -8,6 +8,14 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  env: {
+    schema: {
+      PUBLIC_SUPABASE_URL: envField.string({ context: 'client', access: 'public' }),
+      PUBLIC_SUPABASE_ANON_KEY: envField.string({ context: 'client', access: 'public' }),
+      PUBLIC_MAINTENANCE_MODE: envField.boolean({ context: 'client', access: 'public', default: false }),
+    }
+  },
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
