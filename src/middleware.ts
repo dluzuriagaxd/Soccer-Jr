@@ -3,48 +3,81 @@ import { getServerClient } from "./lib/supabase";
 import { PUBLIC_MAINTENANCE_MODE } from "astro:env/client";
 
 export const onRequest = defineMiddleware(async (context, next) => {
+    const pathname = context.url.pathname;
     const maintenance = PUBLIC_MAINTENANCE_MODE;
-
-    // 1. Definimos qué rutas queremos proteger
-    const isProtectedRoute = context.url.pathname.startsWith("/curso") ||
-        context.url.pathname.startsWith("/telemetria") ||
-        context.url.pathname.startsWith("/simulador");
-
     const supabase = getServerClient(context);
 
-    // Para validación de seguridad en el servidor usamos getUser()
+    // Fetch user and session
     const { data: { user }, error: userError } = await supabase.auth.getUser();
-
-    // Inyectar supabase y user en locals para que otras páginas los usen fácilmente
-    context.locals.supabase = supabase;
-    // (Opcional) si otras páginas aún usan locals.session, podemos obtenerlo
     const { data: { session } } = await supabase.auth.getSession();
+
+    context.locals.supabase = supabase;
     context.locals.session = session;
 
-    // 2. Si es una ruta protegida, verificamos el usuario
-    if (isProtectedRoute) {
-        console.log(`[Middleware] Checking access to ${context.url.pathname}`);
-        console.log(`[Middleware] User present: ${!!user}`);
-
-        // Si no existe el usuario (o el token es inválido), lo mandamos al login
-        if (!user || userError) {
-            console.log(`[Middleware] Access denied - redirecting to /login`);
-            return context.redirect("/login");
-        }
-
-        // Si estamos en modo mantenimiento, verificar rol de admin desde app_metadata
-        if (maintenance) {
-            const role = user.app_metadata?.role;
-            console.log(`[Middleware] User role from claims: ${role}`);
-
-            // Si no es admin, denegar acceso sin hacer consultas a la BD
-            if (role !== 'admin') {
-                console.log(`[Middleware] Maintenance mode: Access denied for non-admin`);
-                return context.redirect("/");
+    // Determine admin role
+    let isAdmin = false;
+    if (user) {
+        if (user.app_metadata?.role === 'admin') {
+            isAdmin = true;
+        } else if (user.app_metadata?.role === 'student') {
+            isAdmin = false;
+        } else {
+            // Check public.user_profile as fallback
+            try {
+                const { data: profile } = await supabase
+                    .from('user_profile')
+                    .select('role')
+                    .eq('user_id', user.id)
+                    .single();
+                isAdmin = profile?.role === 'admin';
+            } catch (err) {
+                console.error("[Middleware] Error checking admin role in DB:", err);
             }
         }
     }
+    context.locals.isAdmin = isAdmin;
 
-    // Si todo está bien o la ruta es pública, dejamos pasar
+    // Define route checks
+    const isCursoRoute = pathname.startsWith("/curso");
+    const isTelemetriaRoute = pathname.startsWith("/telemetria");
+    const isMaterialesRoute = pathname.startsWith("/materiales");
+    const isRootRoute = pathname === "/";
+    const isConstructionRoute = pathname === "/en-construccion";
+
+    // Pages protected for guests (require login)
+    const isProtectedRoute = isCursoRoute || isTelemetriaRoute || isMaterialesRoute;
+
+    // 1. Redirect guests (not logged in) to login for protected routes
+    if (isProtectedRoute && (!user || userError)) {
+        console.log(`[Middleware] Guest access denied to ${pathname} - redirecting to /login`);
+        return context.redirect("/login");
+    }
+
+    // 2. Redirect logged-in students (non-admins) to /en-construccion
+    const isLoggedIn = !!user;
+    if (isLoggedIn && !isAdmin) {
+        // Students are ONLY allowed to access: /en-construccion, /simulador, /api, /login, /register
+        const isAllowedForStudent = 
+            isConstructionRoute || 
+            pathname.startsWith("/simulador") || 
+            pathname.startsWith("/api") || 
+            pathname === "/login" || 
+            pathname === "/register";
+
+        if (!isAllowedForStudent) {
+            console.log(`[Middleware] Student redirected from ${pathname} to /en-construccion`);
+            return context.redirect("/en-construccion");
+        }
+    }
+
+    // 3. Maintenance mode check for non-admins
+    if (maintenance && !isAdmin) {
+        if (isProtectedRoute || isRootRoute) {
+            console.log(`[Middleware] Maintenance mode: Access denied - redirecting to /en-construccion`);
+            return context.redirect("/en-construccion");
+        }
+    }
+
+    // If authorized, continue
     return next();
 });

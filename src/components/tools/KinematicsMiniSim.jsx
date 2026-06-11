@@ -173,12 +173,12 @@ export default function KinematicsMiniSim({ isFullscreen = false, onMaximize = n
         </div>
       )}
 
-      <div className={`flex gap-6 ${isFullscreen ? 'flex-col lg:flex-row flex-1 items-stretch' : 'flex-col'}`}>
+      <div className={`flex gap-6 ${isFullscreen ? 'flex-col lg:flex-row flex-1 items-stretch' : 'flex-col md:flex-row items-start'}`}>
         
-        {/* Left Side: Coordinate Plane (Vector SVG) */}
-        <div className={`flex-1 flex flex-col items-center justify-center gap-4 ${isFullscreen ? 'justify-between' : ''}`}>
+        {/* Left Side: Coordinate Plane (Vector SVG) & Controls */}
+        <div className={`flex-1 flex flex-col items-center gap-4 ${isFullscreen ? 'justify-between' : 'w-full'}`}>
           <div 
-            className={`bg-black/40 rounded-xl p-2 border border-white/5 relative flex items-center justify-center w-full aspect-square ${isFullscreen ? 'max-w-[600px] max-h-[600px]' : 'max-w-[500px] max-h-[500px]'}`}
+            className={`bg-black/40 rounded-xl p-2 border border-white/5 relative flex items-center justify-center w-full aspect-square ${isFullscreen ? 'max-w-[600px] max-h-[600px]' : 'max-w-[400px] max-h-[400px]'}`}
           >
             <svg 
               viewBox={`0 0 ${svgSize} ${svgSize}`} 
@@ -251,8 +251,25 @@ export default function KinematicsMiniSim({ isFullscreen = false, onMaximize = n
             </svg>
           </div>
 
+          {/* Stepper Buttons (Play / Pause, Single Step) */}
+          <div className="w-full max-w-[360px] flex gap-2 font-mono">
+            <button
+              onClick={step}
+              disabled={isPlaying}
+              className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold tracking-wider transition uppercase cursor-pointer ${isPlaying ? 'bg-slate-800 text-slate-500 border border-white/5 cursor-not-allowed' : 'bg-orange-600 hover:bg-orange-500 text-white'}`}
+            >
+              👣 Single Step
+            </button>
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              className={`py-2 px-3 rounded-lg text-xs font-bold tracking-wider transition uppercase cursor-pointer ${isPlaying ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-green-600 hover:bg-green-500 text-white'}`}
+            >
+              {isPlaying ? '⏸ Pause' : '▶ Play'}
+            </button>
+          </div>
+
           {/* Preset Buttons */}
-          <div className="w-full max-w-[300px] space-y-1">
+          <div className="w-full max-w-[360px] space-y-1">
             <div className="text-[9px] text-slate-500 font-bold uppercase tracking-wider font-mono">Commands (HC-05 codes)</div>
             <div className="grid grid-cols-4 gap-1.5 font-mono">
               {[
@@ -280,10 +297,30 @@ export default function KinematicsMiniSim({ isFullscreen = false, onMaximize = n
               </button>
             </div>
           </div>
+
+          {/* Checkboxes */}
+          <div className="w-full max-w-[360px] flex gap-4 flex-wrap text-[10px] p-2.5 bg-black/20 border border-white/5 rounded-xl justify-center font-bold">
+            {[
+              { id: 'grid', label: 'Show Grid', val: showGrid, set: setShowGrid },
+              { id: 'coords', label: 'Show (x, y) Labels', val: showCoords, set: setShowCoords },
+              { id: 'vec', label: 'Heading Vector', val: showVector, set: setShowVector },
+            ].map(item => (
+              <label key={item.id} className="flex items-center gap-1.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={item.val}
+                  onChange={(e) => item.set(e.target.checked)}
+                  className="rounded border-white/10 bg-black/40 text-orange-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
+                />
+                <span>{item.label}</span>
+              </label>
+            ))}
+          </div>
+
         </div>
 
         {/* Right Side: Step Calculations & Mathematics */}
-        <div className={`w-full flex flex-col gap-4 font-sans ${isFullscreen ? 'w-[400px] justify-between shrink-0' : 'w-full'}`}>
+        <div className={`flex flex-col gap-4 font-sans ${isFullscreen ? 'w-[400px] justify-between shrink-0' : 'w-full md:w-[360px] lg:w-[400px] shrink-0'}`}>
           
           {/* Velocity Sliders */}
           <div className="grid grid-cols-2 gap-3 p-3 bg-white/5 border border-white/5 rounded-xl font-mono text-[9px]">
@@ -398,44 +435,6 @@ export default function KinematicsMiniSim({ isFullscreen = false, onMaximize = n
                   </div>
                 )}
               </div>
-            </div>
-          </div>
-
-          {/* Stepper Buttons & Checkboxes */}
-          <div className="space-y-3">
-            <div className="flex gap-2 font-mono">
-              <button
-                onClick={step}
-                disabled={isPlaying}
-                className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold tracking-wider transition uppercase ${isPlaying ? 'bg-slate-800 text-slate-500 border border-white/5 cursor-not-allowed' : 'bg-orange-600 hover:bg-orange-500 text-white cursor-pointer'}`}
-              >
-                👣 Single Step
-              </button>
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className={`py-2 px-3 rounded-lg text-xs font-bold tracking-wider transition uppercase cursor-pointer ${isPlaying ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-green-600 hover:bg-green-500 text-white'}`}
-              >
-                {isPlaying ? '⏸ Pause' : '▶ Play'}
-              </button>
-            </div>
-
-            {/* Checkboxes */}
-            <div className="flex gap-4 flex-wrap text-[10px] p-2.5 bg-black/20 border border-white/5 rounded-xl justify-center font-bold">
-              {[
-                { id: 'grid', label: 'Show Grid', val: showGrid, set: setShowGrid },
-                { id: 'coords', label: 'Show (x, y) Labels', val: showCoords, set: setShowCoords },
-                { id: 'vec', label: 'Heading Vector', val: showVector, set: setShowVector },
-              ].map(item => (
-                <label key={item.id} className="flex items-center gap-1.5 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={item.val}
-                    onChange={(e) => item.set(e.target.checked)}
-                    className="rounded border-white/10 bg-black/40 text-orange-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
-                  />
-                  <span>{item.label}</span>
-                </label>
-              ))}
             </div>
           </div>
 

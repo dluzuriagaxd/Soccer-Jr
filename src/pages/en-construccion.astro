@@ -1,0 +1,62 @@
+---
+export const prerender = false;
+
+import MainLayout from "../layouts/MainLayout.astro";
+import LogoutButton from "../components/auth/LogoutButton";
+import '../styles/global.css';
+---
+
+<MainLayout
+  title="Contenido en Construcción"
+  fullWidth={true}
+  sidebarHidden={true}
+  hideMenu={true}
+>
+  <main class="min-h-screen flex flex-col items-center justify-center bg-[#070b15] relative overflow-hidden text-center px-6">
+    <!-- Gradient background effect -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(249,115,22,0.06),transparent_50%)]"></div>
+    <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-15 brightness-100 contrast-150"></div>
+
+    <div class="relative z-10 max-w-2xl mx-auto space-y-10">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-orange-500/10 border border-orange-500/20 rounded-full backdrop-blur-md">
+        <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+        <span class="text-xs font-mono uppercase tracking-[0.25em] text-orange-400 font-bold">Acceso Estudiante</span>
+      </div>
+
+      <!-- Main Title & Icon -->
+      <div class="space-y-4">
+        <div class="text-6xl md:text-7xl">🚧</div>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight uppercase">
+          Contenido en <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">Construcción</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-300 font-medium leading-relaxed max-w-xl mx-auto">
+          Estamos preparando y revisando las lecciones del curso para garantizar el mejor contenido. ¡Muy pronto habilitaremos las fases de montaje, sensores y programación!
+        </p>
+      </div>
+
+      <!-- Simulator Access Box -->
+      <div class="p-6 md:p-8 bg-slate-900/60 border border-slate-700/50 border-2 rounded-3xl backdrop-blur-lg space-y-6 max-w-lg mx-auto shadow-2xl">
+        <div class="space-y-2">
+          <h2 class="text-xl md:text-2xl font-black text-white">⚽ ¡Prueba el Simulador Primero!</h2>
+          <p class="text-sm md:text-base text-slate-400 leading-relaxed font-medium">
+            El simulador de física y control Bluetooth está completamente listo y disponible para que practiques.
+          </p>
+        </div>
+
+        <a
+          href="/simulador"
+          class="inline-flex items-center justify-center gap-3 w-full px-6 py-4 bg-orange-600 text-white font-black text-lg rounded-2xl transition-all hover:bg-orange-500 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-orange-600/30"
+        >
+          Ir al Simulador de Fútbol →
+        </a>
+      </div>
+
+      <!-- Actions (Logout) -->
+      <div class="pt-6 border-t border-slate-800/80 max-w-xs mx-auto flex flex-col items-center gap-3">
+        <p class="text-xs text-slate-500 font-mono">¿Quieres ingresar con otra cuenta?</p>
+        <LogoutButton client:load />
+      </div>
+    </div>
+  </main>
+</MainLayout>

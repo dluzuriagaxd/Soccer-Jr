@@ -28,11 +28,6 @@ export default defineConfig({
     wasmModuleImports: true,
   }),
   vite: {
-    resolve: {
-      alias: {
-        'react-dom/server': 'react-dom/server.edge',
-      },
-    },
     plugins: [tailwindcss()],
     ssr: {
       external: ['node:async_hooks']

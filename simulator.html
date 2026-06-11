@@ -7,9 +7,10 @@
     <style>
         :root {
             --bg: #050505;
-            --panel: #111;
+            --panel: #1e1e1e;
             --text: #00ffff;
             --accent: #ff0055;
+            --text-muted: #e0e0e0;
         }
 
         body {
@@ -17,96 +18,108 @@
             background: var(--bg);
             color: var(--text);
             font-family: 'Consolas', monospace;
+            font-size: 16px;
             height: 100vh;
             display: flex;
             overflow: hidden;
         }
 
         .sidebar {
-            width: 300px;
+            width: 360px;
             background: var(--panel);
-            border-right: 1px solid #333;
-            padding: 20px;
+            border-right: 1px solid #444;
+            padding: 25px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
             z-index: 10;
-            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
         }
 
         h2 {
             margin: 0;
-            font-size: 16px;
+            font-size: 24px;
             color: white;
             border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px;
+            padding-bottom: 12px;
         }
 
         .box {
-            background: #1a1a1a;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #333;
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #555;
         }
 
         .row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-            margin-bottom: 5px;
-            color: #ccc;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text-muted);
         }
 
         .chk-row {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             cursor: pointer;
+            color: white;
+            font-weight: bold;
         }
 
         input[type="checkbox"] {
             accent-color: var(--text);
             cursor: pointer;
+            width: 18px;
+            height: 18px;
         }
 
         input[type="range"] {
             width: 100%;
             cursor: pointer;
             accent-color: var(--text);
+            margin-top: 5px;
         }
 
         input[type="number"] {
-            background: #222;
-            border: 1px solid #444;
-            color: var(--text);
-            width: 60px;
-            padding: 4px;
+            background: #111;
+            border: 1px solid #888;
+            color: #fff;
+            width: 80px;
+            padding: 6px;
+            font-size: 16px;
+            font-family: 'Consolas', monospace;
             text-align: right;
+            border-radius: 4px;
         }
 
         button {
             background: var(--text);
             color: black;
             border: none;
-            padding: 12px;
+            padding: 15px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
             font-family: inherit;
             text-transform: uppercase;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            border-radius: 4px;
         }
 
         button:hover {
             background: white;
-            box-shadow: 0 0 10px var(--text);
+            box-shadow: 0 0 15px var(--text);
         }
 
         button.reset {
-            background: #333;
+            background: #444;
             color: white;
-            border: 1px solid #555;
+            border: 1px solid #777;
         }
 
         button.reset:hover {
@@ -116,27 +129,28 @@
 
         .led-strip {
             display: flex;
-            gap: 4px;
-            height: 20px;
-            margin-top: 5px;
+            gap: 6px;
+            height: 25px;
+            margin-top: 10px;
             background: #000;
-            padding: 5px;
+            padding: 8px;
             border-radius: 20px;
             justify-content: center;
+            border: 1px solid #555;
         }
 
         .led {
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             background: #222;
             border-radius: 50%;
-            border: 1px solid #333;
+            border: 1px solid #555;
             transition: 0.05s;
         }
 
         .led.on {
             background: #ffaa00;
-            box-shadow: 0 0 10px #ffaa00;
+            box-shadow: 0 0 12px #ffaa00;
             border-color: white;
         }
 
@@ -156,18 +170,19 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            border: 1px solid #333;
-            font-size: 11px;
-            color: #888;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 20px;
+            border: 2px solid #555;
+            font-size: 16px;
+            color: #ddd;
             pointer-events: none;
+            border-radius: 6px;
         }
 
         .hud-val {
             color: var(--text);
             font-weight: bold;
-            font-size: 14px;
+            font-size: 20px;
         }
 
         .graph-area {
@@ -175,9 +190,9 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 180px;
+            height: 220px;
             background: rgba(10, 10, 10, 0.95);
-            border-top: 1px solid #333;
+            border-top: 2px solid #555;
         }
 
         .msg {
@@ -185,12 +200,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255, 0, 0, 0.8);
-            border: 2px solid red;
-            padding: 20px;
+            background: rgba(220, 0, 0, 0.95);
+            border: 4px solid white;
+            padding: 30px;
+            font-size: 32px;
             font-weight: bold;
             color: white;
             display: none;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255,0,0,0.6);
         }
     </style>
 </head>
@@ -203,43 +221,43 @@
         <div class="box">
             <button onclick="toggleSim()" id="btnMain">▶ INICIAR</button>
             <button class="reset" onclick="resetSim()">↺ RESET</button>
-            <div style="margin-top:10px; border-top:1px solid #333; padding-top:5px;">
-                <div class="row"><span>Time Scale:</span> <span id="tsVal" style="color:#fff">1.0x</span></div>
+            <div style="margin-top:15px; border-top:1px solid #555; padding-top:10px;">
+                <div class="row"><span style="color:#fff; font-weight:bold;">Time Scale:</span> <span id="tsVal" style="color:var(--text); font-weight:bold; font-size:18px;">1.0x</span></div>
                 <input type="range" min="0.1" max="2.0" step="0.1" value="1.0" oninput="updateTimeScale(this.value)">
             </div>
         </div>
 
         <div class="box">
-            <div style="color:white; margin-bottom:10px; font-weight:bold;">PID TUNING</div>
+            <div style="color:white; margin-bottom:15px; font-weight:bold; font-size:18px;">PID TUNING</div>
             <div class="row"><label class="chk-row"><input type="checkbox" id="enKp" checked> Kp</label><input
                     type="number" id="kp" value="0.08" step="0.01"></div>
             <div class="row"><label class="chk-row"><input type="checkbox" id="enKd" checked> Kd</label><input
                     type="number" id="kd" value="2.2" step="0.1"></div>
             <div class="row"><label class="chk-row"><input type="checkbox" id="enKi" checked> Ki</label><input
                     type="number" id="ki" value="0.005" step="0.001"></div>
-            <div class="row" style="margin-top:5px; padding-top:5px; border-top:1px solid #333;">
+            <div class="row" style="margin-top:15px; padding-top:15px; border-top:1px solid #555; font-weight:bold; color:white;">
                 Vel. Base <input type="number" id="vel" value="150" step="10" max="255">
             </div>
         </div>
 
         <div class="box">
-            <div style="color:white; margin-bottom:5px;">SENSOR ARRAY</div>
+            <div style="color:white; margin-bottom:10px; font-weight:bold; font-size:18px;">SENSOR ARRAY</div>
             <div class="led-strip" id="ledBox"></div>
-            <div style="text-align:center; margin-top:5px; font-size:10px; color:#666;">
+            <div style="text-align:center; margin-top:12px; font-size:14px; color:#ccc;">
                 Modelo: SVG Cargado<br>Pitch: 0.375"
             </div>
         </div>
 
-        <div class="box" style="border-color:#ff0055">
-            <div style="color:white; margin-bottom:10px; font-weight:bold;">🔬 CALIB. FÍSICA</div>
-            <div style="font-size:10px; color:#aaa; margin-bottom:5px;">Arrastra log .csv aquí</div>
-            <input type="file" onchange="handleFile(this)" style="width:100%; font-size:10px; margin-bottom:5px;">
+        <div class="box" style="border-color:#ff0055; border-width: 2px;">
+            <div style="color:white; margin-bottom:15px; font-weight:bold; font-size:18px;">🔬 CALIB. FÍSICA</div>
+            <div style="font-size:14px; color:#ccc; margin-bottom:10px;">Arrastra log .csv aquí</div>
+            <input type="file" onchange="handleFile(this)" style="width:100%; font-size:14px; margin-bottom:15px; color:#fff;">
 
-            <div class="row"><span>Power Gain:</span> <input type="number" id="sysPwr" value="1.0" step="0.1"></div>
-            <div class="row"><span>Turn Sens:</span> <input type="number" id="sysTurn" value="0.9" step="0.1"></div>
-            <div class="row"><span>Inertia:</span> <input type="number" id="sysInertia" value="0.95" step="0.05"
+            <div class="row"><span style="color:#fff;">Power Gain:</span> <input type="number" id="sysPwr" value="1.0" step="0.1"></div>
+            <div class="row"><span style="color:#fff;">Turn Sens:</span> <input type="number" id="sysTurn" value="0.9" step="0.1"></div>
+            <div class="row"><span style="color:#fff;">Inertia:</span> <input type="number" id="sysInertia" value="0.95" step="0.05"
                     max="0.99"></div>
-            <div style="font-size:10px; color:#666; margin-top:5px;">
+            <div style="font-size:14px; color:#bbb; margin-top:12px; line-height:1.4;">
                 Ajusta hasta que la oscilación se parezca a la del Log (Línea Blanca).
             </div>
         </div>
@@ -252,8 +270,8 @@
         <div class="hud">
             ERROR: <span id="valErr" class="hud-val">0</span><br>
             POS: <span id="valPos" class="hud-val">3500</span><br>
-            <div style="margin-top:5px; border-top:1px solid #444; padding-top:5px;">
-                L: <span id="valML" style="color:#fff">0</span> | R: <span id="valMR" style="color:#fff">0</span>
+            <div style="margin-top:10px; border-top:2px solid #555; padding-top:10px;">
+                L: <span id="valML" style="color:#fff; font-weight:bold;">0</span> | R: <span id="valMR" style="color:#fff; font-weight:bold;">0</span>
             </div>
         </div>
         <div class="graph-area"><canvas id="graphCanvas"></canvas></div>

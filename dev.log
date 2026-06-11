@@ -1,0 +1,163 @@
+
+> soccer-jr@0.0.1 dev
+> astro dev
+
+(node:4022) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+21:19:43 [@astrojs/cloudflare] Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+21:19:43 [@astrojs/cloudflare] If you see the error "Invalid binding `SESSION`" in your build output, you need to add the binding to your wrangler config file.
+21:19:44 [WARN] [adapter] Cloudflare does not support sharp at runtime. However, you can configure `imageService: "compile"` to optimize images with sharp on prerendered pages during build time.
+Using vars defined in .env
+21:19:44 [types] Generated 0ms
+21:19:44 [content] Syncing content
+21:19:44 [content] Synced content
+21:19:44 [vite] Re-optimizing dependencies because vite config has changed
+21:19:44 [vite] Port 4321 is in use, trying another one...
+
+ astro  v5.16.6 ready in 738 ms
+
+┃ Local    http://localhost:4322/
+┃ Network  use --host to expose
+
+21:19:44 watching for file changes...
+21:22:39 [ERROR] require is not defined
+  Stack trace:
+    at /Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./eval at runInlinedModule (file:/Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer%20Jr./node_modules/vite/dist/node/module-runner.js:1062:11
+    [...] See full stack trace in the browser, or rerun with --verbose.
+21:22:39 [ERROR] require is not defined
+  Stack trace:
+    at eval (eval at runInlinedModule (file:///Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer%20Jr./node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:11:3)
+    [...] See full stack trace in the browser, or rerun with --verbose.
+21:23:14 Configuration file updated. Restarting...
+21:23:14 [@astrojs/cloudflare] Enabling sessions with Cloudflare KV with the "SESSION" KV binding.
+21:23:14 [@astrojs/cloudflare] If you see the error "Invalid binding `SESSION`" in your build output, you need to add the binding to your wrangler config file.
+21:23:14 [WARN] [adapter] Cloudflare does not support sharp at runtime. However, you can configure `imageService: "compile"` to optimize images with sharp on prerendered pages during build time.
+Using vars defined in .env
+Using vars defined in .env
+21:23:14 [vite] Re-optimizing dependencies because vite config has changed
+21:23:14 [content] Syncing content
+21:23:14 [content] Synced content
+21:23:14 [types] Generated 446ms
+21:23:14 [vite] Re-optimizing dependencies because vite config has changed
+AuthApiError: Invalid Refresh Token: Refresh Token Not Found
+    at handleError (/Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/lib/fetch.js:82:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async _handleRequest (/Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/lib/fetch.js:125:9)
+    at async _request (/Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/lib/fetch.js:107:18)
+    at async /Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:3870:24
+    at async /Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/lib/helpers.js:213:36 {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_not_found'
+}
+AuthApiError: Invalid Refresh Token: Refresh Token Not Found
+    at handleError (/Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/lib/fetch.js:82:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async _handleRequest (/Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/lib/fetch.js:125:9)
+    at async _request (/Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/lib/fetch.js:107:18)
+    at async /Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:3870:24
+    at async /Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer Jr./node_modules/@supabase/auth-js/dist/main/lib/helpers.js:213:36 {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_not_found'
+}
+21:24:19 [200] / 1121ms
+21:24:26 [200] / 14ms
+[Middleware] Checking access to /simulador
+[Middleware] User present: false
+[Middleware] Access denied - redirecting to /login
+21:24:30 [302] /simulador 2ms
+21:24:31 [200] /login 8ms
+21:25:37 [200] / 1029ms
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:25:41 [200] /simulador 357ms
+21:30:51 [watch] src/components/tools/SoccerSimulator.jsx
+21:30:51 [watch] src/components/tools/SoccerSimulator.jsx
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:30:52 [200] /simulador 959ms
+21:31:17 [watch] src/components/tools/SoccerSimulator.jsx
+21:31:17 [watch] src/components/tools/SoccerSimulator.jsx
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:31:17 [200] /simulador 319ms
+21:31:29 [watch] scripts/scale_ui.cjs
+21:31:29 [watch] scripts/scale_ui.cjs
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:31:29 [200] /simulador 374ms
+21:31:58 [watch] src/components/tools/SoccerSimulator.jsx
+21:31:58 [watch] src/components/tools/SoccerSimulator.jsx
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:31:58 [200] /simulador 317ms
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:32:36 [200] /simulador 545ms
+21:33:59 [watch] src/components/tools/SoccerSimulator.jsx
+21:33:59 [watch] src/components/tools/SoccerSimulator.jsx
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:34:00 [200] /simulador 697ms
+21:45:07 [200] / 1223ms
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:45:12 [200] /simulador 273ms
+21:52:07 [watch] src/components/tools/SoccerSimulator.jsx
+21:52:07 [watch] src/components/tools/SoccerSimulator.jsx
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:52:08 [200] /simulador 860ms
+21:52:24 [watch] src/components/tools/KinematicsMiniSim.jsx
+21:52:24 [watch] src/components/tools/KinematicsMiniSim.jsx
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:52:25 [200] /simulador 287ms
+[Middleware] Checking access to /simulador
+[Middleware] User present: true
+21:52:36 [200] /simulador 339ms
+21:58:05 [200] / 1190ms
+22:08:18 [watch] src/middleware.ts
+22:08:18 [watch] src/middleware.ts
+22:08:19 [200] / 893ms
+22:09:23 [200] / 456ms
+22:09:25 [200] /simulador 126ms
+22:09:29 [200] / 135ms
+========================================
+[COURSE PAGE] Loading lesson: 01-introduccion/01-objetivos
+========================================
+[Lesson Page] Setting Astro.locals.isAdmin = true for user: has session
+[AdminOnly] Prop: undefined | Locals: true | Final: true
+Error in lesson progress logic: Error: Failed to create progress: insert or update on table "user_activity_progress" violates foreign key constraint "user_activity_progress_activity_id_fkey"
+    at getOrCreateProgress (eval at runInlinedModule (file:///Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer%20Jr./node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:26:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async registerVisit (eval at runInlinedModule (file:///Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer%20Jr./node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:63:20)
+    at async eval (eval at runInlinedModule (file:///Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer%20Jr./node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:33:7)
+22:09:32 [200] /curso/01-introduccion/01-objetivos 760ms
+========================================
+[COURSE PAGE] Loading lesson: 01-introduccion/02-materiales
+========================================
+[Lesson Page] Setting Astro.locals.isAdmin = true for user: has session
+[AdminOnly] Prop: undefined | Locals: true | Final: true
+Error in lesson progress logic: Error: Failed to create progress: insert or update on table "user_activity_progress" violates foreign key constraint "user_activity_progress_activity_id_fkey"
+    at getOrCreateProgress (eval at runInlinedModule (file:///Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer%20Jr./node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:26:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async registerVisit (eval at runInlinedModule (file:///Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer%20Jr./node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:63:20)
+    at async eval (eval at runInlinedModule (file:///Users/diegoluzuriaga/.gemini/antigravity/scratch/Soccer%20Jr./node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:33:7)
+22:09:40 [200] /curso/01-introduccion/02-materiales 966ms
+22:17:49 [200] / 663ms
+22:17:51 [200] /simulador 7ms
+22:17:54 [200] / 13ms
+[Middleware] Guest access denied to /curso/01-introduccion/01-objetivos - redirecting to /login
+22:17:58 [302] /curso/01-introduccion/01-objetivos 2ms
+22:17:58 [200] /login 11ms
+22:18:02 [200] / 13ms
+22:36:52 [200] /simulador 12ms
+22:36:57 [200] / 13ms
+22:37:00 [200] /simulador 5ms
+22:37:03 [200] / 12ms
+[Middleware] Guest access denied to /curso/01-introduccion/01-objetivos - redirecting to /login
+22:37:04 [302] /curso/01-introduccion/01-objetivos 2ms
+22:37:04 [200] /login 12ms
+22:37:08 [200] /simulador 6ms
